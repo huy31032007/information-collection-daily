@@ -21,6 +21,8 @@ npm run preview
 
 Lệnh preview in URL local thực tế, sử dụng cổng khả dụng và chỉ bind loopback. Chạy build riêng không cần thiết vì không có framework hoặc bước biên dịch.
 
+Unit tests dùng bản tin thật ngày 12/10 làm fixture lịch sử riêng, không dùng giá hoặc ngày của `latest.json` làm giả định cố định. Fixture không nằm trong `dist/` và không được phục vụ trên web. `npm run check` kiểm tra bản tin thực tế sắp xuất bản.
+
 ## Cập nhật hằng ngày
 
 Dùng heartbeat hiện có `b-n-tin-kinh-t-th-tr-ng-09-00-vi-t-nam`, lúc 09:00 Asia/Ho_Chi_Minh. Máy/ứng dụng/mạng phải hoạt động. Quy trình nghiên cứu và phân tích gốc được giữ nguyên; chỉ thêm bước xuất cùng bản nội dung lên website. Xem `PUBLISHING.md`.

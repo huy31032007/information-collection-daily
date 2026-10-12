@@ -6,7 +6,8 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { validateNewsletter, parseSections, safeLink, sourceName, filterSections, reportFreshness, vietnamDate } from '../dist/lib.mjs';
 
-const report = JSON.parse(await readFile(new URL('../dist/data/latest.json', import.meta.url), 'utf8'));
+// A real historical fixture keeps tests independent of tomorrow's market data.
+const report = JSON.parse(await readFile(new URL('./fixtures/original-newsletter.json', import.meta.url), 'utf8'));
 const parsed = parseSections(report.markdown);
 const fixedNow = new Date('2026-10-12T18:00:00Z');
 
@@ -46,7 +47,8 @@ test('writer is idempotent and rejects backwards publication without changing th
   const directory = await mkdtemp(path.join(tmpdir(), 'newsletter-writer-test-'));
   try {
     await mkdir(path.join(directory, 'scripts')); await mkdir(path.join(directory, 'dist', 'data'), { recursive: true });
-    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/data/latest.json']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
+    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
+    await copyFile(new URL('./fixtures/original-newsletter.json', import.meta.url), path.join(directory, 'dist/data/latest.json'));
     const target = path.join(directory, 'dist/data/latest.json'); const before = await readFile(target, 'utf8');
     const repeat = spawnSync(process.execPath, ['scripts/write-newsletter.mjs'], { cwd: directory, input: JSON.stringify(report), encoding: 'utf8' });
     assert.equal(repeat.status, 0, repeat.stderr); assert.equal(JSON.parse(repeat.stdout).unchanged, true); assert.equal(await readFile(target, 'utf8'), before);
@@ -59,7 +61,8 @@ test('writer replaces a newer document atomically in an isolated test directory'
   const directory = await mkdtemp(path.join(tmpdir(), 'newsletter-atomic-test-'));
   try {
     await mkdir(path.join(directory, 'scripts')); await mkdir(path.join(directory, 'dist', 'data'), { recursive: true });
-    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/data/latest.json']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
+    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
+    await copyFile(new URL('./fixtures/original-newsletter.json', import.meta.url), path.join(directory, 'dist/data/latest.json'));
     // Test metadata only; this directory is never served or packaged for publication.
     const newer = { ...report, cutoffAt: '2026-10-12T09:15:47+07:00', coverageEnd: '2026-10-12T09:15:47+07:00' };
     const write = spawnSync(process.execPath, ['scripts/write-newsletter.mjs'], { cwd: directory, input: JSON.stringify(newer), encoding: 'utf8' });
