@@ -1,10 +1,44 @@
 import { TOPICS, TIMEZONE, validateNewsletter, parseSections, extractSources, formatTime, reportFreshness, filterSections } from './lib.mjs';
 import { renderMarkdown } from './markdown.mjs';
+import { renderDashboard } from './dashboard.mjs';
 
 const byId = id => document.getElementById(id);
 const state = { report: null, sections: [], busy: false, filters: { topic: 'all', source: '', period: 'any', query: '' } };
 const make = (tag, text, className) => { const node = document.createElement(tag); if (text != null) node.textContent = text; if (className) node.className = className; return node; };
 function status(text, kind = '') { const node = byId('status'); node.textContent = text; node.className = 'status ' + kind; }
+
+const mobileNavigation = window.matchMedia('(max-width: 1023px)');
+function closeNavigation({ focus = false } = {}) {
+  document.body.classList.remove('sidebar-open'); byId('toggle-sidebar').setAttribute('aria-expanded', 'false');
+  byId('sidebar-overlay').hidden = true; byId('sidebar').inert = mobileNavigation.matches;
+  if (focus) byId('toggle-sidebar').focus();
+}
+byId('toggle-sidebar').addEventListener('click', () => {
+  if (document.body.classList.contains('sidebar-open')) { closeNavigation({ focus: true }); return; }
+  document.body.classList.add('sidebar-open'); byId('sidebar').inert = false;
+  byId('toggle-sidebar').setAttribute('aria-expanded', 'true'); byId('sidebar-overlay').hidden = false; byId('sidebar-close').focus();
+});
+byId('sidebar-close').addEventListener('click', () => closeNavigation({ focus: true }));
+byId('sidebar-overlay').addEventListener('click', () => closeNavigation({ focus: true }));
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && document.body.classList.contains('sidebar-open')) closeNavigation({ focus: true });
+  if (event.key === 'Tab' && document.body.classList.contains('sidebar-open')) {
+    const controls = [...byId('sidebar').querySelectorAll('a, button')]; const first = controls[0], last = controls.at(-1);
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  }
+});
+mobileNavigation.addEventListener('change', () => closeNavigation()); closeNavigation();
+for (const anchor of document.querySelectorAll('[data-dashboard-nav]')) anchor.addEventListener('click', event => {
+  event.preventDefault(); resetFilters(); closeNavigation();
+  const target = document.querySelector(anchor.hash); target?.scrollIntoView({ block: 'start' }); target?.focus({ preventScroll: true });
+  history.replaceState(null, '', anchor.hash);
+  for (const link of document.querySelectorAll('[data-dashboard-nav]')) { if (link === anchor) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current'); }
+});
+byId('market-overview').addEventListener('click', event => {
+  if (!event.target.closest('a[href="#section-2"]')) return;
+  event.preventDefault(); resetFilters(); byId('section-2')?.scrollIntoView({ block: 'start' }); history.replaceState(null, '', '#section-2');
+});
 
 for (const topic of TOPICS) {
   const button = make('button', topic.label); button.type = 'button'; button.dataset.topic = topic.id; button.setAttribute('aria-pressed', topic.id === 'all' ? 'true' : 'false');
@@ -38,6 +72,7 @@ function render() {
 }
 function installReport(report) {
   state.report = report; const parsed = parseSections(report.markdown); state.sections = parsed.sections;
+  renderDashboard(byId('market-overview'), state.sections, report);
   byId('report-date').textContent = new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(report.cutoffAt));
   byId('cutoff-time').textContent = 'Chốt ' + new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(report.cutoffAt));
   byId('coverage').textContent = formatTime(report.coverageStart, { year: undefined, second: undefined }) + ' → ' + formatTime(report.coverageEnd, { year: undefined, second: undefined });
@@ -69,6 +104,7 @@ async function loadReport({ quiet = false } = {}) {
     const raw = await response.text(); if (raw.length > 600_000) throw new Error('Bản tin vượt giới hạn kích thước.');
     let report; try { report = validateNewsletter(JSON.parse(raw)); } catch (error) { throw new Error(error instanceof SyntaxError ? 'Dữ liệu bản tin chưa đọc được.' : error.message); }
     if (!report) {
+      if (!state.report) renderDashboard(byId('market-overview'), [], null);
       if (state.report) status('Chưa có bản tin mới trong dữ liệu đã xuất bản. Đang giữ bản gần nhất và thời điểm gốc.', 'warning');
       else { status('Chưa có bản tin được xuất bản. Nội dung sẽ xuất hiện sau lần tổng hợp và xuất bản thành công.', 'warning'); byId('report-date').textContent = 'Chưa có bản tin'; byId('cutoff-time').textContent = 'Chưa có mốc chốt dữ liệu'; byId('result-count').textContent = 'Chưa có nội dung để lọc'; byId('no-results').hidden = false; byId('no-results').querySelector('h2').textContent = 'Chưa có bản tin'; byId('no-results').querySelector('p').textContent = 'Bản tin sẽ xuất hiện sau khi quy trình hằng ngày hoàn tất việc tổng hợp và xuất bản. Bạn có thể thử tải lại.'; byId('reset-empty').textContent = 'Thử tải lại'; }
       return;
@@ -82,7 +118,7 @@ async function loadReport({ quiet = false } = {}) {
   } catch (error) {
     const message = error.name === 'AbortError' ? 'Tải bản tin quá thời gian chờ.' : error.message;
     status(message + (state.report ? ` Đang giữ bản chốt ${formatTime(state.report.cutoffAt)} giờ Việt Nam; chưa xác nhận cập nhật mới.` : ' Hãy thử nút Làm mới bản tin.'), 'error');
-    if (!state.report) { byId('report-date').textContent = 'Chưa tải được'; byId('cutoff-time').textContent = 'Thời điểm bản tin chưa xác minh'; }
+    if (!state.report) { renderDashboard(byId('market-overview'), [], null); byId('report-date').textContent = 'Chưa tải được'; byId('cutoff-time').textContent = 'Thời điểm bản tin chưa xác minh'; }
   } finally { clearTimeout(timer); state.busy = false; button.disabled = false; button.classList.remove('is-loading'); byId('report-content').setAttribute('aria-busy', 'false'); }
 }
 void loadReport();

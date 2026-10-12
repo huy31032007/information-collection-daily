@@ -5,11 +5,39 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { validateNewsletter, parseSections, safeLink, sourceName, filterSections, reportFreshness, vietnamDate } from '../dist/lib.mjs';
+import { readDashboardData, explicitPercent } from '../dist/dashboard.mjs';
 
 // A real historical fixture keeps tests independent of tomorrow's market data.
 const report = JSON.parse(await readFile(new URL('./fixtures/original-newsletter.json', import.meta.url), 'utf8'));
 const parsed = parseSections(report.markdown);
 const fixedNow = new Date('2026-10-12T18:00:00Z');
+
+test('dashboard preserves quoted values, source times, units and comparison context from the real report', () => {
+  const data = readDashboardData(parsed.sections);
+  assert.deepEqual(data.indices.map(row => row.percent.value), [0.03, 0.16, 1.71, 0.19]);
+  assert.equal(data.indices[0].value, '1.735,62');
+  assert.equal(data.indices[0].time, 'Mức hiển thị ngày 12/10 · 09:05');
+  assert.ok(data.stockTable.before.includes('so với đóng cửa ngày 9/10'));
+  assert.equal(data.indices[0].sources[0].href, 'https://web.stockbiz.vn/IndicesStats.aspx');
+  assert.equal(data.gold.value, '144,8 triệu đồng/lượng'); assert.ok(data.gold.time.includes('08:55'));
+  assert.equal(data.oil.value, '105,48 USD/thùng'); assert.ok(data.oil.time.includes('06:04 ngày 12/10'));
+  assert.ok(data.oil.detail.includes('9/10')); assert.ok(data.insight.includes('Độ tin cậy **vừa**'));
+});
+test('dashboard leaves missing, unverified, unreferenced or differently formatted values unavailable', () => {
+  assert.equal(readDashboardData([]).indices.length, 0); assert.equal(readDashboardData([]).gold, null); assert.equal(readDashboardData([]).oil, null);
+  assert.equal(explicitPercent('Chưa xác minh +0,03%'), null);
+  assert.equal(explicitPercent('+0.53; +0.03%'), null);
+  assert.equal(explicitPercent('+3,00%; −2,00%'), null);
+  assert.deepEqual(explicitPercent('−3,88; −0,22%'), { value: -0.22, text: '−0,22%' });
+  const noSources = parsed.sections.map(s => ({ ...s, body: s.body.replace(/\[[^\]]+\]\(https?:\/\/[^)]+\)/g, '') }));
+  assert.equal(readDashboardData(noSources).indices.length, 0); assert.equal(readDashboardData(noSources).gold, null);
+  const unknown = parsed.sections.map(s => ({ ...s, body: s.id === '2' ? s.body.replace('09:05 |', 'Chưa xác minh |') : s.body }));
+  assert.equal(readDashboardData(unknown).indices.some(row => row.label === 'VN-Index'), false);
+  const noDate = parsed.sections.map(s => ({ ...s, body: s.id === '2' ? s.body.replace('Mức hiển thị ngày 12/10', 'Mức hiển thị') : s.body }));
+  assert.equal(readDashboardData(noDate).indices.length, 0);
+  const uncertainGold = parsed.sections.map(s => ({ ...s, body: s.body.replace('144,8 triệu đồng/lượng', '144,8 triệu đồng/lượng; Chưa xác minh') }));
+  assert.equal(readDashboardData(uncertainGold).gold, null);
+});
 
 test('real newsletter has all nine sections and preserves source text', () => {
   assert.equal(validateNewsletter(report, { now: fixedNow }), report);
