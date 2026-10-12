@@ -21,7 +21,7 @@
 /* Shared surface geometry and quiet highlight for the primary market card. */
 .market-card,.dashboard-panel,.history-panel,.filter-panel,.report-section,.weekly-highlight,.weekly-topic,.empty-state,.weekly-empty,.weekly-loading{border-radius:var(--radius-card)}
 .status,.weekly-coverage,.week-day-status,.snapshot-table tr,.data-table tr{border-radius:var(--radius-small)}
-.market-card:first-child{background-image:linear-gradient(135deg,rgba(0,113,227,.025) 0%,rgba(0,113,227,0) 100%);border-color:var(--glass-line)}
+.market-card:first-child{background-image:none;border-color:var(--glass-line)}
 .icon-button,#refresh,.read-analysis,.secondary-button,input,select,.topic-chips button,.history-view-switch,.history-guidance{border-radius:12px}
 .read-analysis{border:1px solid var(--glass-line)}
 .icon-button:hover,.secondary-button:hover,.topic-chips button:hover,.history-view-switch button:hover,.week-read-day:hover{background:var(--elevated)}
