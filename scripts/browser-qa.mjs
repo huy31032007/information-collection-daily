@@ -42,6 +42,7 @@ try {
   const fixturePage = async (value, options = {}) => {
     const p = await browser.newPage({ viewport: { width: 320, height: 900 } });
     await p.route('**/data/latest.json', async route => { if (options.delay) await new Promise(resolve => setTimeout(resolve, options.delay)); await route.fulfill({ status: options.status || 200, contentType: 'application/json', body: options.raw ?? JSON.stringify(value) }); });
+    await p.route('**/data/archive/index.json', route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ version: 1, timezone: 'Asia/Ho_Chi_Minh', reports: value ? [{ reportDate: value.reportDate, cutoffAt: value.cutoffAt, title: value.title }] : [] }) }));
     return p;
   };
   const loading = await fixturePage(report, { delay: 900 }); await loading.goto(baseURL); assert.equal(await loading.locator('#refresh').isDisabled(), true); assert.ok((await loading.locator('#status').innerText()).includes('Đang tải')); await ready(loading); results.states.push('loading'); await loading.close();

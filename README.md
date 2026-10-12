@@ -7,9 +7,12 @@ Website tĩnh hiển thị nguyên văn bản tin từ cuộc trò chuyện Chat
 - Nguồn duy nhất: bản tin đã tạo trong thread `01a12a08-5c54-7d82-90fd-f96fbbc539ff`.
 - `dist/data/latest.json` giữ toàn văn Markdown, ngày bản tin, mốc chốt, khoảng tổng hợp và thời điểm xuất sang web. Giá/nguồn/thời điểm được giữ nguyên trong nội dung.
 - Dashboard dùng bố cục thẻ và sidebar tham khảo [AdminCN](https://21st.dev/@clevision/templates/admincn-shadcn-admin-dashboard-template), được triển khai bằng HTML/CSS/JavaScript hiện có. Biểu đồ chỉ đọc phần trăm thay đổi có nguồn, thời điểm và mốc so sánh từ bảng trong bản tin; thiếu dữ liệu thì hiển thị trạng thái trống. Các thẻ vàng/dầu giữ loại giá và đơn vị, sơ đồ phân tích là khung tham khảo riêng.
-- Bộ lọc tìm kiếm giữ trọn chuyên mục khớp để không cắt mất điều kiện hoặc nguồn của nhận định. Chỉ có bản gần nhất; bộ lọc thời gian không phải kho lịch sử.
+- Lịch tháng mở bản tin theo ngày, có đánh dấu những ngày đã lưu. Kho nằm tại `dist/data/archive/YYYY-MM-DD.json`, danh sách ngày tại `dist/data/archive/index.json`. Mỗi ngày giữ phiên bản mới nhất đã xuất bản; ngày chưa có bản tin hiển thị trạng thái trống.
+- Tổng hợp tuần tính theo ngày bản tin, thứ Hai–Chủ nhật ở Asia/Ho_Chi_Minh. Điểm nổi bật được trích từ mục tóm tắt hằng ngày; phân tích được nhóm theo chuyên mục với ngày, mốc chốt và nguồn gốc. Đây là tổng hợp từ các bản tin đã lưu, không phải một bài phân tích mới do model viết. Có số ngày đủ/thiếu và lỗi tải rõ ràng.
+- Bộ lọc tìm kiếm giữ trọn chuyên mục khớp để không cắt mất điều kiện hoặc nguồn của nhận định. Bộ lọc áp dụng cho ngày đang đọc hoặc nội dung theo chủ đề trong tuần. URL giữ ngày/chế độ khi tải lại; làm mới nền không đổi ngày lịch sử đang chọn.
 - Làm mới và kiểm tra mỗi 5 phút khi tab được mở chỉ đọc JSON đã xuất bản cùng hosting. Trình duyệt không đọc chat hoặc thu thập tin từ báo.
 - Bản tin khác ngày Việt Nam được đánh dấu bản gần nhất. Tải lỗi giữ bản đang đọc và cảnh báo; không thay bằng dữ liệu mẫu.
+- Lịch sử bắt đầu từ bản tin thật đang có ngày 12/10/2026. Không dựng lại dữ liệu của những ngày trước đó. Writer hiện có tự lưu ngày cũ và ngày mới trước khi cập nhật bản gần nhất; không cần database hay lịch tự động mới.
 - Các nhãn tiếng Anh chỉ ánh xạ nhãn có sẵn trong bản gốc; không tự coi một chuyên mục chứa nhận định là Fact.
 
 ## Chạy và kiểm tra

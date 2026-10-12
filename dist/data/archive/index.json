@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "timezone": "Asia/Ho_Chi_Minh",
+  "reports": [
+    {
+      "reportDate": "2026-10-12",
+      "cutoffAt": "2026-10-12T09:15:46+07:00",
+      "title": "Bản tin kinh tế và thị trường"
+    }
+  ]
+}

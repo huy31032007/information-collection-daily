@@ -6,11 +6,38 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { validateNewsletter, parseSections, safeLink, sourceName, filterSections, reportFreshness, vietnamDate } from '../dist/lib.mjs';
 import { readDashboardData, explicitPercent } from '../dist/dashboard.mjs';
+import { validDate, addDays, weekRange, monthGrid, validateArchiveIndex, validateArchivedReport, summarizeWeek } from '../dist/history.mjs';
 
 // A real historical fixture keeps tests independent of tomorrow's market data.
 const report = JSON.parse(await readFile(new URL('./fixtures/original-newsletter.json', import.meta.url), 'utf8'));
 const parsed = parseSections(report.markdown);
 const fixedNow = new Date('2026-10-12T18:00:00Z');
+
+test('calendar uses Monday–Sunday and handles month/year and leap-day boundaries', () => {
+  assert.equal(validDate('2026-02-30'), false); assert.equal(validDate('../../2026-10-12'), false); assert.equal(validDate('2024-02-29'), true);
+  assert.equal(addDays('2024-02-28', 1), '2024-02-29');
+  assert.deepEqual(weekRange('2026-10-11').dates, ['2026-10-05','2026-10-06','2026-10-07','2026-10-08','2026-10-09','2026-10-10','2026-10-11']);
+  assert.equal(weekRange('2026-12-31').end, '2027-01-03');
+  assert.equal(monthGrid('2026-10').length, 42); assert.equal(monthGrid('2026-10')[0], '2026-09-28');
+});
+test('archive metadata rejects duplicate, future, invalid calendar dates and mismatched payloads', () => {
+  const entry = { reportDate: report.reportDate, cutoffAt: report.cutoffAt, title: report.title };
+  const index = { version: 1, timezone: TIMEZONE_FOR_TEST, reports: [entry] };
+  assert.equal(validateArchiveIndex(index, { now: fixedNow }).reports.length, 1);
+  assert.throws(() => validateArchiveIndex({ ...index, reports: [entry, entry] }, { now: fixedNow }));
+  assert.throws(() => validateArchiveIndex({ ...index, reports: [{ ...entry, reportDate: '2099-01-01', cutoffAt: '2099-01-01T09:00:00+07:00' }] }, { now: fixedNow }));
+  assert.throws(() => validateArchiveIndex({ ...index, reports: [{ ...entry, reportDate: '2026-03-02', cutoffAt: '2026-02-30T09:00:00+07:00' }] }, { now: fixedNow }));
+  assert.throws(() => validateArchivedReport(report, { ...entry, reportDate: '2026-10-11' }, { now: fixedNow }));
+});
+const TIMEZONE_FOR_TEST = 'Asia/Ho_Chi_Minh';
+test('weekly digest uses only stored days, keeps sources and original statements, and does not fill missing days', () => {
+  const week = summarizeWeek([report, report], '2026-10-13');
+  assert.equal(week.reports.length, 1); assert.equal(week.missingDates.length, 6); assert.equal(week.highlights.length, 4);
+  assert.equal(week.highlights[0].reportDate, '2026-10-12'); assert.ok(week.highlights[0].markdown.includes('06:04 ngày 12/10'));
+  assert.ok(week.highlights[0].sources[0].href.includes('vietnamplus.vn'));
+  assert.equal(week.groups.get('2')[0].section.body, parsed.sections.find(s => s.id === '2').body);
+  assert.equal(summarizeWeek([report], '2026-10-11').reports.length, 0);
+});
 
 test('dashboard preserves quoted values, source times, units and comparison context from the real report', () => {
   const data = readDashboardData(parsed.sections);
@@ -75,7 +102,7 @@ test('writer is idempotent and rejects backwards publication without changing th
   const directory = await mkdtemp(path.join(tmpdir(), 'newsletter-writer-test-'));
   try {
     await mkdir(path.join(directory, 'scripts')); await mkdir(path.join(directory, 'dist', 'data'), { recursive: true });
-    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
+    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/history.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
     await copyFile(new URL('./fixtures/original-newsletter.json', import.meta.url), path.join(directory, 'dist/data/latest.json'));
     const target = path.join(directory, 'dist/data/latest.json'); const before = await readFile(target, 'utf8');
     const repeat = spawnSync(process.execPath, ['scripts/write-newsletter.mjs'], { cwd: directory, input: JSON.stringify(report), encoding: 'utf8' });
@@ -89,7 +116,7 @@ test('writer replaces a newer document atomically in an isolated test directory'
   const directory = await mkdtemp(path.join(tmpdir(), 'newsletter-atomic-test-'));
   try {
     await mkdir(path.join(directory, 'scripts')); await mkdir(path.join(directory, 'dist', 'data'), { recursive: true });
-    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
+    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/history.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
     await copyFile(new URL('./fixtures/original-newsletter.json', import.meta.url), path.join(directory, 'dist/data/latest.json'));
     // Test metadata only; this directory is never served or packaged for publication.
     const newer = { ...report, cutoffAt: '2026-10-12T09:15:47+07:00', coverageEnd: '2026-10-12T09:15:47+07:00' };
@@ -97,6 +124,30 @@ test('writer replaces a newer document atomically in an isolated test directory'
     assert.equal(write.status, 0, write.stderr); assert.equal(JSON.parse(write.stdout).written, true);
     const saved = JSON.parse(await readFile(path.join(directory, 'dist/data/latest.json'), 'utf8'));
     assert.equal(saved.markdown, report.markdown); assert.equal(saved.cutoffAt, newer.cutoffAt);
-    const { readdir } = await import('node:fs/promises'); assert.deepEqual(await readdir(path.join(directory, 'dist/data')), ['latest.json']);
+    const { readdir } = await import('node:fs/promises'); assert.deepEqual(await readdir(path.join(directory, 'dist/data')), ['archive', 'latest.json']);
+  } finally { await rm(directory, { recursive: true }); }
+});
+
+test('writer keeps previous days, updates the latest version of a day, and refuses archive conflicts', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'newsletter-history-test-'));
+  try {
+    await mkdir(path.join(directory, 'scripts')); await mkdir(path.join(directory, 'dist', 'data'), { recursive: true });
+    for (const file of ['scripts/write-newsletter.mjs','dist/lib.mjs','dist/history.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
+    // Synthetic date metadata for an isolated test; never published as a real daily report.
+    const prior = { ...report, title: '[TEST FIXTURE] prior day', reportDate: '2026-10-11', cutoffAt: '2026-10-11T09:15:46+07:00', coverageEnd: '2026-10-11T09:15:46+07:00', coverageStart: '2026-10-10T09:15:46+07:00' };
+    const latestFile = path.join(directory, 'dist/data/latest.json'); await import('node:fs/promises').then(fs => fs.writeFile(latestFile, JSON.stringify(prior)));
+    const run = value => spawnSync(process.execPath, ['scripts/write-newsletter.mjs'], { cwd: directory, input: JSON.stringify(value), encoding: 'utf8' });
+    const first = run(report); assert.equal(first.status, 0, first.stderr);
+    const savedPrior = await readFile(path.join(directory, 'dist/data/archive/2026-10-11.json'), 'utf8'); assert.equal(JSON.parse(savedPrior).markdown, prior.markdown);
+    const later = { ...report, cutoffAt: '2026-10-12T09:15:47+07:00', coverageEnd: '2026-10-12T09:15:47+07:00' };
+    const second = run(later); assert.equal(second.status, 0, second.stderr);
+    assert.equal(await readFile(path.join(directory, 'dist/data/archive/2026-10-11.json'), 'utf8'), savedPrior);
+    assert.equal(JSON.parse(await readFile(path.join(directory, 'dist/data/archive/2026-10-12.json'), 'utf8')).cutoffAt, later.cutoffAt);
+    const indexFile = path.join(directory, 'dist/data/archive/index.json'); const beforeIndex = await readFile(indexFile, 'utf8'); const beforeLatest = await readFile(latestFile, 'utf8');
+    assert.equal(JSON.parse(beforeIndex).reports.length, 2);
+    const conflict = run({ ...later, markdown: later.markdown + '\n\n[TEST FIXTURE] conflicting text' }); assert.notEqual(conflict.status, 0);
+    assert.equal(await readFile(indexFile, 'utf8'), beforeIndex); assert.equal(await readFile(latestFile, 'utf8'), beforeLatest);
+    const wrongThread = run({ ...later, sourceThreadId: 'test-other-pipeline' }); assert.notEqual(wrongThread.status, 0);
+    assert.equal(await readFile(indexFile, 'utf8'), beforeIndex);
   } finally { await rm(directory, { recursive: true }); }
 });
