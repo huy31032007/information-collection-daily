@@ -1,0 +1,8 @@
+node_modules/
+.sites-runtime/
+qa-artifacts/
+.env
+.env.*
+!.env.example
+*.zip
+.DS_Store

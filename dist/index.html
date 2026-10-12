@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bản tin kinh tế và thị trường Việt Nam: thông tin có nguồn, thời điểm rõ ràng và phân tích chuyên sâu mỗi ngày.">
+  <meta name="color-scheme" content="light">
+  <title>Bản tin kinh tế Việt Nam</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#report-content">Đi đến bản tin</a>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Bản tin kinh tế — Trang chủ"><span class="brand-mark" aria-hidden="true">B.</span><span>BẢN TIN<span class="brand-subtitle">KINH TẾ VIỆT NAM</span></span></a>
+    <div class="topbar-right"><span class="edition-label">Một ngày. Một góc nhìn đầy đủ.</span><span class="timezone">Giờ Việt Nam · UTC+7</span></div>
+  </header>
+  <main class="shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div><p class="eyebrow"><span aria-hidden="true"></span>TÀI CHÍNH · KINH TẾ · THỊ TRƯỜNG</p><h1 id="page-title">Hiểu thị trường<br><span>mỗi ngày.</span></h1><p class="hero-description">Thông tin có nguồn. Phân tích có căn cứ.<br>Ưu tiên Việt Nam, đặt trong bối cảnh thế giới.</p></div>
+      <div class="edition-card"><p class="edition-kicker">BẢN TIN GẦN NHẤT</p><p id="report-date" class="edition-date">Đang tải…</p><p id="cutoff-time" class="edition-time">Kiểm tra thời điểm bản tin</p><button id="refresh" type="button"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 7v5h-5M20 12a8 8 0 1 0-2.4 5.7"/></svg><span>Làm mới bản tin</span></button><p class="refresh-note">Kiểm tra bản mới mỗi 5 phút khi web mở</p></div>
+    </section>
+    <div id="status" class="status loading" role="status" aria-live="polite">Đang tải bản tin đã xuất bản…</div>
+    <section class="overview" aria-label="Thông tin bản tin">
+      <div><span class="metric-label">Khoảng tổng hợp</span><strong id="coverage">—</strong></div>
+      <div><span class="metric-label">Đơn vị được dẫn nguồn</span><strong id="source-count">—</strong></div>
+      <div><span class="metric-label">Chuyên mục</span><strong id="section-count">—</strong></div>
+      <div><span class="metric-label">Giá thị trường</span><strong class="metric-small">Theo thời điểm nguồn</strong></div>
+    </section>
+    <section class="filter-panel" aria-label="Tìm và lọc bản tin">
+      <div class="search-field"><label for="search">Tìm trong bản tin</label><div class="input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Ví dụ: lạm phát, vàng, thị trường…" autocomplete="off"></div></div>
+      <div><label for="source-filter">Nguồn</label><select id="source-filter"><option value="">Tất cả nguồn</option></select></div>
+      <div><label for="period-filter">Thời gian bản tin</label><select id="period-filter"><option value="any">Bản tin gần nhất</option><option value="today">Hôm nay</option><option value="week">Trong 7 ngày</option></select></div>
+      <div id="topics" class="topic-chips" role="group" aria-label="Chủ đề"></div>
+      <div class="filter-bottom"><p id="result-count" role="status" aria-live="polite">Chờ bản tin…</p><button id="clear-filters" type="button" class="text-button">Xóa bộ lọc</button></div>
+    </section>
+    <div class="reader-layout">
+      <aside class="toc" aria-label="Mục lục"><p class="eyebrow">TRONG BẢN TIN</p><nav id="contents-nav"></nav><div class="reading-note"><strong>Đọc cả dữ kiện và điều kiện</strong><p>Nhận định và dự báo giữ nhãn riêng. Giá thuộc phiên hoặc kỳ trước luôn đi kèm thời điểm.</p></div></aside>
+      <div class="reader-column"><div id="report-context" class="report-context"></div><div id="report-content" tabindex="-1" aria-busy="true"></div><div id="no-results" class="empty-state" hidden><span class="empty-symbol" aria-hidden="true">⌕</span><h2>Không có mục phù hợp</h2><p>Thử đổi từ khóa, nguồn hoặc khoảng thời gian. Bộ lọc thời gian áp dụng cho ngày bản tin, không đổi thời điểm của từng giá.</p><button id="reset-empty" type="button" class="secondary-button">Xem bản tin gần nhất</button></div></div>
+    </div>
+  </main>
+  <footer><div><span class="footer-brand">BẢN TIN KINH TẾ</span><p>Tổng hợp bởi ChatGPT · Nội dung và nguồn giữ theo bản tin gốc.</p></div><p id="last-loaded">Chưa tải được bản tin</p></footer>
+  <noscript><p class="noscript">Hãy bật JavaScript để đọc, tìm kiếm và lọc bản tin. Bạn có thể tải <a href="./data/latest.json">bản nội dung đã xuất bản</a>.</p></noscript>
+</body>
+</html>
