@@ -14,6 +14,7 @@ Website tĩnh hiển thị nguyên văn bản tin từ cuộc trò chuyện Chat
 ## Chạy và kiểm tra
 
 ```sh
+cd "/Users/quanghuyvu/Documents/Workspace/Claude Code/projects/information-collection"
 npm run check
 npm test
 npm run preview
