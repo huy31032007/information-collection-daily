@@ -5,7 +5,7 @@
 ## Danh tính và thư mục
 
 - Site ID: `appgprj_6accb515f02c8191ba2fc9928624502b`.
-- Workspace: `/Users/quanghuyvu/.codex/.chatgpt-projects/g-p-6ac4781f0cdc819181bea9a6dbfb4a54/news-dashboard`.
+- Workspace: `/Users/quanghuyvu/Documents/Workspace/Code/projects/information-collection`.
 - Manifest: `.openai/hosting.json`; kiểm tra ID trùng trước mỗi lần ghi.
 - Bản tin chuẩn: `dist/data/latest.json`.
 - Helper Sites đã dùng: `/Users/quanghuyvu/.codex/plugins/cache/openai-curated-remote/sites/1.0.1/scripts/site-workflow.mjs`.
