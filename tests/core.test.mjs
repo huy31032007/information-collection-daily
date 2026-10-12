@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { validateNewsletter, parseSections, safeLink, sourceName, filterSections, reportFreshness, vietnamDate } from '../dist/lib.mjs';
-import { readDashboardData, explicitPercent } from '../dist/dashboard.mjs';
+import { readDashboardData, explicitPercent, quoteParts, changeParts, marketMetadata } from '../dist/dashboard.mjs';
 import { validDate, addDays, weekRange, monthGrid, validateArchiveIndex, validateArchivedReport, summarizeWeek } from '../dist/history.mjs';
 
 // A real historical fixture keeps tests independent of tomorrow's market data.
@@ -49,6 +49,26 @@ test('dashboard preserves quoted values, source times, units and comparison cont
   assert.equal(data.gold.value, '144,8 triệu đồng/lượng'); assert.ok(data.gold.time.includes('08:55'));
   assert.equal(data.oil.value, '105,48 USD/thùng'); assert.ok(data.oil.time.includes('06:04 ngày 12/10'));
   assert.ok(data.oil.detail.includes('9/10')); assert.ok(data.insight.includes('Độ tin cậy **vừa**'));
+});
+test('financial display keeps original numbers, units and approximate changes without inventing zero changes', () => {
+  assert.deepEqual(quoteParts('144,8 triệu đồng/lượng'), { number: '144,8', unit: 'triệu đồng/lượng' });
+  assert.deepEqual(quoteParts('105,48 USD/thùng'), { number: '105,48', unit: 'USD/thùng' });
+  assert.deepEqual(quoteParts('1.735,62', 'điểm'), { number: '1.735,62', unit: 'điểm' });
+  for (const value of ['105.48 USD/thùng', '1,735.62', 'Chưa xác minh', '144,8 triệu đồng/lượng; chưa xác minh']) assert.equal(quoteParts(value), null);
+  const oil = changeParts('+0,76 USD/thùng; khoảng +0,73%');
+  assert.equal(oil.amount, '+0,76'); assert.equal(oil.unit, 'USD/thùng'); assert.equal(oil.approximate, true); assert.equal(oil.percent.text, '+0,73%');
+  assert.equal(changeParts('−3,88; −0,22%', 'điểm').percent.value, -0.22);
+  for (const value of ['', 'Không đổi so với sáng 11/10', 'Chưa xác minh +0,03%', '+0,03%; −0,22%']) assert.equal(changeParts(value, 'điểm'), null);
+});
+test('card metadata distinguishes gold article publication time from the quoted price time', () => {
+  const data = readDashboardData(parsed.sections), gold = marketMetadata(data.gold);
+  assert.deepEqual(gold.find(row => row.label === 'Giá ghi nhận'), { label: 'Giá ghi nhận', value: 'Sáng 12/10' });
+  assert.deepEqual(gold.find(row => row.label === 'Bài công bố'), { label: 'Bài công bố', value: '08:55' });
+  assert.ok(gold.find(row => row.label === 'Lưu ý').value.includes('không nêu phút niêm yết'));
+  assert.ok(gold.find(row => row.label === 'Lưu ý').value.includes('Không đổi so với sáng 11/10'));
+  assert.equal(gold.find(row => row.label === 'Mua vào').value, '141,8 triệu đồng/lượng');
+  assert.equal(marketMetadata(data.indices[1]).find(row => row.label === 'Hiển thị').value, '09:08:14 · 12/10');
+  assert.equal(marketMetadata(data.oil).find(row => row.label === 'Giá lúc').value, '06:04 · 12/10 (giờ Việt Nam)');
 });
 test('dashboard leaves missing, unverified, unreferenced or differently formatted values unavailable', () => {
   assert.equal(readDashboardData([]).indices.length, 0); assert.equal(readDashboardData([]).gold, null); assert.equal(readDashboardData([]).oil, null);

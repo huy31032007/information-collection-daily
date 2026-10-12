@@ -26,6 +26,36 @@ export function explicitPercent(value = '') {
   const text = matches[0][1]; const number = Number(text.replace(/−/g, '-').replace(/\./g, '').replace(',', '.'));
   return Number.isFinite(number) ? { value: number, text: text + '%' } : null;
 }
+const quotedNumber = '(?:\\d{1,3}(?:\\.\\d{3})+|\\d+)(?:,\\d+)?';
+export function quoteParts(value = '', indexUnit = '') {
+  const text = clean(value);
+  if (indexUnit && new RegExp('^' + quotedNumber + '$').test(text)) return { number: text, unit: indexUnit };
+  const match = new RegExp('^(' + quotedNumber + ')\\s+(triệu đồng/lượng|đồng/lượng|triệu VNĐ/lượng|VNĐ/lượng|USD/thùng)$').exec(text);
+  return match ? { number: match[1], unit: match[2] } : null;
+}
+export function changeParts(value = '', indexUnit = '') {
+  const text = clean(value), percent = explicitPercent(text);
+  const match = new RegExp('^([+−-]?' + quotedNumber + ')(?:\\s+(USD/thùng))?;\\s*(khoảng\\s+|xấp xỉ\\s+|ước tính\\s+)?([+−-]?' + quotedNumber + ')\\s*%$').exec(text);
+  return match && percent ? { amount: match[1], unit: match[2] || indexUnit, percent, approximate: Boolean(match[3]) } : null;
+}
+export function marketMetadata(data) {
+  const rows = [];
+  if (data.buyValue) rows.push({ label: 'Mua vào', value: data.buyValue });
+  const day = data.time.match(/\bngày (\d{1,2}\/\d{1,2}(?:\/\d{4})?)\b/i)?.[1];
+  const clock = data.observedTime?.match(/\b\d{1,2}:\d{2}(?::\d{2})?\b/)?.[0];
+  const goldTime = data.section === '3' && /^(.*?);\s*bài công bố\s+(\d{1,2}:\d{2}),\s*(.*)$/i.exec(data.time);
+  const oilTime = data.section === '4' && /^Lúc (\d{1,2}:\d{2}) ngày (\d{1,2}\/\d{1,2}) giờ Việt Nam, theo .+:$/.exec(data.time);
+  if (data.section === '2' && /^Mức hiển thị ngày /i.test(data.time) && day && clock) rows.push({ label: 'Hiển thị', value: clock + ' · ' + day });
+  else if (goldTime) rows.push({ label: 'Giá ghi nhận', value: goldTime[1] }, { label: 'Bài công bố', value: goldTime[2] }, { label: 'Lưu ý', value: goldTime[3] });
+  else if (oilTime) rows.push({ label: 'Giá lúc', value: oilTime[1] + ' · ' + oilTime[2] + ' (giờ Việt Nam)' });
+  else rows.push({ label: 'Thời điểm', value: data.time });
+  if (data.comparison) rows.push({ label: 'Mốc so sánh', value: data.comparison.replace(/^so với\s+/i, '') });
+  if (data.product) {
+    const area = data.section === '3' && /^Vàng miếng SJC tại (.+?), theo .+$/.exec(data.product);
+    rows.push({ label: area ? 'Khu vực' : 'Loại giá', value: area ? area[1] : data.product });
+  }
+  return rows;
+}
 export function readDashboardData(sections) {
   const stocks = sections.find(s => s.id === '2'); const gold = sections.find(s => s.id === '3'); const oil = sections.find(s => s.id === '4');
   const stockTable = readTables(stocks?.body).find(t => t.headers.some(h => normalizeText(h) === 'chi so'));
@@ -38,11 +68,11 @@ export function readDashboardData(sections) {
   const goldRow = goldTable?.rows.find(r => /vang mieng sjc/.test(normalizeText(r[0])));
   const sell = goldTable?.headers.findIndex(h => normalizeText(h) === 'ban ra'), buy = goldTable?.headers.findIndex(h => normalizeText(h) === 'mua vao'), goldTime = goldTable?.headers.findIndex(h => /thoi diem/.test(normalizeText(h)));
   const goldMetric = goldRow && sell >= 0 && buy >= 0 && goldTime >= 0 && goldTable.sources.length && /\d.*(?:dong|vnd)/i.test(normalizeText(goldRow[sell])) && /\d{1,2}\/\d{1,2}/.test(goldRow[goldTime]) && !/chua xac minh/.test(normalizeText(goldRow.join(' ')))
-    ? { label: 'Vàng miếng SJC', value: goldRow[sell], detail: 'Bán ra · Mua vào: ' + goldRow[buy], time: goldRow[goldTime], product: goldRow[0], sources: goldTable.sources.slice(0, 1), section: '3' } : null;
+    ? { label: 'Vàng miếng SJC', value: goldRow[sell], buyValue: goldRow[buy], detail: 'Bán ra · Mua vào: ' + goldRow[buy], time: goldRow[goldTime], product: goldRow[0], sources: goldTable.sources.slice(0, 1), section: '3' } : null;
   const oilTable = readTables(oil?.body).find(t => t.headers.some(h => /gia dau tham chieu/.test(normalizeText(h))));
   const oilRow = oilTable?.rows.find(r => /^brent$/i.test(r[0]));
   const oilMetric = oilRow && oilTable.sources.length && /USD\/thùng/.test(oilRow[1]) && /\d{1,2}:\d{2}.*\d{1,2}\/\d{1,2}/s.test(oilTable.before) && !/chua xac minh/.test(normalizeText(oilRow.join(' ') + ' ' + oilTable.before))
-    ? { label: 'Dầu Brent', value: oilRow[1], detail: oilRow[2] + ' · ' + oilTable.headers[2], time: clean(oilTable.before.split(/\n\s*\n/).filter(p => !/^#/.test(p)).at(-1) || ''), product: 'Giá dầu tham chiếu quốc tế', sources: oilTable.sources.slice(0, 1), section: '4' } : null;
+    ? { label: 'Dầu Brent', value: oilRow[1], change: oilRow[2], comparison: oilTable.headers[2], detail: oilRow[2] + ' · ' + oilTable.headers[2], time: clean(oilTable.before.split(/\n\s*\n/).filter(p => !/^#/.test(p)).at(-1) || ''), product: 'Giá dầu tham chiếu quốc tế', sources: oilTable.sources.slice(0, 1), section: '4' } : null;
   return { indices, stockTable, gold: goldMetric, oil: oilMetric, insight: stocks?.body.split(/^### /m)[0].trim() || '' };
 }
 
@@ -53,15 +83,26 @@ function sources(parent, list = []) {
   parent.append(line);
 }
 function metric(data, label, tone) {
-  const card = make('article', null, 'market-card ' + tone); card.append(make('p', data?.label || label, 'market-label'));
+  const card = make('article', null, 'market-card ' + tone), heading = make('p', data?.label || label, 'market-label');
+  if (data?.section === '3') heading.append(document.createTextNode(' '), make('span', 'Bán ra', 'market-price-side'));
+  card.append(heading);
   if (!data) { card.append(make('p', 'Chưa có số liệu phù hợp', 'metric-empty'), make('p', 'Xem dữ kiện và giới hạn trong bản tin bên dưới.', 'market-meta')); return card; }
-  card.append(make('strong', data.value, 'market-value'));
-  if (data.section === '2') card.append(make('span', 'điểm', 'market-unit'));
-  const detail = make('p', data.change || data.detail, 'market-change');
-  if (data.percent) detail.classList.add(data.percent.value < 0 ? 'decrease' : 'increase');
-  card.append(detail, make('p', data.time, 'market-meta'));
-  if (data.comparison) card.append(make('p', data.comparison, 'market-meta'));
-  if (data.product) card.append(make('p', data.product, 'market-meta'));
+  const quote = make('div', null, 'market-quote'), parts = quoteParts(data.value, data.section === '2' ? 'điểm' : '');
+  if (parts) quote.append(make('strong', parts.number, 'market-value'), make('span', parts.unit, 'market-unit'));
+  else quote.append(make('p', data.value, 'market-unparsed'));
+  card.append(quote);
+  const change = changeParts(data.change || '', data.section === '2' ? 'điểm' : '');
+  if (change) {
+    const line = make('div', null, 'market-change'), direction = change.percent.value < 0 ? 'down' : change.percent.value > 0 ? 'up' : 'flat';
+    const badge = make('span', null, 'change-badge ' + direction);
+    const arrow = make('span', direction === 'up' ? '▲' : direction === 'down' ? '▼' : '•'); arrow.setAttribute('aria-hidden', 'true');
+    badge.append(arrow, document.createTextNode((change.approximate ? '≈ ' : '') + change.percent.text));
+    badge.setAttribute('aria-label', (direction === 'up' ? 'Tăng ' : direction === 'down' ? 'Giảm ' : 'Biến động ') + (change.approximate ? 'khoảng ' : '') + change.percent.text);
+    line.append(badge, make('span', change.amount + (change.unit ? ' ' + change.unit : ''), 'market-change-amount')); card.append(line);
+  } else if (data.change) card.append(make('p', data.change, 'market-meta'));
+  const details = make('dl', null, 'market-details');
+  for (const row of marketMetadata(data)) { const pair = make('div', null, 'market-detail-row'); pair.append(make('dt', row.label), make('dd', row.value)); details.append(pair); }
+  card.append(details);
   sources(card, data.sources); return card;
 }
 function chart(snapshot) {
