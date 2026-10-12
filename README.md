@@ -27,6 +27,8 @@ Unit tests dùng bản tin thật ngày 12/10 làm fixture lịch sử riêng, k
 
 ## Cập nhật hằng ngày
 
+Bộ prompt và schema cho module xử lý từng bài viết/tài liệu trong phiên bản mở rộng nằm tại [docs/intelligence-engine](docs/intelligence-engine/README.md). Bộ chuẩn này độc lập với định dạng bản tin chín mục và chưa được kết nối vào dashboard.
+
 Dùng heartbeat hiện có `b-n-tin-kinh-t-th-tr-ng-09-00-vi-t-nam`, lúc 09:00 Asia/Ho_Chi_Minh. Máy/ứng dụng/mạng phải hoạt động. Quy trình nghiên cứu và phân tích gốc được giữ nguyên; chỉ thêm bước xuất cùng bản nội dung lên website. Xem `PUBLISHING.md`.
 
 Site mặc định riêng tư và sử dụng đăng nhập ChatGPT. `.openai/hosting.json` ghi đúng ID/hosting; không có API key trong frontend. Token ghi repository chỉ giữ trong bộ nhớ tác vụ và truyền qua stdin ẩn của helper Sites. Không tự đổi quyền truy cập, repository hoặc domain.

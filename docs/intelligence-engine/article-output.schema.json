@@ -1,0 +1,762 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Single-document information intelligence output — v1",
+  "description": "Separate output contract for the future article/document module; never replaces the nine-section newsletter JSON.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "processing_status": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "partial",
+        "insufficient_input"
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "title_refined": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "primary_category": {
+          "type": "string",
+          "enum": [
+            "Finance",
+            "Economics",
+            "Technology",
+            "Web Dev",
+            "Marketing",
+            "General",
+            "Unknown"
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "content_format": {
+          "type": "string",
+          "enum": [
+            "News",
+            "AnalysisReport",
+            "ResearchPaper",
+            "Tutorial",
+            "CaseStudy",
+            "Reference",
+            "Other",
+            "Unknown"
+          ]
+        },
+        "content_nature": {
+          "type": "string",
+          "enum": [
+            "Evergreen",
+            "News/Temporal",
+            "Mixed",
+            "Unknown"
+          ]
+        },
+        "reading_time_minutes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "confidence_score": {
+          "type": "null",
+          "description": "No calibrated confidence measure is configured in v1."
+        },
+        "confidence_level": {
+          "type": "string",
+          "enum": [
+            "cao",
+            "vừa",
+            "thấp",
+            "chưa xác minh"
+          ]
+        },
+        "confidence_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "time_sensitivity_note": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "title_refined",
+        "primary_category",
+        "tags",
+        "content_format",
+        "content_nature",
+        "reading_time_minutes",
+        "confidence_score",
+        "confidence_level",
+        "confidence_reason",
+        "time_sensitivity_note"
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/source"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "sources",
+        "limitations"
+      ],
+      "additionalProperties": false
+    },
+    "executive_summary": {
+      "type": "object",
+      "properties": {
+        "tldr": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "core_thesis": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "key_insights": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/definitions/claim"
+          }
+        }
+      },
+      "required": [
+        "tldr",
+        "core_thesis",
+        "key_insights"
+      ],
+      "additionalProperties": false
+    },
+    "deep_dive": {
+      "type": "object",
+      "properties": {
+        "analysis": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "original_content_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "analysis",
+        "original_content_ref",
+        "gaps"
+      ],
+      "additionalProperties": false
+    },
+    "knowledge_extraction": {
+      "type": "object",
+      "properties": {
+        "key_entities_or_tools": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "actionable_takeaways": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/definitions/claim"
+          }
+        },
+        "mental_models_or_concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/concept"
+          }
+        },
+        "financial_observations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/financialObservation"
+          }
+        }
+      },
+      "required": [
+        "key_entities_or_tools",
+        "actionable_takeaways",
+        "mental_models_or_concepts",
+        "financial_observations"
+      ],
+      "additionalProperties": false
+    },
+    "rag_index_helper": {
+      "type": "object",
+      "properties": {
+        "suggested_query_prompts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "maxItems": 5
+        },
+        "related_topics": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "related_document_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "suggested_query_prompts",
+        "related_topics",
+        "related_document_ids"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "processing_status",
+    "meta",
+    "provenance",
+    "executive_summary",
+    "deep_dive",
+    "knowledge_extraction",
+    "rag_index_helper"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "claim": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "enum": [
+            "Fact",
+            "Estimate",
+            "Analysis",
+            "Opinion",
+            "Unverified"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^src[1-9][0-9]*$"
+          },
+          "uniqueItems": true
+        },
+        "verification": {
+          "type": "string",
+          "enum": [
+            "source_reported",
+            "cross_checked",
+            "unverified"
+          ]
+        },
+        "limitations": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "text",
+        "label",
+        "source_ids",
+        "verification",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "label": {
+                "enum": [
+                  "Fact",
+                  "Estimate",
+                  "Opinion"
+                ]
+              }
+            },
+            "required": [
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "verification": {
+                "const": "cross_checked"
+              }
+            },
+            "required": [
+              "verification"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_ids": {
+                "minItems": 2
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "label": {
+                "const": "Unverified"
+              }
+            },
+            "required": [
+              "label"
+            ]
+          },
+          "then": {
+            "properties": {
+              "verification": {
+                "const": "unverified"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^src[1-9][0-9]*$"
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "pattern": "^https?://[^/?#@\\s]+(?:[/?#][^\\s]*)?$"
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "publisher": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "author": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "published_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "published_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "accessed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "content_scope": {
+          "type": "string",
+          "enum": [
+            "full_text",
+            "excerpt",
+            "metadata_only"
+          ]
+        },
+        "locator": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "url",
+        "title",
+        "publisher",
+        "author",
+        "published_at",
+        "published_date",
+        "accessed_at",
+        "content_scope",
+        "locator"
+      ],
+      "additionalProperties": false
+    },
+    "concept": {
+      "type": "object",
+      "properties": {
+        "term": {
+          "type": "string",
+          "minLength": 1
+        },
+        "english_term": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "definition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "how_to_read_or_calculate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "example": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "why_it_matters": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limitations": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^src[1-9][0-9]*$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "term",
+        "english_term",
+        "definition",
+        "how_to_read_or_calculate",
+        "example",
+        "why_it_matters",
+        "limitations",
+        "source_ids"
+      ],
+      "additionalProperties": false
+    },
+    "financialObservation": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "value_text": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "market": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "quote_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "observed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "observed_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "observed_time_text": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "comparison_text": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^src[1-9][0-9]*$"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "verification": {
+          "type": "string",
+          "enum": [
+            "source_reported",
+            "cross_checked",
+            "unverified"
+          ]
+        },
+        "caveats": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "name",
+        "value",
+        "value_text",
+        "unit",
+        "market",
+        "quote_type",
+        "observed_at",
+        "observed_date",
+        "observed_time_text",
+        "comparison_text",
+        "source_ids",
+        "verification",
+        "caveats"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "verification": {
+                "const": "cross_checked"
+              }
+            },
+            "required": [
+              "verification"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_ids": {
+                "minItems": 2
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "processing_status": {
+            "const": "insufficient_input"
+          }
+        },
+        "required": [
+          "processing_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "executive_summary": {
+            "properties": {
+              "tldr": {
+                "type": "null"
+              },
+              "core_thesis": {
+                "type": "null"
+              },
+              "key_insights": {
+                "maxItems": 0
+              }
+            }
+          },
+          "deep_dive": {
+            "properties": {
+              "analysis": {
+                "type": "null"
+              }
+            }
+          },
+          "knowledge_extraction": {
+            "properties": {
+              "key_entities_or_tools": {
+                "maxItems": 0
+              },
+              "actionable_takeaways": {
+                "maxItems": 0
+              },
+              "mental_models_or_concepts": {
+                "maxItems": 0
+              },
+              "financial_observations": {
+                "maxItems": 0
+              }
+            }
+          },
+          "rag_index_helper": {
+            "properties": {
+              "suggested_query_prompts": {
+                "maxItems": 0
+              },
+              "related_topics": {
+                "maxItems": 0
+              },
+              "related_document_ids": {
+                "maxItems": 0
+              }
+            }
+          },
+          "meta": {
+            "properties": {
+              "confidence_level": {
+                "const": "chưa xác minh"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
