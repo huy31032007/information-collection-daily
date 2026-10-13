@@ -18,6 +18,8 @@ Theo yêu cầu mới của người dùng, sau mỗi bản tin phải tự comm
 
 Trong Worker, Settings > Builds cần dùng repository trên, production branch `main`, root là gốc repository và deploy command `npx wrangler deploy`. Website có sẵn trong `dist`, không có script `npm run build`. Build command có thể dùng `npm run check && npm test`. Quyền deploy nằm trong Git integration của Cloudflare; không đưa token vào Git, frontend, log, ảnh hoặc chat. Không tạo token hay sửa quyền tài khoản khi chưa được yêu cầu. Nếu thiếu quyền/cấu hình ngoài dự án, hỏi đúng thông tin còn thiếu.
 
+Đã đối chiếu dashboard ngày 13/10/2026: repository đúng, production branch `main`, root `/`, deploy command `npx wrangler deploy`, build command để trống, Disable builds tắt và Include paths là `*`. Người dùng đã xác nhận cấp quyền repository bản tin cho GitHub App Cloudflare Workers and Pages; cảnh báo mất kết nối đã biến mất. Nếu cảnh báo này quay lại, kiểm tra danh sách repository được cấp quyền qua Manage; không tự mở rộng quyền ứng dụng. Vẫn phải đối chiếu bản tin trên URL thật sau mỗi lượt, vì cấu hình đúng chưa bảo đảm một lần deploy thành công.
+
 Tài liệu: [Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/), [cấu hình build/deploy](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/), [tệp tĩnh](https://developers.cloudflare.com/workers/static-assets/binding/).
 
 ### Quy trình thường kỳ
