@@ -30,6 +30,7 @@ function syncNavigation() {
   byId('sidebar-overlay').hidden = !(mobileNavigation.matches && expanded);
   const label = expanded ? 'Đóng thanh điều hướng' : 'Mở thanh điều hướng';
   byId('toggle-sidebar').setAttribute('aria-expanded', String(expanded));
+  byId('toggle-sidebar').hidden = expanded;
   byId('toggle-sidebar').setAttribute('aria-label', label);
   byId('toggle-sidebar').title = label + ' (⌘/Ctrl+B)';
 }
@@ -44,8 +45,8 @@ function toggleNavigation() {
   if (mobileNavigation.matches) document.body.classList.add('sidebar-open');
   else desktopNavigationCollapsed = false;
   syncNavigation();
-  if (mobileNavigation.matches) requestAnimationFrame(() => {
-    if (mobileNavigation.matches && document.body.classList.contains('sidebar-open')) byId('sidebar-close').focus();
+  requestAnimationFrame(() => {
+    if (byId('toggle-sidebar').getAttribute('aria-expanded') === 'true') byId('sidebar-close').focus();
   });
 }
 byId('toggle-sidebar').addEventListener('click', toggleNavigation);

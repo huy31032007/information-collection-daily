@@ -73,7 +73,7 @@ input:focus-visible,select:focus-visible{border-color:var(--accent)}
 @media(max-width:559px){.history-actions{gap:10px}.history-actions .history-view-switch{flex:1 1 100%}.history-toggle{margin-left:auto}}
 
 /* The same sidebar control stays available while reading on every screen. */
-.sidebar-brand{gap:8px;margin-inline:0}
+.sidebar-brand{gap:8px;margin-inline:0;position:sticky;top:0;background:var(--surface);z-index:1}
 .sidebar-brand .brand{min-width:0;gap:8px}
 .sidebar-brand .brand-mark{flex:none;width:32px;height:32px}
 .sidebar-toggle{flex:none}
