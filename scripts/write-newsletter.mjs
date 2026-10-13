@@ -1,49 +1,169 @@
-import { readFile, writeFile, rename, unlink, mkdir, readdir } from 'node:fs/promises';
+import { readFile, open, rename, unlink, mkdir, readdir } from 'node:fs/promises';
+import { randomUUID } from 'node:crypto';
+import { setTimeout as delay } from 'node:timers/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { validateNewsletter, TIMEZONE } from '../dist/lib.mjs';
 import { validateArchiveIndex } from '../dist/history.mjs';
 
-const target = fileURLToPath(new URL('../dist/data/latest.json', import.meta.url));
-const archive = path.join(path.dirname(target), 'archive');
-let input = ''; for await (const chunk of process.stdin) { input += chunk; if (input.length > 600_000) throw new Error('Newsletter input is too large.'); }
-const report = validateNewsletter({ ...JSON.parse(input), exportedAt: new Date().toISOString() });
-if (!report) throw new Error('Refusing to publish an empty report.');
-async function readOptional(file) { try { return JSON.parse(await readFile(file, 'utf8')); } catch (error) { if (error.code === 'ENOENT') return null; throw error; } }
-async function atomic(file, value) {
-  const body = JSON.stringify(value, null, 2) + '\n';
-  try { if (await readFile(file, 'utf8') === body) return false; } catch (error) { if (error.code !== 'ENOENT') throw error; }
-  const temporary = file + '.' + process.pid + '.tmp'; let created = false;
-  try { await writeFile(temporary, body, { flag: 'wx' }); created = true; await rename(temporary, file); return true; }
-  finally { if (created) await unlink(temporary).catch(error => { if (error.code !== 'ENOENT') throw error; }); }
-}
-const sameContent = (a, b) => ['markdown','title','reportDate','coverageStart','coverageEnd','sourceThreadId','cutoffAt','timezone'].every(key => a[key] === b[key]);
-const current = validateNewsletter(await readOptional(target));
-if (current && report.sourceThreadId !== current.sourceThreadId) throw new Error('Refusing a report from a different pipeline thread.');
-if (current && Date.parse(report.cutoffAt) < Date.parse(current.cutoffAt)) throw new Error('Refusing to overwrite a newer newsletter.');
-const unchanged = Boolean(current && current.cutoffAt === report.cutoffAt);
-if (unchanged && !sameContent(report, current)) throw new Error('Same cutoff has different content. Preserve it and resolve the conflict.');
+const data = fileURLToPath(new URL('../dist/data/', import.meta.url));
+const archive = path.join(data, 'archive');
+const latest = path.join(data, 'latest.json');
+const runtime = fileURLToPath(new URL('../.sites-runtime/', import.meta.url));
+const lockPath = path.join(runtime, 'newsletter-writer.lock');
+const MAX_BYTES = 600_000;
+const CONTENT_KEYS = ['markdown', 'title', 'reportDate', 'coverageStart',
+  'coverageEnd', 'sourceThreadId', 'cutoffAt', 'timezone'];
 
-const records = new Map();
-let files = []; try { files = await readdir(archive); } catch (error) { if (error.code !== 'ENOENT') throw error; }
-for (const file of files.filter(file => /^\d{4}-\d{2}-\d{2}\.json$/.test(file))) {
-  const record = validateNewsletter(await readOptional(path.join(archive, file)));
-  if (!record || record.reportDate + '.json' !== file || record.sourceThreadId !== report.sourceThreadId) throw new Error('Archive contains a mismatched date or pipeline. Preserve it and inspect before publishing.');
-  records.set(record.reportDate, record);
+async function readInput() {
+  const chunks = [];
+  let bytes = 0;
+  for await (const chunk of process.stdin) {
+    bytes += chunk.length;
+    if (bytes > MAX_BYTES) throw new Error('Newsletter input is too large.');
+    chunks.push(chunk);
+  }
+  let value;
+  try {
+    const text = new TextDecoder('utf-8', { fatal: true }).decode(Buffer.concat(chunks));
+    value = JSON.parse(text);
+  } catch {
+    throw new Error('Input must be valid UTF-8 JSON.');
+  }
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw new Error('Refusing an empty or invalid report.');
+  }
+  return validateNewsletter({ ...value, exportedAt: new Date().toISOString() });
 }
-const pending = new Map();
-function plan(record, { currentSnapshot = false } = {}) {
-  if (!record) return; const existing = records.get(record.reportDate);
-  if (existing && existing.cutoffAt === record.cutoffAt) { if (!sameContent(existing, record)) throw new Error('Archived report conflicts at the same cutoff.'); return; }
-  if (existing && Date.parse(existing.cutoffAt) > Date.parse(record.cutoffAt)) { if (currentSnapshot) return; throw new Error('Refusing to replace a newer archived report.'); }
-  records.set(record.reportDate, record); pending.set(record.reportDate, record);
-}
-plan(current, { currentSnapshot: true }); plan(unchanged ? current : report);
-const index = validateArchiveIndex({ version: 1, timezone: TIMEZONE, reports: [...records.values()].map(record => ({ reportDate: record.reportDate, cutoffAt: record.cutoffAt, title: record.title })) });
 
-// Publish files before their index; a failed archive write cannot discard the current report.
-await mkdir(archive, { recursive: true });
-for (const [date, record] of pending) await atomic(path.join(archive, date + '.json'), record);
-await atomic(path.join(archive, 'index.json'), index);
-if (!unchanged) await atomic(target, report);
-console.log(JSON.stringify({ unchanged, written: !unchanged, cutoffAt: (unchanged ? current : report).cutoffAt, archivedDays: records.size }));
+async function acquireLock() {
+  await mkdir(runtime, { recursive: true });
+  const deadline = Date.now() + 5000;
+  for (;;) {
+    try { return await open(lockPath, 'wx', 0o600); }
+    catch (error) {
+      if (error.code !== 'EEXIST') throw error;
+      if (Date.now() >= deadline) {
+        throw new Error('Writer lock is busy. Inspect the active writer before retrying.');
+      }
+      await delay(50);
+    }
+  }
+}
+
+async function readJSON(file) {
+  let text;
+  try { text = await readFile(file, 'utf8'); }
+  catch (error) { if (error.code === 'ENOENT') return null; throw error; }
+  try { return JSON.parse(text); }
+  catch { throw new Error('Invalid JSON in ' + path.basename(file) + '.'); }
+}
+
+const sameContent = (a, b) => CONTENT_KEYS.every(key => a[key] === b[key]);
+
+async function readArchive(threadId) {
+  let files;
+  try { files = await readdir(archive); }
+  catch (error) { if (error.code === 'ENOENT') return new Map(); throw error; }
+  files = files.filter(file => /^\d{4}-\d{2}-\d{2}\.json$/.test(file)).sort();
+  const records = new Map();
+  for (let offset = 0; offset < files.length; offset += 4) {
+    const batch = files.slice(offset, offset + 4);
+    const values = await Promise.all(batch.map(async file => {
+      const record = validateNewsletter(await readJSON(path.join(archive, file)));
+      if (!record || record.reportDate + '.json' !== file || record.sourceThreadId !== threadId) {
+        throw new Error('Archive contains a mismatched date or pipeline. Preserve it.');
+      }
+      return record;
+    }));
+    for (const record of values) records.set(record.reportDate, record);
+  }
+  return records;
+}
+
+function serialize(value, limit = MAX_BYTES) {
+  const body = Buffer.from(JSON.stringify(value, null, 2) + '\n');
+  if (body.length > limit) throw new Error('Serialized data exceeds the web size limit.');
+  return body;
+}
+
+async function atomicWrite(file, body) {
+  try { if ((await readFile(file)).equals(body)) return; }
+  catch (error) { if (error.code !== 'ENOENT') throw error; }
+  const temporary = `${file}.${process.pid}.${randomUUID()}.tmp`;
+  let handle;
+  let created = false;
+  try {
+    handle = await open(temporary, 'wx', 0o644);
+    created = true;
+    await handle.writeFile(body);
+    await handle.sync();
+    await handle.close();
+    handle = null;
+    await rename(temporary, file);
+  } finally {
+    if (handle) await handle.close();
+    if (created) await unlink(temporary).catch(error => {
+      if (error.code !== 'ENOENT') throw error;
+    });
+  }
+}
+
+async function publish(report) {
+  const current = validateNewsletter(await readJSON(latest));
+  if (current && current.sourceThreadId !== report.sourceThreadId) {
+    throw new Error('Refusing a report from a different pipeline thread.');
+  }
+  const records = await readArchive(report.sourceThreadId);
+  for (const existing of [current, ...records.values()]) {
+    if (existing && Date.parse(existing.cutoffAt) > Date.parse(report.cutoffAt)) {
+      throw new Error('Refusing to overwrite a newer stored newsletter.');
+    }
+  }
+  const unchanged = Boolean(current && current.cutoffAt === report.cutoffAt);
+  if (unchanged && !sameContent(current, report)) {
+    throw new Error('Same cutoff has different content. Preserve it and resolve the conflict.');
+  }
+  const pending = new Map();
+  function plan(record, currentSnapshot = false) {
+    if (!record) return;
+    const existing = records.get(record.reportDate);
+    if (existing?.cutoffAt === record.cutoffAt) {
+      if (!sameContent(existing, record)) throw new Error('Archived report conflicts at the same cutoff.');
+      return;
+    }
+    if (existing && Date.parse(existing.cutoffAt) > Date.parse(record.cutoffAt)) {
+      if (currentSnapshot) return;
+      throw new Error('Refusing to replace a newer archived report.');
+    }
+    records.set(record.reportDate, record);
+    pending.set(record.reportDate, record);
+  }
+  plan(current, true);
+  plan(unchanged ? current : report);
+  const index = validateArchiveIndex({ version: 1, timezone: TIMEZONE,
+    reports: [...records.values()].map(({ reportDate, cutoffAt, title }) => ({ reportDate, cutoffAt, title })) });
+  // Validate every serialized payload before changing any published file.
+  const writes = [...pending].map(([date, record]) => [path.join(archive, date + '.json'), serialize(record)]);
+  writes.push([path.join(archive, 'index.json'), serialize(index, 8_000_000)]);
+  if (!unchanged) writes.push([latest, serialize(report)]);
+  await mkdir(archive, { recursive: true });
+  // Each file is atomic; publish the archive before its index and latest.
+  for (const [file, body] of writes) await atomicWrite(file, body);
+  return { unchanged, written: !unchanged, cutoffAt: (unchanged ? current : report).cutoffAt,
+    archivedDays: records.size };
+}
+
+async function main() {
+  const report = await readInput();
+  const lock = await acquireLock();
+  try {
+    await lock.writeFile(JSON.stringify({ pid: process.pid, startedAt: new Date().toISOString() }));
+    console.log(JSON.stringify(await publish(report)));
+  } finally {
+    try { await lock.close(); }
+    finally { await unlink(lockPath); }
+  }
+}
+
+main().catch(error => { console.error(error.message); process.exitCode = 1; });

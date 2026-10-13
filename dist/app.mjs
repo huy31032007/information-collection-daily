@@ -1,6 +1,6 @@
 import { TOPICS, TIMEZONE, validateNewsletter, parseSections, extractSources, formatTime, reportFreshness, filterSections, vietnamDate } from './lib.mjs';
 import { renderMarkdown } from './markdown.mjs';
-import { renderDashboard } from './dashboard.mjs';
+import { renderDashboard, renderReportList } from './dashboard.mjs';
 import { validDate, addDays, dateLabel, weekRange, validateArchiveIndex, validateArchivedReport } from './history.mjs';
 import { renderCalendar, renderWeek } from './history-ui.mjs';
 
@@ -106,19 +106,14 @@ function render() {
     byId('result-count').textContent = `${week.reports.length} bản tin trong tuần · bộ lọc áp dụng cho phân tích theo chủ đề`;
     return;
   }
-  const content = byId('report-content'); content.replaceChildren();
+  const content = byId('report-content');
   for (const button of byId('topics').children) button.setAttribute('aria-pressed', String(button.dataset.topic === state.filters.topic));
-  if (!state.report) return;
+  if (!state.report) { content.replaceChildren(); return; }
   const sections = filterSections(state.sections, state.report, state.filters);
   byId('no-results').hidden = sections.length !== 0;
   const count = sections.filter(s => s.id !== 'glossary').length;
   byId('result-count').textContent = `${count} / 9 chuyên mục${sections.some(s => s.id === 'glossary') ? ' · kèm giải thích thuật ngữ' : ''}`;
-  for (const section of sections) {
-    const article = make('section', null, 'report-section'); article.id = 'section-' + section.id;
-    const header = make('div', null, 'section-header'); header.append(make('span', section.id === 'glossary' ? 'Aa' : section.id.padStart(2, '0'), 'section-number'));
-    const heading = make('h2', section.title); heading.id = article.id + '-heading'; article.setAttribute('aria-labelledby', heading.id); header.append(heading); article.append(header);
-    const body = make('div', null, 'section-body'); body.append(renderMarkdown(section.body)); article.append(body); content.append(article);
-  }
+  renderReportList(content, sections);
 }
 function setDayMetadata(report) {
   byId('report-date').textContent = new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(report.cutoffAt));

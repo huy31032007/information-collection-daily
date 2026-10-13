@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "check": "node scripts/check.mjs",
-    "test": "node --test tests/core.test.mjs",
+    "test": "node --test tests/core.test.mjs tests/refactor.test.mjs",
     "preview": "node scripts/preview.mjs"
   }
 }

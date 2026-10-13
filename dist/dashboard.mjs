@@ -1,4 +1,4 @@
-import { extractSources, normalizeText, formatTime } from './lib.mjs';
+import { extractSources, normalizeText, formatTime, safeLink } from './lib.mjs';
 import { renderMarkdown } from './markdown.mjs';
 
 const clean = text => text.replace(/\*\*|`/g, '').trim();
@@ -77,79 +77,198 @@ export function readDashboardData(sections) {
   return { indices, stockTable, gold: goldMetric, oil: oilMetric, insight };
 }
 
-const make = (tag, text, className) => { const node = document.createElement(tag); if (text != null) node.textContent = text; if (className) node.className = className; return node; };
-function sources(parent, list = []) {
+const listCache = new WeakMap();
+const metricSlots = [
+  { label: 'VN-Index', tone: 'teal', select: data => data.indices.find(row => row.label === 'VN-Index') },
+  { label: 'VN30', tone: 'slate', select: data => data.indices.find(row => row.label === 'VN30') },
+  { label: 'Vàng miếng SJC', tone: 'amber', select: data => data.gold },
+  { label: 'Dầu Brent', tone: 'orange', select: data => data.oil },
+];
+
+function make(tag, text, className) {
+  const node = document.createElement(tag);
+  if (text != null) node.textContent = text;
+  if (className) node.className = className;
+  return node;
+}
+
+function appendSources(parent, list = []) {
   const line = make('div', null, 'dashboard-sources');
-  for (const source of list) { const link = make('a', source.name); link.href = source.href; link.target = '_blank'; link.rel = 'noopener noreferrer'; line.append(link); }
+  const seen = new Set();
+  for (const source of list) {
+    const href = safeLink(source.href);
+    if (!href || seen.has(href)) continue;
+    seen.add(href);
+    const link = make('a', source.name || source.label || new URL(href).hostname);
+    link.href = href; link.target = '_blank'; link.rel = 'noopener noreferrer';
+    line.append(link);
+  }
   parent.append(line);
 }
-function metric(data, label, tone) {
-  const card = make('article', null, 'market-card ' + tone), heading = make('p', data?.label || label, 'market-label');
+
+function panel(title, badge, badgeClass = 'panel-tag', className = '') {
+  const node = make('section', null, 'dashboard-panel ' + className);
+  const heading = make('div', null, 'panel-heading');
+  heading.append(make('h2', title), make('span', badge, badgeClass));
+  node.append(heading);
+  return node;
+}
+
+function movement(data) {
+  const change = changeParts(data.change || '', data.section === '2' ? 'điểm' : '');
+  if (!change) return data.change ? make('p', data.change, 'market-meta') : null;
+  const direction = change.percent.value < 0 ? 'down' : change.percent.value > 0 ? 'up' : 'flat';
+  const prefix = change.approximate ? '≈ ' : '';
+  const badge = make('span', null, 'change-badge ' + direction);
+  const arrow = make('span', direction === 'up' ? '▲' : direction === 'down' ? '▼' : '•');
+  arrow.setAttribute('aria-hidden', 'true');
+  badge.append(arrow, document.createTextNode(prefix + change.percent.text));
+  const action = direction === 'up' ? 'Tăng ' : direction === 'down' ? 'Giảm ' : 'Biến động ';
+  badge.setAttribute('aria-label', action + (change.approximate ? 'khoảng ' : '') + change.percent.text);
+  const line = make('div', null, 'market-change');
+  line.append(badge, make('span', change.amount + (change.unit ? ' ' + change.unit : ''), 'market-change-amount'));
+  return line;
+}
+
+function metric(data, slot) {
+  const card = make('article', null, 'market-card ' + slot.tone);
+  const heading = make('p', data?.label || slot.label, 'market-label');
   if (data?.section === '3') heading.append(document.createTextNode(' '), make('span', 'Bán ra', 'market-price-side'));
   card.append(heading);
-  if (!data) { card.append(make('p', 'Chưa có số liệu phù hợp', 'metric-empty'), make('p', 'Xem dữ kiện và giới hạn trong bản tin bên dưới.', 'market-meta')); return card; }
-  const quote = make('div', null, 'market-quote'), parts = quoteParts(data.value, data.section === '2' ? 'điểm' : '');
+  if (!data) {
+    card.append(make('p', 'Chưa có số liệu phù hợp', 'metric-empty'),
+      make('p', 'Xem dữ kiện và giới hạn trong bản tin bên dưới.', 'market-meta'));
+    return card;
+  }
+  const quote = make('div', null, 'market-quote');
+  const parts = quoteParts(data.value, data.section === '2' ? 'điểm' : '');
   if (parts) quote.append(make('strong', parts.number, 'market-value'), make('span', parts.unit, 'market-unit'));
   else quote.append(make('p', data.value, 'market-unparsed'));
   card.append(quote);
-  const change = changeParts(data.change || '', data.section === '2' ? 'điểm' : '');
-  if (change) {
-    const line = make('div', null, 'market-change'), direction = change.percent.value < 0 ? 'down' : change.percent.value > 0 ? 'up' : 'flat';
-    const badge = make('span', null, 'change-badge ' + direction);
-    const arrow = make('span', direction === 'up' ? '▲' : direction === 'down' ? '▼' : '•'); arrow.setAttribute('aria-hidden', 'true');
-    badge.append(arrow, document.createTextNode((change.approximate ? '≈ ' : '') + change.percent.text));
-    badge.setAttribute('aria-label', (direction === 'up' ? 'Tăng ' : direction === 'down' ? 'Giảm ' : 'Biến động ') + (change.approximate ? 'khoảng ' : '') + change.percent.text);
-    line.append(badge, make('span', change.amount + (change.unit ? ' ' + change.unit : ''), 'market-change-amount')); card.append(line);
-  } else if (data.change) card.append(make('p', data.change, 'market-meta'));
+  const change = movement(data);
+  if (change) card.append(change);
   const details = make('dl', null, 'market-details');
-  for (const row of marketMetadata(data)) { const pair = make('div', null, 'market-detail-row'); pair.append(make('dt', row.label), make('dd', row.value)); details.append(pair); }
-  card.append(details);
-  sources(card, data.sources); return card;
+  for (const row of marketMetadata(data)) {
+    const pair = make('div', null, 'market-detail-row');
+    pair.append(make('dt', row.label), make('dd', row.value)); details.append(pair);
+  }
+  card.append(details); appendSources(card, data.sources);
+  return card;
 }
+
+function snapshotTable(table) {
+  const node = make('table', null, 'snapshot-table');
+  node.append(make('caption', 'Dữ liệu nguyên văn từ bảng chỉ số trong bản tin'));
+  const thead = make('thead'), headings = make('tr');
+  for (const name of table.headers) { const cell = make('th', name); cell.scope = 'col'; headings.append(cell); }
+  thead.append(headings); node.append(thead);
+  const tbody = make('tbody');
+  for (const row of table.rows) {
+    const tr = make('tr');
+    row.forEach((value, index) => { const td = make('td', value); td.dataset.label = table.headers[index]; tr.append(td); });
+    tbody.append(tr);
+  }
+  node.append(tbody);
+  return node;
+}
+
 function chart(snapshot) {
-  const card = make('section', null, 'dashboard-panel chart-panel'); const head = make('div', null, 'panel-heading');
-  head.append(make('h2', 'Biến động các chỉ số'), make('span', '% thay đổi', 'panel-tag')); card.append(head);
-  const values = snapshot.indices.filter(row => row.percent); const table = snapshot.stockTable;
-  if (!values.length) { card.append(make('p', 'Chưa có dữ liệu và mốc so sánh phù hợp để vẽ biểu đồ.', 'chart-empty')); return card; }
+  const card = panel('Biến động các chỉ số', '% thay đổi', 'panel-tag', 'chart-panel');
+  const values = snapshot.indices.filter(row => row.percent), table = snapshot.stockTable;
+  if (!values.length) {
+    card.append(make('p', 'Chưa có dữ liệu và mốc so sánh phù hợp để vẽ biểu đồ.', 'chart-empty'));
+    return card;
+  }
   card.append(make('p', values[0].time.split(' · ')[0], 'chart-date'));
   const comparison = clean(table.before).match(/so với[^,;:.\n]+/i)?.[0];
   card.append(make('p', 'Mốc so sánh: ' + (comparison || 'xem chú thích bảng số liệu'), 'chart-context'));
-  const lower = Math.min(0, ...values.map(row => row.percent.value)), upper = Math.max(0, ...values.map(row => row.percent.value));
-  const min = lower < 0 ? -Math.ceil(Math.abs(lower) * 2) / 2 : 0, max = upper > 0 ? Math.ceil(upper * 2) / 2 : 0;
-  const span = max - min || 1; const zero = -min / span * 100;
-  const plot = make('div', null, 'comparison-plot'); plot.setAttribute('role', 'img'); plot.setAttribute('aria-label', values.map(row => `${row.label}: ${row.percent.text}, ${row.time}`).join('; '));
+  const lower = Math.min(0, ...values.map(row => row.percent.value));
+  const upper = Math.max(0, ...values.map(row => row.percent.value));
+  const min = lower < 0 ? -Math.ceil(Math.abs(lower) * 2) / 2 : 0;
+  const max = upper > 0 ? Math.ceil(upper * 2) / 2 : 0;
+  const span = max - min || 1, zero = -min / span * 100;
+  const plot = make('div', null, 'comparison-plot');
+  plot.setAttribute('role', 'img');
+  plot.setAttribute('aria-label', values.map(row => `${row.label}: ${row.percent.text}, ${row.time}`).join('; '));
   for (const row of values) {
-    const line = make('div', null, 'plot-row'); const label = make('div', null, 'plot-label'); label.append(make('strong', row.label), make('span', row.observedTime));
-    const track = make('div', null, 'plot-track'); const baseline = make('span', null, 'plot-zero'); baseline.style.left = zero + '%';
-    const bar = make('span', null, 'plot-bar ' + (row.percent.value < 0 ? 'negative' : 'positive')); bar.style.left = (Math.min(0, row.percent.value) - min) / span * 100 + '%'; bar.style.width = Math.abs(row.percent.value) / span * 100 + '%';
-    track.append(baseline, bar); line.append(label, track, make('strong', row.percent.text, 'plot-value')); plot.append(line);
+    const line = make('div', null, 'plot-row'), label = make('div', null, 'plot-label');
+    label.append(make('strong', row.label), make('span', row.observedTime));
+    const track = make('div', null, 'plot-track'), baseline = make('span', null, 'plot-zero');
+    baseline.style.left = zero + '%';
+    const bar = make('span', null, 'plot-bar ' + (row.percent.value < 0 ? 'negative' : 'positive'));
+    bar.style.left = (Math.min(0, row.percent.value) - min) / span * 100 + '%';
+    bar.style.width = Math.abs(row.percent.value) / span * 100 + '%';
+    track.append(baseline, bar); line.append(label, track, make('strong', row.percent.text, 'plot-value'));
+    plot.append(line);
   }
   card.append(plot);
-  const scale = make('div', null, 'plot-scale'); const number = value => new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 }).format(value) + '%';
-  scale.append(make('span', number(min)), make('span', 'Tỷ lệ thay đổi (%)'), make('span', number(max))); card.append(scale);
-  const legend = make('p', null, 'plot-legend'); legend.append(make('span', '+ Tăng', 'increase'), make('span', '− Giảm', 'decrease')); card.append(legend);
+  const scale = make('div', null, 'plot-scale');
+  const number = value => new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 2 }).format(value) + '%';
+  scale.append(make('span', number(min)), make('span', 'Tỷ lệ thay đổi (%)'), make('span', number(max)));
+  card.append(scale);
+  const legend = make('p', null, 'plot-legend');
+  legend.append(make('span', '+ Tăng', 'increase'), make('span', '− Giảm', 'decrease')); card.append(legend);
   card.append(make('p', 'So sánh phần trăm thay đổi, không so sánh số điểm giữa các bộ chỉ số. Thời điểm từng chỉ số có thể khác nhau.', 'chart-note'));
-  sources(card, table.sources);
-  const disclosure = make('details', null, 'chart-details'); disclosure.append(make('summary', 'Xem bảng số liệu và chú thích nguồn'));
-  const accessible = make('table', null, 'snapshot-table'); const caption = make('caption', 'Dữ liệu nguyên văn từ bảng chỉ số trong bản tin'); accessible.append(caption);
-  const thead = make('thead'); const headings = make('tr'); for (const name of table.headers) { const th = make('th', name); th.scope = 'col'; headings.append(th); } thead.append(headings); accessible.append(thead);
-  const tbody = make('tbody'); for (const row of table.rows) { const tr = make('tr'); for (let i = 0; i < row.length; i++) { const td = make('td', row[i]); td.dataset.label = table.headers[i]; tr.append(td); } tbody.append(tr); } accessible.append(tbody); disclosure.append(accessible, renderMarkdown(table.after)); card.append(disclosure); return card;
+  appendSources(card, table.sources);
+  const disclosure = make('details', null, 'chart-details');
+  disclosure.append(make('summary', 'Xem bảng số liệu và chú thích nguồn'), snapshotTable(table), renderMarkdown(table.after));
+  card.append(disclosure);
+  return card;
 }
+
 function framework() {
-  const panel = make('section', null, 'dashboard-panel framework-panel'); const head = make('div', null, 'panel-heading'); head.append(make('h2', 'Sơ đồ đọc phân tích'), make('span', 'Khung tham khảo', 'panel-tag')); panel.append(head);
+  const node = panel('Sơ đồ đọc phân tích', 'Khung tham khảo', 'panel-tag', 'framework-panel');
   const flow = make('ol', null, 'analysis-flow');
-  const nodes = [['Vĩ mô', 'Tăng trưởng, lạm phát, lãi suất và tỷ giá.'], ['Doanh nghiệp', 'Doanh thu, chi phí, nợ và khả năng tăng giá bán.'], ['Kết quả tài chính', 'Lợi nhuận và tiền thực thu, thực chi.'], ['Định giá & thị trường', 'Giá tài sản, sức mua và mức độ lan tỏa.']];
-  for (let i = 0; i < nodes.length; i++) { const item = make('li'); item.append(make('span', String(i + 1).padStart(2, '0'), 'flow-step'), make('h3', nodes[i][0]), make('p', nodes[i][1])); if (i < nodes.length - 1) { const arrow = make('span', '→', 'flow-arrow'); arrow.setAttribute('aria-hidden', 'true'); item.append(arrow); } flow.append(item); }
-  panel.append(flow, make('p', 'Mũi tên biểu thị kênh tác động cần kiểm chứng. Quan hệ nhân quả, điều kiện và rủi ro phải được đối chiếu với dữ kiện trong bản tin.', 'chart-note')); return panel;
+  const steps = [['Vĩ mô', 'Tăng trưởng, lạm phát, lãi suất và tỷ giá.'],
+    ['Doanh nghiệp', 'Doanh thu, chi phí, nợ và khả năng tăng giá bán.'],
+    ['Kết quả tài chính', 'Lợi nhuận và tiền thực thu, thực chi.'],
+    ['Định giá & thị trường', 'Giá tài sản, sức mua và mức độ lan tỏa.']];
+  steps.forEach(([title, text], index) => {
+    const item = make('li');
+    item.append(make('span', String(index + 1).padStart(2, '0'), 'flow-step'), make('h3', title), make('p', text));
+    if (index < steps.length - 1) { const arrow = make('span', '→', 'flow-arrow'); arrow.setAttribute('aria-hidden', 'true'); item.append(arrow); }
+    flow.append(item);
+  });
+  node.append(flow, make('p', 'Mũi tên biểu thị kênh tác động cần kiểm chứng. Quan hệ nhân quả, điều kiện và rủi ro phải được đối chiếu với dữ kiện trong bản tin.', 'chart-note'));
+  return node;
 }
+
 export function renderDashboard(container, sections, report) {
-  container.replaceChildren(); container.setAttribute('aria-busy', 'false');
-  if (!report) { container.append(make('p', 'Dashboard sẽ hiển thị khi có bản tin hợp lệ. Bạn có thể dùng nút làm mới để thử lại.', 'dashboard-empty')); return; }
-  const snapshot = readDashboardData(sections);
-  const heading = make('div', null, 'dashboard-heading'); heading.append(make('h2', 'Bản chụp thị trường'), make('p', 'Theo bản tin chốt ' + formatTime(report.cutoffAt) + ' · giờ Việt Nam')); container.append(heading);
-  const metrics = make('div', null, 'market-cards'); metrics.append(metric(snapshot.indices.find(row => row.label === 'VN-Index'), 'VN-Index', 'teal'), metric(snapshot.indices.find(row => row.label === 'VN30'), 'VN30', 'slate'), metric(snapshot.gold, 'Vàng miếng SJC', 'amber'), metric(snapshot.oil, 'Dầu Brent', 'orange')); container.append(metrics);
-  const panels = make('div', null, 'dashboard-panels'); panels.append(chart(snapshot));
-  const insight = make('section', null, 'dashboard-panel insight-panel'); const head = make('div', null, 'panel-heading'); head.append(make('h2', 'Góc nhìn thị trường'), make('span', 'Nhận định', 'analysis-label')); insight.append(head);
-  const body = make('div', null, 'insight-body'); if (snapshot.insight) body.append(renderMarkdown(snapshot.insight)); else body.append(make('p', 'Chưa có nhận định phù hợp trong bản tin.')); insight.append(body);
-  const link = make('a', 'Đọc phân tích và các kịch bản →', 'read-analysis'); link.href = '#section-2'; insight.append(link); panels.append(insight); container.append(panels, framework());
+  const nodes = [];
+  if (!report) nodes.push(make('p', 'Dashboard sẽ hiển thị khi có bản tin hợp lệ. Bạn có thể dùng nút làm mới để thử lại.', 'dashboard-empty'));
+  else {
+    const snapshot = readDashboardData(sections), heading = make('div', null, 'dashboard-heading');
+    heading.append(make('h2', 'Bản chụp thị trường'), make('p', 'Theo bản tin chốt ' + formatTime(report.cutoffAt) + ' · giờ Việt Nam'));
+    const metrics = make('div', null, 'market-cards');
+    for (const slot of metricSlots) metrics.append(metric(slot.select(snapshot), slot));
+    const panels = make('div', null, 'dashboard-panels');
+    const insight = panel('Góc nhìn thị trường', 'Nhận định', 'analysis-label', 'insight-panel');
+    const body = make('div', null, 'insight-body');
+    body.append(snapshot.insight ? renderMarkdown(snapshot.insight) : make('p', 'Chưa có nhận định phù hợp trong bản tin.'));
+    const link = make('a', 'Đọc phân tích và các kịch bản →', 'read-analysis'); link.href = '#section-2';
+    insight.append(body, link); panels.append(chart(snapshot), insight);
+    nodes.push(heading, metrics, panels, framework());
+  }
+  container.replaceChildren(...nodes);
+  container.setAttribute('aria-busy', 'false');
+}
+
+export function renderReportList(container, sections) {
+  const cache = listCache.get(container) || new Map();
+  const counts = new Map();
+  for (const section of sections) counts.set(section.id, (counts.get(section.id) || 0) + 1);
+  const nodes = sections.map(section => {
+    const previous = counts.get(section.id) === 1 && cache.get(section.id);
+    if (previous && previous.title === section.title && previous.body === section.body) return previous.node;
+    const node = make('section', null, 'report-section'); node.id = 'section-' + section.id;
+    const header = make('div', null, 'section-header');
+    header.append(make('span', section.id === 'glossary' ? 'Aa' : section.id.padStart(2, '0'), 'section-number'));
+    const heading = make('h2', section.title); heading.id = node.id + '-heading';
+    node.setAttribute('aria-labelledby', heading.id); header.append(heading); node.append(header);
+    const body = make('div', null, 'section-body'); body.append(renderMarkdown(section.body)); node.append(body);
+    if (counts.get(section.id) === 1) cache.set(section.id, { title: section.title, body: section.body, node });
+    return node;
+  });
+  container.replaceChildren(...nodes);
+  listCache.set(container, cache);
 }
