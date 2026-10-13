@@ -61,3 +61,13 @@ input:focus-visible,select:focus-visible{border-color:var(--accent)}
 
 .market-card,.dashboard-panel,.history-panel,.filter-panel,.report-section,.weekly-highlight,.weekly-topic{box-shadow:0 2px 10px rgba(0,0,0,.04)}
 .plot-bar.positive{background:#34C759}
+
+/* Collapse the calendar without changing the selected report or reading mode. */
+.history-toolbar>div:first-child{min-width:0}
+.history-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+.history-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;flex:none}
+.history-toggle svg{width:16px;height:16px}
+.history-toggle[aria-expanded=false] svg{transform:rotate(180deg)}
+.history-panel.is-collapsed .history-toolbar{margin-bottom:0}
+@media(max-width:1279px){.history-actions{justify-content:flex-start;margin-top:16px}.history-actions .history-view-switch{margin-top:0}}
+@media(max-width:559px){.history-actions{gap:10px}.history-actions .history-view-switch{flex:1 1 100%}.history-toggle{margin-left:auto}}

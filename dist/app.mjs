@@ -12,6 +12,14 @@ const archiveCache = new Map();
 const make = (tag, text, className) => { const node = document.createElement(tag); if (text != null) node.textContent = text; if (className) node.className = className; return node; };
 function status(text, kind = '') { const node = byId('status'); node.textContent = text; node.className = 'status ' + kind; }
 
+function setHistoryExpanded(expanded) {
+  byId('history-body').hidden = !expanded;
+  byId('history-panel').classList.toggle('is-collapsed', !expanded);
+  byId('toggle-history').setAttribute('aria-expanded', String(expanded));
+  byId('toggle-history-label').textContent = expanded ? 'Thu gọn' : 'Mở lịch';
+}
+byId('toggle-history').addEventListener('click', () => setHistoryExpanded(byId('history-body').hidden));
+
 const mobileNavigation = window.matchMedia('(max-width: 1023px)');
 function closeNavigation({ focus = false } = {}) {
   document.body.classList.remove('sidebar-open'); byId('toggle-sidebar').setAttribute('aria-expanded', 'false');
@@ -36,6 +44,7 @@ document.addEventListener('keydown', event => {
 mobileNavigation.addEventListener('change', () => closeNavigation()); closeNavigation();
 for (const anchor of document.querySelectorAll('[data-dashboard-nav]')) anchor.addEventListener('click', event => {
   event.preventDefault(); resetFilters(); closeNavigation();
+  if (anchor.hash === '#history-panel') setHistoryExpanded(true);
   const targetHash = state.mode === 'week' ? anchor.hash === '#market-overview' ? '#weekly-content' : anchor.hash.replace('#section-', '#week-topic-') : anchor.hash;
   const target = document.querySelector(targetHash); if (target?.tagName === 'DETAILS') target.open = true; target?.scrollIntoView({ block: 'start' }); (target?.querySelector('summary') || target)?.focus({ preventScroll: true });
   history.replaceState(null, '', anchor.hash);

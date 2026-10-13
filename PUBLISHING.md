@@ -4,7 +4,7 @@
 
 ## Đích xuất bản chính — GitHub và Cloudflare
 
-Theo yêu cầu mới của người dùng, sau mỗi bản tin phải tự commit/push lên repository hiện có và cập nhật Cloudflare Workers. Giữ nguyên lịch 09:00 giờ Việt Nam, nội dung bản tin, writer, giao diện và schema. Không tạo automation khác, API, database, nguồn thu thập tin, Worker hoặc domain mới.
+Theo yêu cầu mới của người dùng, sau mỗi bản tin phải tự commit/push lên repository hiện có và cập nhật Cloudflare Workers. Giữ nguyên lịch 09:30 giờ Việt Nam, nội dung bản tin, writer, giao diện và schema. Không tạo automation khác, API, database, nguồn thu thập tin, Worker hoặc domain mới.
 
 - Workspace: `/Users/quanghuyvu/Documents/Workspace/Claude Code/projects/information-collection` (macOS có thể trả tên thư mục `Claude code`).
 - Repository: `https://github.com/huy31032007/information-collection-daily.git`; remote `origin`, nhánh đích `main`.
@@ -61,4 +61,4 @@ Lịch sử và tuần dùng writer/web hiện có; commit/push cả archive do 
 
 ## Giới hạn vận hành
 
-Lịch là local và chỉ thực hiện khi môi trường chạy khả dụng. Lưu thành công hướng dẫn không bảo đảm lượt chạy tương lai. Đường xuất bản cần kiểm chứng thực tế; không chờ tới 09:00 hôm sau chỉ để kiểm tra bước ghi/publish/readback. Không dùng JavaScript polling trên trình duyệt thay cho lịch tạo và xuất bản bản tin.
+Lịch là local và chỉ thực hiện khi môi trường chạy khả dụng. Lưu thành công hướng dẫn không bảo đảm lượt chạy tương lai. Đường xuất bản cần kiểm chứng thực tế; không chờ tới 09:30 hôm sau chỉ để kiểm tra bước ghi/publish/readback. Không dùng JavaScript polling trên trình duyệt thay cho lịch tạo và xuất bản bản tin.
