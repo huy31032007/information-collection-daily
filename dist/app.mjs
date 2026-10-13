@@ -21,19 +21,40 @@ function setHistoryExpanded(expanded) {
 byId('toggle-history').addEventListener('click', () => setHistoryExpanded(byId('history-body').hidden));
 
 const mobileNavigation = window.matchMedia('(max-width: 1023px)');
+let desktopNavigationCollapsed = false;
+function syncNavigation() {
+  const expanded = mobileNavigation.matches ? document.body.classList.contains('sidebar-open') : !desktopNavigationCollapsed;
+  document.body.classList.toggle('sidebar-collapsed', !mobileNavigation.matches && desktopNavigationCollapsed);
+  byId('sidebar').inert = !expanded;
+  document.querySelector('.app-frame').inert = mobileNavigation.matches && expanded;
+  byId('sidebar-overlay').hidden = !(mobileNavigation.matches && expanded);
+  const label = expanded ? 'Đóng thanh điều hướng' : 'Mở thanh điều hướng';
+  byId('toggle-sidebar').setAttribute('aria-expanded', String(expanded));
+  byId('toggle-sidebar').setAttribute('aria-label', label);
+  byId('toggle-sidebar').title = label + ' (⌘/Ctrl+B)';
+}
 function closeNavigation({ focus = false } = {}) {
-  document.body.classList.remove('sidebar-open'); byId('toggle-sidebar').setAttribute('aria-expanded', 'false');
-  byId('sidebar-overlay').hidden = true; byId('sidebar').inert = mobileNavigation.matches;
+  if (mobileNavigation.matches) document.body.classList.remove('sidebar-open');
+  else desktopNavigationCollapsed = true;
+  syncNavigation();
   if (focus) byId('toggle-sidebar').focus();
 }
-byId('toggle-sidebar').addEventListener('click', () => {
-  if (document.body.classList.contains('sidebar-open')) { closeNavigation({ focus: true }); return; }
-  document.body.classList.add('sidebar-open'); byId('sidebar').inert = false;
-  byId('toggle-sidebar').setAttribute('aria-expanded', 'true'); byId('sidebar-overlay').hidden = false; byId('sidebar-close').focus();
-});
+function toggleNavigation() {
+  if (byId('toggle-sidebar').getAttribute('aria-expanded') === 'true') { closeNavigation({ focus: true }); return; }
+  if (mobileNavigation.matches) document.body.classList.add('sidebar-open');
+  else desktopNavigationCollapsed = false;
+  syncNavigation();
+  if (mobileNavigation.matches) requestAnimationFrame(() => {
+    if (mobileNavigation.matches && document.body.classList.contains('sidebar-open')) byId('sidebar-close').focus();
+  });
+}
+byId('toggle-sidebar').addEventListener('click', toggleNavigation);
 byId('sidebar-close').addEventListener('click', () => closeNavigation({ focus: true }));
 byId('sidebar-overlay').addEventListener('click', () => closeNavigation({ focus: true }));
 document.addEventListener('keydown', event => {
+  if ((event.metaKey || event.ctrlKey) && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'b' && !event.repeat && !event.target.closest('input, textarea, select, [contenteditable]')) {
+    event.preventDefault(); toggleNavigation();
+  }
   if (event.key === 'Escape' && document.body.classList.contains('sidebar-open')) closeNavigation({ focus: true });
   if (event.key === 'Tab' && document.body.classList.contains('sidebar-open')) {
     const controls = [...byId('sidebar').querySelectorAll('a, button')]; const first = controls[0], last = controls.at(-1);
@@ -41,12 +62,18 @@ document.addEventListener('keydown', event => {
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   }
 });
-mobileNavigation.addEventListener('change', () => closeNavigation()); closeNavigation();
+mobileNavigation.addEventListener('change', () => {
+  document.body.classList.remove('sidebar-open'); syncNavigation();
+  if (byId('sidebar').inert && byId('sidebar').contains(document.activeElement)) byId('toggle-sidebar').focus();
+}); syncNavigation();
 for (const anchor of document.querySelectorAll('[data-dashboard-nav]')) anchor.addEventListener('click', event => {
-  event.preventDefault(); resetFilters(); closeNavigation();
+  event.preventDefault(); resetFilters(); if (mobileNavigation.matches) closeNavigation();
   if (anchor.hash === '#history-panel') setHistoryExpanded(true);
   const targetHash = state.mode === 'week' ? anchor.hash === '#market-overview' ? '#weekly-content' : anchor.hash.replace('#section-', '#week-topic-') : anchor.hash;
-  const target = document.querySelector(targetHash); if (target?.tagName === 'DETAILS') target.open = true; target?.scrollIntoView({ block: 'start' }); (target?.querySelector('summary') || target)?.focus({ preventScroll: true });
+  const target = document.querySelector(targetHash); if (target?.tagName === 'DETAILS') target.open = true; target?.scrollIntoView({ block: 'start' });
+  const focusTarget = target?.querySelector('summary') || target;
+  if (focusTarget && !focusTarget.hasAttribute('tabindex')) focusTarget.tabIndex = -1;
+  focusTarget?.focus({ preventScroll: true });
   history.replaceState(null, '', anchor.hash);
   for (const link of document.querySelectorAll('[data-dashboard-nav]')) { if (link === anchor) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current'); }
 });
