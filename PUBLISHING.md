@@ -1,8 +1,40 @@
-# Xuất bản cùng bản tin hằng ngày
+# Xuất bản bản tin qua GitHub và Cloudflare Workers
 
 Đây là bước xuất bản sau quy trình tổng hợp hiện có, không phải quy trình thu thập tin mới. Không tạo thêm automation, API, database hoặc dùng OpenAI API key. Chỉ cập nhật nội dung bản tin, giữ giao diện và tính năng hiện tại.
 
-## Danh tính và thư mục
+## Đích xuất bản chính — GitHub và Cloudflare
+
+Theo yêu cầu mới của người dùng, sau mỗi bản tin phải tự commit/push lên repository hiện có và cập nhật Cloudflare Workers. Giữ nguyên lịch 09:00 giờ Việt Nam, nội dung bản tin, writer, giao diện và schema. Không tạo automation khác, API, database, nguồn thu thập tin, Worker hoặc domain mới.
+
+- Workspace: `/Users/quanghuyvu/Documents/Workspace/Claude Code/projects/information-collection` (macOS có thể trả tên thư mục `Claude code`).
+- Repository: `https://github.com/huy31032007/information-collection-daily.git`; remote `origin`, nhánh đích `main`.
+- Worker: `information-collection-daily`, do người dùng xác nhận bằng URL và ảnh dashboard.
+- URL: `https://information-collection-daily.vuquanghuybill.workers.dev/`.
+- `wrangler.json` chỉ phục vụ tệp tĩnh trong `dist/`. Không cần framework mới hoặc script backend.
+
+Ảnh dashboard xác nhận Worker và liên kết repository; liên kết một mình chưa chứng minh tự động deploy đang hoạt động. Mỗi lượt phải kiểm tra URL thực tế. Không dùng helper Sites thay cho push `origin`; không tự publish thêm Sites trong lượt thường kỳ. Site cũ và `.openai/hosting.json` được giữ nguyên để bảo toàn website trước đây, không xóa hoặc đổi audience.
+
+### Cấu hình Workers Builds cần kiểm chứng
+
+Trong Worker, Settings > Builds cần dùng repository trên, production branch `main`, root là gốc repository và deploy command `npx wrangler deploy`. Website có sẵn trong `dist`, không có script `npm run build`. Build command có thể dùng `npm run check && npm test`. Quyền deploy nằm trong Git integration của Cloudflare; không đưa token vào Git, frontend, log, ảnh hoặc chat. Không tạo token hay sửa quyền tài khoản khi chưa được yêu cầu. Nếu thiếu quyền/cấu hình ngoài dự án, hỏi đúng thông tin còn thiếu.
+
+Tài liệu: [Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/), [cấu hình build/deploy](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/), [tệp tĩnh](https://developers.cloudflare.com/workers/static-assets/binding/).
+
+### Quy trình thường kỳ
+
+1. Tạo một bản tin chuẩn theo đầy đủ hướng dẫn nghiên cứu hiện tại; dùng nguyên văn cho chat và web, giữ chín mục, nguồn, đơn vị, thời điểm và nhãn chắc chắn. Không research thêm để tạo bản khác cho website.
+2. Kiểm tra đúng workspace, `wrangler.json`, nhánh `main`, remote `origin` khớp repository trên và trạng thái Git. Không đoán endpoint/credential hoặc thay remote. Nếu có công việc ngoài phạm vi, bảo toàn và dừng bước commit/push để báo rõ; không stage lẫn.
+3. Dùng `node scripts/write-newsletter.mjs` với JSON qua stdin gồm title, reportDate, cutoffAt, coverageStart, coverageEnd, timezone=Asia/Ho_Chi_Minh, sourceThreadId, markdown nguyên văn. Có thể dùng tệp tạm trong `.sites-runtime/` đã ignore. coverageEnd=cutoffAt. Writer tự ghi exportedAt, giữ archive và cập nhật atomically, bảo vệ bản mới hơn. Không sửa/xóa tệp để vượt xung đột cùng mốc chốt.
+4. Kiểm tra chỉ các tệp dữ liệu do writer tạo được thay đổi: latest.json, archive/index.json và archive ngày. Giữ các ngày cũ, không dựng dữ liệu ngày thiếu. Chạy `npm run check` và `npm test`; khi chỉ dữ liệu đổi, không cài dependency hoặc chạy lại toàn bộ responsive suite.
+5. Fetch `origin main`, xác minh nhánh remote là tổ tiên của HEAD. Nếu GitHub có lịch sử chưa có trong local, bảo toàn cả hai phía và báo cần xử lý; không force-push, reset hoặc xóa lịch sử. Chỉ stage dữ liệu writer tạo, kiểm tra staged diff và commit ghi ngày bản tin. Nếu đã commit thì dùng commit đó, không commit rỗng.
+6. Push bằng `git push origin HEAD:main`, dùng xác thực Git đã có. Người dùng đã cho phép thao tác này sau mỗi bản tin; không xin lại xác nhận thường kỳ. Không tự tạo/lưu credential mới. Sau push, kiểm tra SHA refs/heads/main trên origin trùng HEAD.
+7. Push sẽ kích hoạt Workers Builds nếu Git integration đã bật đúng. Theo dõi qua công cụ/dashboard hiện có khi truy cập được; chờ có giới hạn, giãn khoảng kiểm tra, không tạo automation giám sát. Pending/building không phải thành công. Không tự deploy sang tài khoản/Worker khác hoặc sửa quyền/cấu hình tài khoản để vượt lỗi.
+8. Mở URL Cloudflare và đối chiếu data/latest.json, data/archive/index.json cùng archive vừa ghi: reportDate, cutoffAt và toàn văn markdown phải trùng local. Kiểm tra ngày mới, chọn ngày đúng và tổng hợp tuần thứ Hai–Chủ nhật giữ số ngày đã lưu/thiếu. HTTP 200 hoặc build thành công một mình chưa chứng minh nội dung mới đúng. Nếu HTTP bị chặn mà trình duyệt mở được, đọc/đối chiếu bằng trình duyệt; không tắt/bỏ qua bảo vệ truy cập.
+9. Vẫn đăng bản tin vào chat nếu một bước lỗi. Báo đúng trạng thái commit/push/deploy/readback và URL thật. Nếu Cloudflare còn nội dung cũ, nói rõ chưa hoàn tất deploy; không tuyên bố đã cập nhật. Giữ dữ liệu để retry, không nghiên cứu lại hoặc đè bản mới hơn bằng bản cũ.
+
+Lịch sử và tuần dùng writer/web hiện có; commit/push cả archive do writer tạo, không cần research hoặc automation riêng. Lịch vẫn local, chỉ chạy khi máy/mạng/ứng dụng khả dụng.
+
+## Sites cũ — thông tin tham khảo
 
 - Site ID: `appgprj_6accb515f02c8191ba2fc9928624502b`.
 - Workspace: `/Users/quanghuyvu/Documents/Workspace/Claude Code/projects/information-collection`.
@@ -12,7 +44,7 @@
 - Helper Sites đã dùng: `/Users/quanghuyvu/.codex/plugins/cache/openai-curated-remote/sites/1.0.1/scripts/site-workflow.mjs`.
 - Heartbeat: `b-n-tin-kinh-t-th-tr-ng-09-00-vi-t-nam`, giữ nguyên lịch và hướng dẫn tài chính gốc.
 
-## Quy trình mỗi lượt chạy
+## Quy trình Sites — chỉ dùng khi người dùng yêu cầu đồng bộ thêm
 
 1. Tạo bản tin theo đầy đủ hướng dẫn hiện tại. Dùng một bản nội dung chuẩn cho chat và web; giữ nguyên mọi nguồn, nhãn chắc chắn, đơn vị và thời điểm. Không bổ sung dữ liệu mẫu hoặc research mới riêng cho website. Có đủ chín mục, kể cả mục không có cập nhật.
 2. Đọc skill Sites hiện có. Gọi native `get_site` với chính xác Site ID trên để kiểm tra quyền, trạng thái, audience và lấy URL thật. Không đổi audience. Lấy credential mới bằng `create_source_repository_write_credential` cho cùng Site, giữ credential trong bộ nhớ tác vụ. Không ghi, hiển thị hay thêm token vào prompt/file/environment/frontend.
