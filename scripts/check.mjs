@@ -5,7 +5,7 @@ import { validateNewsletter, extractSources } from '../dist/lib.mjs';
 import { validateArchiveIndex, validateArchivedReport } from '../dist/history.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const files = ['dist/app.mjs', 'dist/lib.mjs', 'dist/markdown.mjs', 'dist/dashboard.mjs', 'dist/history.mjs', 'dist/history-ui.mjs', 'scripts/write-newsletter.mjs', 'scripts/preview.mjs'];
+const files = ['dist/app.mjs', 'dist/lib.mjs', 'dist/markdown.mjs', 'dist/dashboard.mjs', 'dist/intelligence-panel.mjs', 'dist/history.mjs', 'dist/history-ui.mjs', 'scripts/write-newsletter.mjs', 'scripts/enrich-newsletter.mjs', 'scripts/preview.mjs'];
 for (const file of files) { const result = spawnSync(process.execPath, ['--check', file], { cwd: root, encoding: 'utf8' }); if (result.status !== 0) throw new Error(result.stderr); }
 for (const file of ['dist/index.html', 'dist/styles.css', 'dist/favicon.svg']) await access(root + file);
 const report = validateNewsletter(JSON.parse(await readFile(root + 'dist/data/latest.json', 'utf8')));

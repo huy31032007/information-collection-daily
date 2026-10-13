@@ -59,7 +59,15 @@ async function readJSON(file) {
   catch { throw new Error('Invalid JSON in ' + path.basename(file) + '.'); }
 }
 
-const sameContent = (a, b) => CONTENT_KEYS.every(key => a[key] === b[key]);
+const canonical = value => {
+  if (Array.isArray(value)) return value.map(canonical);
+  if (value && typeof value === 'object') return Object.fromEntries(Object.keys(value).sort().map(key => [key, canonical(value[key])]));
+  return value;
+};
+const ENRICHMENT_KEYS = ['market_snapshot', 'academic_feed', 'source_status', 'feed_cache'];
+const sameContent = (a, b) => CONTENT_KEYS.every(key => a[key] === b[key])
+  && a.meta?.version === b.meta?.version && a.meta?.timezone === b.meta?.timezone
+  && ENRICHMENT_KEYS.every(key => JSON.stringify(canonical(a[key])) === JSON.stringify(canonical(b[key])));
 
 async function readArchive(threadId) {
   let files;

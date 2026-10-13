@@ -1,5 +1,6 @@
 import { extractSources, normalizeText, formatTime, safeLink } from './lib.mjs';
 import { renderMarkdown } from './markdown.mjs';
+import { renderMarketCards, renderAcademicFeed } from './intelligence-panel.mjs';
 
 const clean = text => text.replace(/\*\*|`/g, '').trim();
 const cells = line => line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(clean);
@@ -239,8 +240,8 @@ export function renderDashboard(container, sections, report) {
   else {
     const snapshot = readDashboardData(sections), heading = make('div', null, 'dashboard-heading');
     heading.append(make('h2', 'Bản chụp thị trường'), make('p', 'Theo bản tin chốt ' + formatTime(report.cutoffAt) + ' · giờ Việt Nam'));
-    const metrics = make('div', null, 'market-cards');
-    for (const slot of metricSlots) metrics.append(metric(slot.select(snapshot), slot));
+    const metrics = report.market_snapshot ? renderMarketCards(report) : make('div', null, 'market-cards');
+    if (!report.market_snapshot) for (const slot of metricSlots) metrics.append(metric(slot.select(snapshot), slot));
     const panels = make('div', null, 'dashboard-panels');
     const insight = panel('Góc nhìn thị trường', 'Nhận định', 'analysis-label', 'insight-panel');
     const body = make('div', null, 'insight-body');
@@ -248,6 +249,7 @@ export function renderDashboard(container, sections, report) {
     const link = make('a', 'Đọc phân tích và các kịch bản →', 'read-analysis'); link.href = '#section-2';
     insight.append(body, link); panels.append(chart(snapshot), insight);
     nodes.push(heading, metrics, panels, framework());
+    if (Array.isArray(report.academic_feed)) nodes.push(renderAcademicFeed(report));
   }
   container.replaceChildren(...nodes);
   container.setAttribute('aria-busy', 'false');

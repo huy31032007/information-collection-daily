@@ -81,3 +81,48 @@ input:focus-visible,select:focus-visible{border-color:var(--accent)}
 @media(min-width:1024px){.app-sidebar{transition:transform .18s}.sidebar-collapsed .app-sidebar{transform:translateX(-100%);visibility:hidden}.sidebar-collapsed .app-frame{margin-left:0}}
 #history-panel,.market-overview,.report-section,.weekly-topic,.weekly-highlights{scroll-margin-top:88px}
 @media(prefers-reduced-motion:reduce){.app-sidebar{transition:none}}
+
+/* Structured market metadata and RSS links to course concepts. */
+.academic-panel{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);box-shadow:0 2px 10px rgba(0,0,0,.03)}
+.market-freshness {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.market-freshness.is-stale { color: #99520E; }
+.academic-panel { padding: 24px; margin: 24px 0; }
+.academic-panel h2 { margin: 0 0 8px; font-size: 20px; }
+.academic-intro, .academic-meta {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.academic-list { display: grid; gap: 16px; margin-top: 20px; }
+.academic-item { min-width: 0; padding-top: 18px; border-top: 1px solid var(--line); }
+.academic-item h3 { margin: 12px 0 8px; font-size: 18px; line-height: 1.5; }
+.academic-item h3 a {
+  display: inline-block; color: var(--ink); min-height: 44px;
+  text-decoration: none; overflow-wrap: anywhere;
+}
+.academic-item h3 a:hover { color: var(--accent); text-decoration: underline; }
+.academic-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.course-badge, .verification-badge {
+  max-width: 100%; padding: 5px 10px; border-radius: 999px;
+  font-size: 12px; line-height: 1.5; overflow-wrap: anywhere;
+}
+.course-badge { color: #0066CC; background: #EEF5FF; }
+.verification-badge { color: #99520E; background: #FFF6ED; }
+.academic-summary, .academic-relevance p {
+  margin: 8px 0; font-size: 15px; line-height: 1.75; overflow-wrap: anywhere;
+}
+.academic-relevance { padding: 14px 16px; border-radius: 12px; background: #F2F2F7; }
+.academic-relevance strong { font-size: 13px; }
+.academic-empty, .academic-source-warning {
+  color: #99520E; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere;
+}
+@media (max-width: 559px) {
+  .academic-panel { padding: 20px; }
+  .academic-item h3 { font-size: 17px; }
+}
