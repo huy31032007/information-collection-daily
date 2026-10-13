@@ -106,11 +106,6 @@ function installReport(report) {
   renderDashboard(byId('market-overview'), state.sections, report);
   setDayMetadata(report);
   byId('report-context').replaceChildren(renderMarkdown(parsed.intro));
-  const nav = byId('contents-nav'); nav.replaceChildren();
-  for (const section of state.sections) {
-    const anchor = make('a'); anchor.href = '#section-' + section.id; anchor.append(make('span', section.id === 'glossary' ? 'Aa' : section.id.padStart(2, '0'), 'nav-number'), make('span', section.title));
-    anchor.addEventListener('click', event => { event.preventDefault(); resetFilters(); byId('section-' + section.id)?.scrollIntoView({ block: 'start' }); history.replaceState(null, '', anchor.hash); }); nav.append(anchor);
-  }
   render();
 }
 function freshStatus(report) {
@@ -153,7 +148,7 @@ function showMode() {
   if (weekly) { const range = weekRange(state.date); byId('report-date').textContent = dateLabel(range.start, { year: undefined }) + ' – ' + dateLabel(range.end); }
 }
 function clearDay(message) {
-  state.report = null; state.sections = []; byId('report-content').replaceChildren(); byId('report-context').replaceChildren(); byId('contents-nav').replaceChildren();
+  state.report = null; state.sections = []; byId('report-content').replaceChildren(); byId('report-context').replaceChildren();
   renderDashboard(byId('market-overview'), [], null); byId('report-date').textContent = dateLabel(state.date); byId('cutoff-time').textContent = 'Chưa có mốc chốt dữ liệu';
   byId('coverage').textContent = '—'; byId('source-count').textContent = '—'; byId('section-count').textContent = '—'; byId('source-filter').replaceChildren(new Option('Tất cả nguồn', ''));
   byId('result-count').textContent = 'Chưa có nội dung cho ngày được chọn'; byId('no-results').hidden = false; byId('no-results').querySelector('h2').textContent = 'Chưa có bản tin ngày ' + dateLabel(state.date); byId('no-results').querySelector('p').textContent = message;

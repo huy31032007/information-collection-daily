@@ -73,7 +73,8 @@ export function readDashboardData(sections) {
   const oilRow = oilTable?.rows.find(r => /^brent$/i.test(r[0]));
   const oilMetric = oilRow && oilTable.sources.length && /USD\/thùng/.test(oilRow[1]) && /\d{1,2}:\d{2}.*\d{1,2}\/\d{1,2}/s.test(oilTable.before) && !/chua xac minh/.test(normalizeText(oilRow.join(' ') + ' ' + oilTable.before))
     ? { label: 'Dầu Brent', value: oilRow[1], change: oilRow[2], comparison: oilTable.headers[2], detail: oilRow[2] + ' · ' + oilTable.headers[2], time: clean(oilTable.before.split(/\n\s*\n/).filter(p => !/^#/.test(p)).at(-1) || ''), product: 'Giá dầu tham chiếu quốc tế', sources: oilTable.sources.slice(0, 1), section: '4' } : null;
-  return { indices, stockTable, gold: goldMetric, oil: oilMetric, insight: stocks?.body.split(/^### /m)[0].trim() || '' };
+  const insight = stocks?.body.split(/\n\s*\n/).find(block => /^nhan dinh\b/.test(normalizeText(clean(block))))?.trim() || '';
+  return { indices, stockTable, gold: goldMetric, oil: oilMetric, insight };
 }
 
 const make = (tag, text, className) => { const node = document.createElement(tag); if (text != null) node.textContent = text; if (className) node.className = className; return node; };

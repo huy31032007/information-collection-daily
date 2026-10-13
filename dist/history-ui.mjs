@@ -43,6 +43,7 @@ export function renderWeek(container, reports, selectedDate, { filters, failures
   }
   container.append(timeline);
   const highlights = make('section', null, 'weekly-highlights'); highlights.append(make('h3', 'Điểm nổi bật trong tuần'), make('p', 'Trích nguyên ý từ mục tóm tắt của các bản tin hằng ngày; giữ nguồn, thời điểm và điều kiện của nhận định.', 'weekly-explanation'));
+  highlights.id = 'week-topic-1'; highlights.tabIndex = -1;
   if (!week.highlights.length) highlights.append(make('p', week.reports.length ? 'Chưa có mục tóm tắt phù hợp để trích điểm nổi bật.' : 'Chưa có bản tin để tổng hợp trong tuần này.', 'weekly-empty'));
   for (const item of week.highlights) {
     const card = make('article', null, 'weekly-highlight'); card.append(make('p', 'Bản tin ' + dateLabel(item.reportDate) + ' · chốt ' + formatTime(item.cutoffAt), 'weekly-date'));

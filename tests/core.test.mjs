@@ -50,6 +50,15 @@ test('dashboard preserves quoted values, source times, units and comparison cont
   assert.equal(data.oil.value, '105,48 USD/thùng'); assert.ok(data.oil.time.includes('06:04 ngày 12/10'));
   assert.ok(data.oil.detail.includes('9/10')); assert.ok(data.insight.includes('Độ tin cậy **vừa**'));
 });
+test('dashboard preview keeps the opening assessment when analysis has no subsection headings', () => {
+  const sections = parsed.sections.map(section => ({ ...section, body: section.body.replace(/^### .+\n/gm, '') }));
+  const stocks = sections.find(section => section.id === '2');
+  const preview = readDashboardData(sections).insight;
+  assert.equal(preview, stocks.body.trim().split(/\n\s*\n/)[0]);
+  assert.ok(preview.includes('**thấp**'));
+  assert.ok(stocks.body.includes('| Chỉ số |'));
+  assert.ok(!preview.includes('| Chỉ số |'));
+});
 test('financial display keeps original numbers, units and approximate changes without inventing zero changes', () => {
   assert.deepEqual(quoteParts('144,8 triệu đồng/lượng'), { number: '144,8', unit: 'triệu đồng/lượng' });
   assert.deepEqual(quoteParts('105,48 USD/thùng'), { number: '105,48', unit: 'USD/thùng' });
