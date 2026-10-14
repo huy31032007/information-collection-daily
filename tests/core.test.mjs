@@ -12,6 +12,7 @@ import { validDate, addDays, weekRange, monthGrid, validateArchiveIndex, validat
 const report = JSON.parse(await readFile(new URL('./fixtures/original-newsletter.json', import.meta.url), 'utf8'));
 const parsed = parseSections(report.markdown);
 const fixedNow = new Date('2026-10-12T18:00:00Z');
+const settledOil = { id: '4', body: await readFile(new URL('./fixtures/oil-settlement.md', import.meta.url), 'utf8') };
 
 test('calendar uses Monday–Sunday and handles month/year and leap-day boundaries', () => {
   assert.equal(validDate('2026-02-30'), false); assert.equal(validDate('../../2026-10-12'), false); assert.equal(validDate('2024-02-29'), true);
@@ -58,6 +59,28 @@ test('dashboard preview keeps the opening assessment when analysis has no subsec
   assert.ok(preview.includes('**thấp**'));
   assert.ok(stocks.body.includes('| Chỉ số |'));
   assert.ok(!preview.includes('| Chỉ số |'));
+});
+test('Brent settlement card preserves contract, source, comparison and publication context', () => {
+  const oil = readDashboardData([settledOil]).oil;
+  assert.equal(oil?.value, '105,69 USD/thùng');
+  assert.equal(oil.change, '−0,9%');
+  assert.equal(oil.comparison, 'Biến động so với phiên trước, theo nguồn');
+  assert.ok(oil.product.includes('Brent giao tháng 12/2026'));
+  assert.ok(oil.time.includes('giá thanh toán phiên 13/10'));
+  assert.ok(oil.time.includes('02:41 ngày 14/10 giờ Việt Nam'));
+  assert.ok(oil.time.includes('không nêu phút thanh toán từng hợp đồng'));
+  assert.match(oil.sources[0].href, /^https:\/\/www\.marketscreener\.com\//);
+});
+test('Brent contract names do not admit ambiguous, unsourced, unverified or incompatible quotes', () => {
+  for (const body of [
+    settledOil.body.replace(/\[[^\]]+\]\(https?:\/\/[^)]+\)/g, ''),
+    settledOil.body.replace('105,69 USD/thùng', '105,69 USD/thùng; Chưa xác minh'),
+    settledOil.body.replace('105,69 USD/thùng', '105,69 đồng/lít'),
+    settledOil.body.replace('105,69 USD/thùng', '105.69 USD/thùng'),
+    settledOil.body.replace('Brent giao tháng 12/2026', 'Brent giao tháng 14/2026'),
+    settledOil.body.replace('02:41 ngày 14/10 giờ Việt Nam', 'Chưa xác minh giờ công bố'),
+    settledOil.body.replace('| WTI giao tháng 11/2026', '| Brent giao tháng 11/2026'),
+  ]) assert.equal(readDashboardData([{ id: '4', body }]).oil, null);
 });
 test('financial display keeps original numbers, units and approximate changes without inventing zero changes', () => {
   assert.deepEqual(quoteParts('144,8 triệu đồng/lượng'), { number: '144,8', unit: 'triệu đồng/lượng' });

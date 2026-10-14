@@ -71,9 +71,11 @@ export function readDashboardData(sections) {
   const goldMetric = goldRow && sell >= 0 && buy >= 0 && goldTime >= 0 && goldTable.sources.length && /\d.*(?:dong|vnd)/i.test(normalizeText(goldRow[sell])) && /\d{1,2}\/\d{1,2}/.test(goldRow[goldTime]) && !/chua xac minh/.test(normalizeText(goldRow.join(' ')))
     ? { label: 'Vàng miếng SJC', value: goldRow[sell], buyValue: goldRow[buy], detail: 'Bán ra · Mua vào: ' + goldRow[buy], time: goldRow[goldTime], product: goldRow[0], sources: goldTable.sources.slice(0, 1), section: '3' } : null;
   const oilTable = readTables(oil?.body).find(t => t.headers.some(h => /gia dau tham chieu/.test(normalizeText(h))));
-  const oilRow = oilTable?.rows.find(r => /^brent$/i.test(r[0]));
-  const oilMetric = oilRow && oilTable.sources.length && /USD\/thùng/.test(oilRow[1]) && /\d{1,2}:\d{2}.*\d{1,2}\/\d{1,2}/s.test(oilTable.before) && !/chua xac minh/.test(normalizeText(oilRow.join(' ') + ' ' + oilTable.before))
-    ? { label: 'Dầu Brent', value: oilRow[1], change: oilRow[2], comparison: oilTable.headers[2], detail: oilRow[2] + ' · ' + oilTable.headers[2], time: clean(oilTable.before.split(/\n\s*\n/).filter(p => !/^#/.test(p)).at(-1) || ''), product: 'Giá dầu tham chiếu quốc tế', sources: oilTable.sources.slice(0, 1), section: '4' } : null;
+  const oilRows = oilTable?.rows.filter(r => /^Brent(?:\s+giao tháng (?:0?[1-9]|1[0-2])\/\d{4})?$/i.test(r[0])) || [];
+  const oilRow = oilRows.length === 1 ? oilRows[0] : null;
+  const oilTime = clean(oilTable?.before.split(/\n\s*\n/).filter(p => !/^#/.test(p)).at(-1) || '');
+  const oilMetric = oilRow && oilTable.sources.length && quoteParts(oilRow[1])?.unit === 'USD/thùng' && /\d{1,2}:\d{2}.*\d{1,2}\/\d{1,2}/s.test(oilTime) && !/chua xac minh/.test(normalizeText(oilRow.join(' ') + ' ' + oilTime))
+    ? { label: 'Dầu Brent', value: oilRow[1], change: oilRow[2], comparison: oilTable.headers[2], detail: oilRow[2] + ' · ' + oilTable.headers[2], time: oilTime, product: /^brent$/i.test(oilRow[0]) ? 'Giá dầu tham chiếu quốc tế' : oilRow[0] + ' · Giá dầu tham chiếu quốc tế', sources: oilTable.sources.slice(0, 1), section: '4' } : null;
   const insight = stocks?.body.split(/\n\s*\n/).find(block => /^nhan dinh\b/.test(normalizeText(clean(block))))?.trim() || '';
   return { indices, stockTable, gold: goldMetric, oil: oilMetric, insight };
 }
