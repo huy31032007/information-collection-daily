@@ -4,7 +4,9 @@
 
 ## Đích xuất bản chính — GitHub và Cloudflare
 
-Theo yêu cầu mới của người dùng, sau mỗi bản tin phải tự commit/push lên repository hiện có và cập nhật Cloudflare Workers. Giữ nguyên lịch 09:30 giờ Việt Nam, nội dung bản tin, writer, giao diện và schema. Không tạo automation khác, API, database, nguồn thu thập tin, Worker hoặc domain mới.
+Theo yêu cầu mới của người dùng, sau mỗi bản tin phải tự commit/push lên repository hiện có và cập nhật Cloudflare Workers. Lịch hiện tại là 21:30 giờ Việt Nam (Asia/Ho_Chi_Minh), thay cho lượt sáng. Giữ nguyên nội dung bản tin, writer, giao diện và schema. Không tạo automation khác, API, database, nguồn thu thập tin, Worker hoặc domain mới.
+
+Bản tin tối tổng kết thông tin từ 00:00 cùng ngày đến mốc chốt thực tế; ưu tiên chứng khoán Việt Nam sau đóng cửa và giá vàng cuối ngày hoặc báo giá gần nhất có đủ nguồn/thời điểm. Chỉ gọi là giá chốt khi nguồn xác nhận. Thị trường quốc tế có thể vẫn đang giao dịch lúc 21:30; phải ghi trạng thái và giờ dữ liệu. Lịch theo dõi ưu tiên tối còn lại và phiên kế tiếp. Không tạo thêm lượt sáng.
 
 - Workspace: `/Users/quanghuyvu/Documents/Workspace/Claude Code/projects/information-collection` (macOS có thể trả tên thư mục `Claude code`).
 - Repository: `https://github.com/huy31032007/information-collection-daily.git`; remote `origin`, nhánh đích `main`.
@@ -61,4 +63,4 @@ Lịch sử và tuần dùng writer/web hiện có; commit/push cả archive do 
 
 ## Giới hạn vận hành
 
-Lịch là local và chỉ thực hiện khi môi trường chạy khả dụng. Lưu thành công hướng dẫn không bảo đảm lượt chạy tương lai. Đường xuất bản cần kiểm chứng thực tế; không chờ tới 09:30 hôm sau chỉ để kiểm tra bước ghi/publish/readback. Không dùng JavaScript polling trên trình duyệt thay cho lịch tạo và xuất bản bản tin.
+Lịch là local và chỉ thực hiện khi môi trường chạy khả dụng. Lưu thành công hướng dẫn không bảo đảm lượt chạy tương lai. Đường xuất bản cần kiểm chứng thực tế; không chờ tới 21:30 lượt kế tiếp chỉ để kiểm tra bước ghi/publish/readback. Không dùng JavaScript polling trên trình duyệt thay cho lịch tạo và xuất bản bản tin.
