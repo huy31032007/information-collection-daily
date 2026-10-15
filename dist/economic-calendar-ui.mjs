@@ -1,7 +1,6 @@
 import { validateEconomicCalendar, assertCalendarUpdate, calendarDate, eventStatus, eventRange, selectEvents, formatEventValue, surprise } from './economic-calendar.mjs';
 import { formatTime, safeLink } from './lib.mjs';
-import { addDays, dateLabel } from './history.mjs';
-import { renderCalendar } from './history-ui.mjs';
+import { dateLabel } from './history.mjs';
 import { eventLearning, metricLearning } from './learning-ui.mjs';
 
 const make = (tag, text, className) => { const node = document.createElement(tag); if (text != null) node.textContent = text; if (className) node.className = className; return node; };
@@ -66,25 +65,24 @@ export function renderEconomicEvents(container, events, referenceTime) {
   }
 }
 
-export function createEconomicCalendar({ fetchJSON, getReport, getReports, renderReports }) {
+export function createEconomicCalendar({ fetchJSON, getReport, getSelection, onSelect, onChange }) {
   const byId = id => document.getElementById(id);
-  const state = { active: false, snapshot: null, loading: false, error: '', date: calendarDate(Date.now()), month: calendarDate(Date.now()).slice(0, 7), range: 'day', origin: 'latest', country: '', impact: '', query: '' };
+  const state = { snapshot: null, loading: false, error: '', nextDays: false, origin: 'latest', country: '', impact: '', query: '' };
   const currentSnapshot = () => state.origin === 'report' ? getReport()?.economic_calendar || null : state.snapshot;
   function render() {
-    if (!state.active) return;
+    const selection = getSelection();
+    const rangeMode = selection.mode === 'week' ? 'week' : state.nextDays ? 'next' : 'day';
     const snapshot = currentSnapshot(), referenceTime = state.origin === 'report' ? snapshot?.checkedAt : new Date();
-    const dates = [...new Set((snapshot?.events || []).map(event => event.scheduledDate))];
-    renderCalendar(byId('calendar-grid'), { month: state.month, date: state.date, mode: state.range === 'week' ? 'week' : 'day', index: { reports: getReports() }, eventDates: dates, calendarKind: 'events', onSelect: selectDate, onMove: moveFocus });
-    byId('calendar-legend').textContent = '● Bản tin đã lưu · ◆ Sự kiện kinh tế · Giờ Việt Nam';
-    const range = eventRange(state.date, state.range);
-    byId('economic-selection').textContent = state.range === 'day' ? 'Ngày ' + dateLabel(state.date) : dateLabel(range.start) + ' – ' + dateLabel(range.end);
-    byId('economic-content').setAttribute('aria-busy', String(state.loading));
-    for (const button of byId('economic-ranges').children) button.setAttribute('aria-pressed', String(button.dataset.range === state.range));
+    const range = eventRange(selection.date, rangeMode);
+    byId('economic-selection').textContent = rangeMode === 'day' ? 'Sự kiện ngày ' + dateLabel(selection.date) : 'Sự kiện ' + dateLabel(range.start) + ' – ' + dateLabel(range.end);
+    byId('economic-content').setAttribute('aria-busy', String(state.loading || (state.origin === 'report' && selection.loading)));
+    byId('economic-next-days').disabled = selection.mode === 'week';
+    byId('economic-next-days').checked = state.nextDays && selection.mode !== 'week';
     const countries = [...new Set(snapshot?.events.map(event => event.country) || [])].sort();
     const country = byId('economic-country'); country.replaceChildren(new Option('Tất cả quốc gia', ''), ...countries.map(code => new Option(code === 'US' ? 'Mỹ · USD' : code, code)));
     if (!countries.includes(state.country)) state.country = ''; country.value = state.country;
     const status = byId('economic-status'); status.className = 'economic-status';
-    if (state.origin === 'report') status.textContent = snapshot ? 'Lịch theo mốc bản tin · kiểm tra ' + formatTime(snapshot.checkedAt) + '. Không dùng kết quả biết sau mốc này.' : 'Bản tin đang chọn chưa lưu lịch sự kiện. Chọn “Lịch mới nhất” để xem dữ liệu đã xác minh gần đây.';
+    if (state.origin === 'report') status.textContent = snapshot ? 'Lịch theo mốc bản tin · kiểm tra ' + formatTime(snapshot.checkedAt) + '. Không dùng kết quả biết sau mốc này.' : selection.mode === 'week' ? 'Mốc theo bản tin chỉ áp dụng khi chọn một ngày. Chọn “Lịch mới nhất” để xem sự kiện của cả tuần.' : selection.loading ? 'Đang kiểm tra lịch lưu trong bản tin đúng ngày được chọn…' : 'Ngày đang chọn chưa có bản tin kèm lịch sự kiện. Chọn “Lịch mới nhất” để xem dữ liệu đã xác minh gần đây.';
     else if (state.error) { status.textContent = state.error + (snapshot ? ' Giữ lịch kiểm tra ' + formatTime(snapshot.checkedAt) + '.' : ' Hãy bấm Làm mới lịch để thử lại.'); status.classList.add('has-error'); }
     else if (snapshot) {
       status.textContent = 'Kiểm tra nguồn: ' + formatTime(snapshot.checkedAt) + ' giờ Việt Nam · Phạm vi ' + dateLabel(snapshot.coverageStart) + ' – ' + dateLabel(snapshot.coverageEnd) + '. Danh sách gồm các sự kiện được chọn, không phải toàn bộ lịch quốc tế.';
@@ -92,23 +90,11 @@ export function createEconomicCalendar({ fetchJSON, getReport, getReports, rende
     } else status.textContent = state.loading ? 'Đang tải lịch đã xuất bản…' : 'Chưa có lịch sự kiện đã xác minh.';
     byId('economic-skeleton').hidden = !state.loading || Boolean(snapshot);
     byId('economic-refresh').disabled = state.loading;
-    const events = selectEvents(snapshot, state); renderEconomicEvents(byId('economic-events-list'), events, referenceTime);
+    const events = selectEvents(snapshot, { ...state, date: selection.date, range: rangeMode }); renderEconomicEvents(byId('economic-events-list'), events, referenceTime);
     byId('economic-count').textContent = events.length + ' sự kiện trong phạm vi chọn';
     const empty = byId('economic-empty'); empty.hidden = events.length > 0 || state.loading;
     empty.textContent = !snapshot ? 'Chưa có dữ liệu lịch cho chế độ này.' : range.end < snapshot.coverageStart || range.start > snapshot.coverageEnd ? 'Ngày được chọn nằm ngoài phạm vi lịch đã kiểm tra. Chưa xác minh sự kiện của ngày này.' : 'Chưa có sự kiện phù hợp trong danh sách đã xác minh. Không đồng nghĩa ngày này không có công bố kinh tế.';
     if (snapshot && (range.start < snapshot.coverageStart || range.end > snapshot.coverageEnd)) { status.textContent += ' Phạm vi đang chọn chưa được lịch bao phủ đầy đủ.'; status.classList.add('is-stale'); }
-  }
-  function activate(active) {
-    state.active = active;
-    byId('calendar-reports').setAttribute('aria-pressed', String(!active)); byId('calendar-events').setAttribute('aria-pressed', String(active));
-    byId('economic-content').hidden = !active; byId('history-selection-panel').hidden = active; byId('history-report-actions').hidden = active;
-    if (active) render(); else { byId('calendar-legend').textContent = '● Có bản tin đã lưu · Dùng phím mũi tên để di chuyển'; renderReports(); }
-  }
-  function selectDate(date) { state.date = date; state.month = date.slice(0, 7); render(); }
-  function moveFocus(date, delta) {
-    const target = addDays(date, delta); state.month = target.slice(0, 7); render();
-    for (const button of byId('calendar-grid').children) button.tabIndex = button.dataset.calendarDate === target ? 0 : -1;
-    byId('calendar-grid').querySelector('[data-calendar-date="' + target + '"]')?.focus();
   }
   async function refresh() {
     if (state.loading) return; state.loading = true; render();
@@ -118,16 +104,14 @@ export function createEconomicCalendar({ fetchJSON, getReport, getReports, rende
       if (getReport() && snapshot.sourceThreadId !== getReport().sourceThreadId) throw new Error('Lịch khác quy trình bản tin.');
       assertCalendarUpdate(state.snapshot, snapshot); state.snapshot = snapshot; state.error = '';
     } catch { state.error = 'Không xác minh được bản lịch mới nhất.'; }
-    finally { state.loading = false; render(); }
+    finally { state.loading = false; onChange(); }
   }
-  byId('calendar-events').addEventListener('click', () => activate(true));
-  byId('calendar-reports').addEventListener('click', () => activate(false));
-  byId('economic-today').addEventListener('click', () => selectDate(calendarDate(Date.now())));
+  byId('economic-today').addEventListener('click', () => onSelect(calendarDate(Date.now())));
   byId('economic-refresh').addEventListener('click', refresh);
-  byId('economic-origin').addEventListener('change', event => { state.origin = event.target.value; if (state.origin === 'report' && getReport()) selectDate(getReport().reportDate); else render(); });
+  byId('economic-origin').addEventListener('change', event => { state.origin = event.target.value; onChange(); });
   byId('economic-country').addEventListener('change', event => { state.country = event.target.value; render(); });
   byId('economic-impact').addEventListener('change', event => { state.impact = event.target.value; render(); });
   byId('economic-search').addEventListener('input', event => { state.query = event.target.value; render(); });
-  for (const button of byId('economic-ranges').children) button.addEventListener('click', () => { state.range = button.dataset.range; render(); });
-  return { get active() { return state.active; }, render, refresh, close: () => activate(false), moveMonth(delta) { const day = new Date(state.month + '-01T12:00:00Z'); day.setUTCMonth(day.getUTCMonth() + delta); state.month = day.toISOString().slice(0, 7); render(); } };
+  byId('economic-next-days').addEventListener('change', event => { state.nextDays = event.target.checked; render(); });
+  return { render, refresh, get eventDates() { return [...new Set((currentSnapshot()?.events || []).map(event => event.scheduledDate))]; } };
 }

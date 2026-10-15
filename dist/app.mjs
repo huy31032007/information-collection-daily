@@ -156,8 +156,7 @@ function knownEntries() {
   return entries;
 }
 function refreshCalendar() {
-  if (economicCalendar.active) { economicCalendar.render(); return; }
-  renderCalendar(byId('calendar-grid'), { month: state.month, date: state.date, mode: state.mode, index: { reports: knownEntries() }, availabilityKnown: Boolean(state.index) && !state.indexError, onSelect: date => selectDate(date), onMove: moveCalendarFocus });
+  renderCalendar(byId('calendar-grid'), { month: state.month, date: state.date, mode: state.mode, index: { reports: knownEntries() }, availabilityKnown: Boolean(state.index) && !state.indexError, eventDates: economicCalendar.eventDates, onSelect: date => selectDate(date), onMove: moveCalendarFocus });
   const range = weekRange(state.date);
   byId('history-selection').textContent = state.mode === 'week' ? 'Tuần ' + dateLabel(range.start) + ' – ' + dateLabel(range.end) : 'Ngày ' + dateLabel(state.date);
   byId('view-day').setAttribute('aria-pressed', String(state.mode === 'day')); byId('view-week').setAttribute('aria-pressed', String(state.mode === 'week'));
@@ -165,6 +164,7 @@ function refreshCalendar() {
   byId('history-detail').textContent = state.mode === 'week' ? `Có ${entries.filter(row => range.dates.includes(row.reportDate)).length} bản tin đã biết trong tuần. Những ngày thiếu sẽ được ghi rõ.` : entry ? entry.title + ' · chốt ' + formatTime(entry.cutoffAt) : state.index ? 'Chưa có bản tin được lưu cho ngày này.' : 'Chưa tải đủ lịch sử để xác nhận dữ liệu của ngày này.';
   byId('history-status').textContent = state.indexError || (state.index ? `Đã lưu ${state.index.reports.length} ngày · Giờ Việt Nam` : 'Đang tải lịch bản tin…');
   byId('history-status').classList.toggle('history-error', Boolean(state.indexError)); byId('latest-button').disabled = !state.latest;
+  economicCalendar.render();
 }
 function showMode() {
   const weekly = state.mode === 'week';
@@ -194,7 +194,7 @@ async function loadSelection({ quiet = false } = {}) {
   const request = ++state.selectionRequest; state.selectionLoading = true; const date = state.date; const mode = state.mode; showMode(); refreshCalendar();
   if (mode === 'week') {
     const range = weekRange(date);
-    if (!state.index) { state.selectionLoading = false; byId('weekly-content').setAttribute('aria-busy', 'false'); byId('cutoff-time').textContent = 'Lịch sử chưa xác minh'; byId('weekly-content').replaceChildren(make('p', 'Chưa tải được lịch bản tin để tổng hợp tuần. Hãy làm mới để thử lại.', 'weekly-empty')); status('Chưa xác nhận được đầy đủ danh sách bản tin trong tuần.', 'error'); return; }
+    if (!state.index) { state.selectionLoading = false; byId('weekly-content').setAttribute('aria-busy', 'false'); byId('cutoff-time').textContent = 'Lịch sử chưa xác minh'; byId('weekly-content').replaceChildren(make('p', 'Chưa tải được lịch bản tin để tổng hợp tuần. Hãy làm mới để thử lại.', 'weekly-empty')); status('Chưa xác nhận được đầy đủ danh sách bản tin trong tuần.', 'error'); refreshCalendar(); return; }
     if (state.weekKey !== range.start) { state.weekReports = []; state.weekFailures = []; byId('weekly-content').replaceChildren(make('p', 'Đang tải các bản tin trong tuần…', 'weekly-loading')); }
     byId('weekly-content').setAttribute('aria-busy', 'true'); byId('cutoff-time').textContent = 'Đang tổng hợp bản tin đã lưu';
     const entries = knownEntries().filter(entry => range.dates.includes(entry.reportDate));
@@ -209,7 +209,7 @@ async function loadSelection({ quiet = false } = {}) {
     if (changed || !quiet) render(); byId('weekly-content').setAttribute('aria-busy', 'false');
     byId('cutoff-time').textContent = `${reports.length} / 7 ngày có bản tin`;
     status(`Tổng hợp tuần ${dateLabel(range.start)} – ${dateLabel(range.end)} từ ${reports.length} ngày đã lưu.${failures.length ? ' Có bản tin tải lỗi; dữ liệu tuần chưa đầy đủ.' : reports.length < 7 ? ' Chưa đủ dữ liệu cả tuần.' : ''} Giá và nhận định giữ mốc của từng bản tin.`, failures.length ? 'error' : reports.length < 7 ? 'warning' : '');
-    return;
+    refreshCalendar(); return;
   }
   if (state.report && state.report.reportDate !== date) clearDay('Đang tải bản tin đúng ngày bạn chọn…');
   byId('report-content').setAttribute('aria-busy', 'true');
@@ -227,7 +227,7 @@ async function loadSelection({ quiet = false } = {}) {
     if (request !== state.selectionRequest) return;
     if (!state.report || state.report.reportDate !== date) clearDay('Không tải được bản tin đúng ngày bạn chọn. Hãy thử làm mới.');
     status('Không tải được bản tin ngày ' + dateLabel(date) + '.' + (state.report ? ' Giữ bản đang đọc với mốc gốc.' : ' Hãy thử làm mới.'), 'error');
-  } finally { if (request === state.selectionRequest) { state.selectionLoading = false; byId('report-content').setAttribute('aria-busy', 'false'); } }
+  } finally { if (request === state.selectionRequest) { state.selectionLoading = false; byId('report-content').setAttribute('aria-busy', 'false'); refreshCalendar(); } }
 }
 async function loadReport({ quiet = false } = {}) {
   void economicCalendar.refresh();
@@ -270,23 +270,27 @@ function updateURL() {
   history.pushState(null, '', url.pathname + url.search + url.hash);
 }
 function selectDate(date, mode = state.mode) {
-  if (economicCalendar.active) economicCalendar.close();
   if (!validDate(date)) return; state.date = date; state.mode = mode; state.followingLatest = false; state.month = date.slice(0, 7);
   state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = ''; byId('source-filter').value = ''; byId('period-filter').value = 'any';
   updateURL(); void loadSelection();
 }
 function goLatest() {
-  if (economicCalendar.active) economicCalendar.close();
   if (!state.latest) { void loadReport(); return; } state.mode = 'day'; state.followingLatest = true; state.date = state.latest.reportDate; state.month = state.date.slice(0, 7);
   state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = ''; byId('source-filter').value = ''; byId('period-filter').value = 'any'; updateURL(); void loadSelection();
 }
-function moveMonth(delta) { if (economicCalendar.active) { economicCalendar.moveMonth(delta); return; } const date = new Date(state.month + '-01T12:00:00Z'); date.setUTCMonth(date.getUTCMonth() + delta); state.month = date.toISOString().slice(0, 7); refreshCalendar(); }
+function moveMonth(delta) { const date = new Date(state.month + '-01T12:00:00Z'); date.setUTCMonth(date.getUTCMonth() + delta); state.month = date.toISOString().slice(0, 7); refreshCalendar(); }
 function moveCalendarFocus(date, days) { const target = addDays(date, days); state.month = target.slice(0, 7); refreshCalendar(); for (const button of byId('calendar-grid').children) button.tabIndex = button.dataset.calendarDate === target ? 0 : -1; byId('calendar-grid').querySelector('[data-calendar-date="' + target + '"]')?.focus(); }
 byId('calendar-prev').addEventListener('click', () => moveMonth(-1)); byId('calendar-next').addEventListener('click', () => moveMonth(1));
 byId('view-day').addEventListener('click', () => selectDate(state.date, 'day')); byId('view-week').addEventListener('click', () => selectDate(state.date, 'week'));
 byId('latest-button').addEventListener('click', goLatest);
 window.addEventListener('popstate', () => { const url = new URL(location.href); const date = url.searchParams.get('date'); state.followingLatest = !validDate(date); state.date = validDate(date) ? date : state.latest?.reportDate || state.date; state.month = state.date.slice(0, 7); state.mode = url.searchParams.get('view') === 'week' ? 'week' : 'day'; void loadSelection(); });
-const economicCalendar = createEconomicCalendar({ fetchJSON, getReport: () => state.mode === 'day' ? state.report : null, getReports: knownEntries, renderReports: refreshCalendar });
+const economicCalendar = createEconomicCalendar({
+  fetchJSON,
+  getReport: () => state.mode === 'day' && state.report?.reportDate === state.date ? state.report : null,
+  getSelection: () => ({ date: state.date, mode: state.mode, loading: Boolean(state.selectionLoading) }),
+  onSelect: date => selectDate(date, 'day'),
+  onChange: refreshCalendar
+});
 refreshCalendar(); showMode(); void loadReport();
 setInterval(() => { if (!document.hidden) void loadReport({ quiet: true }); }, 5 * 60_000);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) void loadReport({ quiet: true }); });

@@ -3,8 +3,9 @@ import { vietnamDate, formatTime, filterSections } from './lib.mjs';
 import { renderMarkdown } from './markdown.mjs';
 
 const make = (tag, text, className) => { const node = document.createElement(tag); if (text != null) node.textContent = text; if (className) node.className = className; return node; };
-export function renderCalendar(container, { month, date, mode, index, availabilityKnown = true, eventDates = [], calendarKind = 'reports', onSelect, onMove }) {
-  container.setAttribute('aria-label', calendarKind === 'events' ? 'Chọn ngày sự kiện kinh tế' : 'Chọn ngày bản tin');
+export function renderCalendar(container, { month, date, mode, index, availabilityKnown = true, eventDates = [], onSelect, onMove }) {
+  container.setAttribute('aria-label', 'Chọn ngày xem bản tin và sự kiện kinh tế');
+  container.setAttribute('aria-describedby', 'calendar-legend');
   const focusedDate = document.activeElement?.dataset.calendarDate;
   const available = new Set(index?.reports.map(report => report.reportDate) || []);
   const range = weekRange(date); const today = vietnamDate(); const events = new Set(eventDates);
@@ -16,8 +17,8 @@ export function renderCalendar(container, { month, date, mode, index, availabili
     button.setAttribute('aria-pressed', String(selected)); button.tabIndex = day === date ? 0 : -1;
     button.setAttribute('aria-label', dateLabel(day, { weekday: 'long' }) + (available.has(day) ? ' · Có bản tin' : availabilityKnown ? ' · Chưa có bản tin' : ' · Chưa xác nhận lịch sử'));
     if (day.slice(0, 7) !== month) button.classList.add('outside-month');
-    if (available.has(day)) { button.classList.add('has-report'); button.append(make('span', null, 'calendar-dot')); }
-    if (calendarKind === 'events' && events.has(day)) { button.classList.add('has-event'); button.append(make('span', null, 'calendar-event-dot')); button.setAttribute('aria-label', button.getAttribute('aria-label') + ' · Có sự kiện kinh tế'); }
+    if (available.has(day)) { button.classList.add('has-report'); const marker = make('span', null, 'calendar-dot'); marker.setAttribute('aria-hidden', 'true'); button.append(marker); }
+    if (events.has(day)) { button.classList.add('has-event'); const marker = make('span', null, 'calendar-event-dot'); marker.setAttribute('aria-hidden', 'true'); button.append(marker); button.setAttribute('aria-label', button.getAttribute('aria-label') + ' · Có sự kiện kinh tế'); }
     if (day === today) { button.classList.add('is-today'); button.setAttribute('aria-current', 'date'); }
     button.addEventListener('click', () => onSelect(day));
     button.addEventListener('keydown', event => {

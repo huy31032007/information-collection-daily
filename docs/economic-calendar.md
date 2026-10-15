@@ -59,9 +59,9 @@ Số chênh lệch actual − forecast chỉ tính khi cả hai là số cùng c
 
 - “Lịch mới nhất” tải file lịch hiện hành và ghi mốc riêng.
 - “Theo bản tin đang đọc” chỉ dùng `economic_calendar` trong chính archive đã chọn. Những bản tin trước khi có tính năng sẽ báo chưa lưu lịch; không ghép kết quả hiện tại vào quá khứ. Chế độ tổng hợp tuần không giả lập một bản tin riêng để gán mốc lịch.
-- Chọn ngày, tuần thứ Hai–Chủ nhật hoặc 7 ngày tới; lọc quốc gia, mức theo dõi và tên/chỉ tiêu. Kết quả đã chọn vẫn có thể mở chi tiết với nguồn và điều kiện phân tích.
+- Một lịch chung cho bản tin và sự kiện: chọn ngày hoặc tuần thứ Hai–Chủ nhật sẽ cập nhật cả hai phần. Tùy chọn “Xem thêm sự kiện 7 ngày từ ngày chọn” mở rộng riêng danh sách sự kiện khi đọc theo ngày; theo tuần luôn dùng đúng tuần đang chọn. Giữ bộ lọc quốc gia, mức theo dõi và tên/chỉ tiêu. Kết quả đã chọn vẫn có thể mở chi tiết với nguồn và điều kiện phân tích.
 - Có loading, empty, lỗi, dữ liệu cũ và cảnh báo phạm vi chưa được bao phủ. Lỗi lịch không làm hỏng phần bản tin; làm mới lỗi giữ snapshot đã xác minh cùng mốc gốc.
-- Lịch ngày có ký hiệu riêng cho bản tin và sự kiện. Phím mũi tên chuyển focus, Enter chọn ngày. Thu gọn và điều hướng sidebar hiện có được giữ lại.
+- Chấm xanh đánh dấu ngày có bản tin đã lưu; dấu vàng hình thoi đánh dấu ngày có sự kiện trong snapshot lịch đang dùng. Ngày có cả hai hiện hai dấu, kèm chú giải và nhãn đọc màn hình. Màu phân loại nội dung, không có nghĩa tốt/xấu. Không còn nút đổi qua lại giữa lịch bản tin và lịch sự kiện. Phím mũi tên chuyển focus, Enter chọn ngày. Thu gọn và điều hướng sidebar hiện có được giữ lại.
 
 ## Kiểm tra
 
