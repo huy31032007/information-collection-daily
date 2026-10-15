@@ -1,0 +1,79 @@
+/* 1. Shared design tokens — keep the existing light presentation. */
+:root {
+  color-scheme: light;
+
+  /* Canvas and elevation. */
+  --paper: #F5F5F7;
+  --surface: #FFFFFF;
+  --elevated: #F1F3F6;
+  --line: #E3E7ED;
+  --glass-line: rgba(30, 41, 59, 0.08);
+  --grid: rgba(95, 107, 122, 0.18);
+  --overlay: rgba(15, 23, 42, 0.38);
+  --shadow-card: 0 2px 10px rgba(15, 23, 42, 0.035);
+  --shadow-control: 0 1px 4px rgba(15, 23, 42, 0.05);
+
+  /* Graphite text and readable metadata on light surfaces. */
+  --ink: #1E293B;
+  --body-copy: #334155;
+  --muted: #5F6B7A;
+  --tertiary: #626E7E;
+  --accent: #245EA6;
+  --source-link: var(--accent);
+  --primary-hover: #334155;
+  --tint: #EDF4FC;
+  --success-line: #CDDCEB;
+
+  /* Emerald/rose: darker labels for light mode, softer chart fills. */
+  --green: #047857;
+  --change-up: var(--green);
+  --change-up-bg: rgba(16, 185, 129, 0.10);
+  --change-down: #B83454;
+  --change-down-bg: rgba(244, 63, 94, 0.10);
+  --chart-up: #3B9D7B;
+  --chart-down: #D46278;
+  --error: var(--change-down);
+  --error-bg: var(--change-down-bg);
+
+  /* Content categories describe provenance/status, not market direction. */
+  --orange: #8A571D;
+  --warning-bg: #FCF4E8;
+  --warning-line: #EAD9BD;
+  --estimate: #795A16;
+  --estimate-bg: #FBF3DD;
+  --opinion: #685785;
+  --opinion-bg: #F3EFF8;
+  --marker-slate: #66758B;
+  --marker-gold: #B78228;
+  --marker-energy: #B66C38;
+  --marker-event: #9A6A24;
+  --implication-bg: #EEF4F9;
+  --implication-line: #7596B8;
+
+  /* Type and reading rhythm; no remote font dependency. */
+  --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', Arial, sans-serif;
+  --serif: var(--sans);
+  --ui-leading: 1.65;
+  --reading-measure: 70ch;
+  --reading-leading: 1.7;
+  --reading-size: 1.0625rem;
+  --learning-size: 0.9375rem;
+  --compact-reading-size: 0.875rem;
+  --heading-tracking: -0.01em;
+
+  /* Common spacing and surface geometry. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --radius-card: 20px;
+  --radius-small: 16px;
+}
+
+@media (max-width: 559px) {
+  :root { --reading-size: 1rem; }
+}

@@ -9,7 +9,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 for (const file of ['dist/learning.mjs', 'dist/learning-ui.mjs']) { const result = spawnSync(process.execPath, ['--check', file], { cwd: root, encoding: 'utf8' }); if (result.status !== 0) throw new Error(result.stderr); }
 const files = ['dist/app.mjs', 'dist/lib.mjs', 'dist/markdown.mjs', 'dist/dashboard.mjs', 'dist/intelligence-panel.mjs', 'dist/history.mjs', 'dist/history-ui.mjs', 'dist/economic-calendar.mjs', 'dist/economic-calendar-ui.mjs', 'scripts/write-newsletter.mjs', 'scripts/enrich-newsletter.mjs', 'scripts/preview.mjs'];
 for (const file of files) { const result = spawnSync(process.execPath, ['--check', file], { cwd: root, encoding: 'utf8' }); if (result.status !== 0) throw new Error(result.stderr); }
-for (const file of ['dist/index.html', 'dist/styles.css', 'dist/favicon.svg']) await access(root + file);
+for (const file of ['dist/index.html', 'dist/styles.css', 'dist/tokens.css', 'dist/reading.css', 'dist/favicon.svg']) await access(root + file);
 const report = validateNewsletter(JSON.parse(await readFile(root + 'dist/data/latest.json', 'utf8')));
 if (!report) throw new Error('The current published document must contain a real report.');
 const calendar = validateEconomicCalendar(JSON.parse(await readFile(root + 'dist/data/economic-calendar.json', 'utf8')), { sourceThreadId: report.sourceThreadId });

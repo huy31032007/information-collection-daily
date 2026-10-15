@@ -1,0 +1,52 @@
+/* 2. Typography and reading flow — tables retain their available width. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  font-family: var(--sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 1rem;
+  line-height: var(--ui-leading);
+}
+h1, .section-header h2, .reading-header h2, .weekly-heading h2,
+.economic-heading h3, .academic-item h3 {
+  letter-spacing: var(--heading-tracking);
+}
+.section-body {
+  color: var(--body-copy);
+  font-size: var(--reading-size);
+  line-height: var(--reading-leading);
+}
+.insight-body, .learning-copy, .event-body > p,
+.event-interpretation p, .academic-summary, .academic-relevance p {
+  font-size: var(--learning-size);
+  line-height: var(--reading-leading);
+}
+.market-learning .learning-copy {
+  font-size: var(--compact-reading-size);
+}
+/* Keep prose centered and readable without squeezing financial tables. */
+.section-body > :is(p, ul, ol, blockquote, h3, h4),
+.learning-copy, .event-body > p, .event-interpretation > p,
+.insight-body, .academic-summary, .academic-relevance p {
+  max-width: var(--reading-measure);
+  margin-inline: auto;
+}
+.section-body > :is(p, ul, ol, blockquote) {
+  margin-block: var(--space-4);
+}
+.section-body li {
+  margin-bottom: var(--space-3);
+}
+.section-body h3, .section-body h4 {
+  margin-top: var(--space-7);
+  margin-bottom: var(--space-3);
+}
+@media (max-width: 559px) {
+  .section-body h3, .section-body h4 { margin-top: var(--space-6); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

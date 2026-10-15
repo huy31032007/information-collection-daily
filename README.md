@@ -38,4 +38,12 @@ Site mặc định riêng tư và sử dụng đăng nhập ChatGPT. `.openai/ho
 
 ## Lịch kinh tế quốc tế
 
-Trong “Lịch bản tin & sự kiện”, chọn “Sự kiện kinh tế” để xem CPI, PPI, Fed, GDP/PCE và việc làm. Lịch dùng giờ Việt Nam, có ngày/tuần, bộ lọc, nguồn và giải thích tác động; cập nhật cùng lượt tổng hợp 21:30. Xem [hợp đồng dữ liệu và quy trình](docs/economic-calendar.md). Không có kết nối tự động tới Forex Factory hoặc cập nhật kết quả trực tiếp theo giây.
+Trong “Lịch bản tin & sự kiện”, chọn ngày hoặc tuần để xem đồng thời bản tin và các sự kiện CPI, PPI, Fed, GDP/PCE, việc làm. Lịch dùng giờ Việt Nam, có ngày/tuần, bộ lọc, nguồn và giải thích tác động; cập nhật cùng lượt tổng hợp 21:30. Xem [hợp đồng dữ liệu và quy trình](docs/economic-calendar.md). Không có kết nối tự động tới Forex Factory hoặc cập nhật kết quả trực tiếp theo giây.
+
+## Giao diện và nhịp đọc
+
+- `dist/tokens.css`: màu của giao diện sáng, chữ, trạng thái tăng/giảm, khoảng cách và kích thước dòng đọc.
+- `dist/styles.css`: các thành phần và bố cục responsive hiện có; renderer JavaScript tiếp tục dựng giao diện theo dữ liệu.
+- `dist/reading.css`: chữ số thẳng cột, đoạn phân tích tối đa 70ch, giãn dòng 1.7 và chế độ giảm chuyển động. Bảng tài chính giữ độ rộng khả dụng.
+
+Ba stylesheet được tải theo thứ tự trên. Màu xanh/đỏ có cả ký hiệu và số biến động; màu lịch chỉ phân loại bản tin/sự kiện. Dữ liệu, nguồn và mốc thời gian không bị thay đổi bởi giao diện.
