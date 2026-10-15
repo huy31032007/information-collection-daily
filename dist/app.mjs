@@ -1,3 +1,4 @@
+import { createEconomicCalendar } from './economic-calendar-ui.mjs';
 import { TOPICS, TIMEZONE, validateNewsletter, parseSections, extractSources, formatTime, reportFreshness, filterSections, vietnamDate } from './lib.mjs';
 import { renderMarkdown } from './markdown.mjs';
 import { renderDashboard, renderReportList } from './dashboard.mjs';
@@ -152,6 +153,7 @@ function knownEntries() {
   return entries;
 }
 function refreshCalendar() {
+  if (economicCalendar.active) { economicCalendar.render(); return; }
   renderCalendar(byId('calendar-grid'), { month: state.month, date: state.date, mode: state.mode, index: { reports: knownEntries() }, availabilityKnown: Boolean(state.index) && !state.indexError, onSelect: date => selectDate(date), onMove: moveCalendarFocus });
   const range = weekRange(state.date);
   byId('history-selection').textContent = state.mode === 'week' ? 'Tuần ' + dateLabel(range.start) + ' – ' + dateLabel(range.end) : 'Ngày ' + dateLabel(state.date);
@@ -225,6 +227,7 @@ async function loadSelection({ quiet = false } = {}) {
   } finally { if (request === state.selectionRequest) { state.selectionLoading = false; byId('report-content').setAttribute('aria-busy', 'false'); } }
 }
 async function loadReport({ quiet = false } = {}) {
+  void economicCalendar.refresh();
   if (state.busy) return; state.busy = true; const button = byId('refresh'); button.disabled = true; button.classList.add('is-loading');
   byId('report-content').setAttribute('aria-busy', 'true');
   if (!quiet) status(state.report ? 'Đang kiểm tra bản tin đã xuất bản. Nội dung đang đọc vẫn được giữ nguyên…' : 'Đang tải bản tin đã xuất bản…', 'loading');
@@ -264,20 +267,23 @@ function updateURL() {
   history.pushState(null, '', url.pathname + url.search + url.hash);
 }
 function selectDate(date, mode = state.mode) {
+  if (economicCalendar.active) economicCalendar.close();
   if (!validDate(date)) return; state.date = date; state.mode = mode; state.followingLatest = false; state.month = date.slice(0, 7);
   state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = ''; byId('source-filter').value = ''; byId('period-filter').value = 'any';
   updateURL(); void loadSelection();
 }
 function goLatest() {
+  if (economicCalendar.active) economicCalendar.close();
   if (!state.latest) { void loadReport(); return; } state.mode = 'day'; state.followingLatest = true; state.date = state.latest.reportDate; state.month = state.date.slice(0, 7);
   state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = ''; byId('source-filter').value = ''; byId('period-filter').value = 'any'; updateURL(); void loadSelection();
 }
-function moveMonth(delta) { const date = new Date(state.month + '-01T12:00:00Z'); date.setUTCMonth(date.getUTCMonth() + delta); state.month = date.toISOString().slice(0, 7); refreshCalendar(); }
+function moveMonth(delta) { if (economicCalendar.active) { economicCalendar.moveMonth(delta); return; } const date = new Date(state.month + '-01T12:00:00Z'); date.setUTCMonth(date.getUTCMonth() + delta); state.month = date.toISOString().slice(0, 7); refreshCalendar(); }
 function moveCalendarFocus(date, days) { const target = addDays(date, days); state.month = target.slice(0, 7); refreshCalendar(); for (const button of byId('calendar-grid').children) button.tabIndex = button.dataset.calendarDate === target ? 0 : -1; byId('calendar-grid').querySelector('[data-calendar-date="' + target + '"]')?.focus(); }
 byId('calendar-prev').addEventListener('click', () => moveMonth(-1)); byId('calendar-next').addEventListener('click', () => moveMonth(1));
 byId('view-day').addEventListener('click', () => selectDate(state.date, 'day')); byId('view-week').addEventListener('click', () => selectDate(state.date, 'week'));
 byId('latest-button').addEventListener('click', goLatest);
 window.addEventListener('popstate', () => { const url = new URL(location.href); const date = url.searchParams.get('date'); state.followingLatest = !validDate(date); state.date = validDate(date) ? date : state.latest?.reportDate || state.date; state.month = state.date.slice(0, 7); state.mode = url.searchParams.get('view') === 'week' ? 'week' : 'day'; void loadSelection(); });
+const economicCalendar = createEconomicCalendar({ fetchJSON, getReport: () => state.mode === 'day' ? state.report : null, getReports: knownEntries, renderReports: refreshCalendar });
 refreshCalendar(); showMode(); void loadReport();
 setInterval(() => { if (!document.hidden) void loadReport({ quiet: true }); }, 5 * 60_000);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) void loadReport({ quiet: true }); });

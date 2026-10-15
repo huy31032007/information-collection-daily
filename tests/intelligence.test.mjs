@@ -132,7 +132,7 @@ test('writer preserves v2 metadata and refuses changed prices at an identical cu
   try {
     await mkdir(path.join(directory, 'scripts'));
     await mkdir(path.join(directory, 'dist/data'), { recursive: true });
-    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/history.mjs'])
+    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/history.mjs', 'dist/economic-calendar.mjs'])
       await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
     const report = { ...fixture, title: '[TEST FIXTURE] enriched report',
       meta: { version: '2.0', generated_at: new Date().toISOString(), timezone: fixture.timezone },
@@ -160,7 +160,7 @@ test('enrichment CLI and writer publish v2 in isolation without fetching sources
     await mkdir(path.join(directory, 'scripts'));
     await mkdir(path.join(directory, 'dist/data'), { recursive: true });
     for (const file of ['scripts/enrich-newsletter.mjs', 'scripts/write-newsletter.mjs',
-      'dist/lib.mjs', 'dist/history.mjs', 'dist/dashboard.mjs', 'dist/intelligence-panel.mjs', 'dist/markdown.mjs'])
+      'dist/lib.mjs', 'dist/history.mjs', 'dist/economic-calendar.mjs', 'dist/dashboard.mjs', 'dist/intelligence-panel.mjs', 'dist/markdown.mjs'])
       await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
     await symlink(fileURLToPath(new URL('../node_modules/', import.meta.url)), path.join(directory, 'node_modules'), 'dir');
     const cache = {

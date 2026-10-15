@@ -154,7 +154,7 @@ test('writer is idempotent and rejects backwards publication without changing th
   const directory = await mkdtemp(path.join(tmpdir(), 'newsletter-writer-test-'));
   try {
     await mkdir(path.join(directory, 'scripts')); await mkdir(path.join(directory, 'dist', 'data'), { recursive: true });
-    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/history.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
+    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/history.mjs', 'dist/economic-calendar.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
     await copyFile(new URL('./fixtures/original-newsletter.json', import.meta.url), path.join(directory, 'dist/data/latest.json'));
     const target = path.join(directory, 'dist/data/latest.json'); const before = await readFile(target, 'utf8');
     const repeat = spawnSync(process.execPath, ['scripts/write-newsletter.mjs'], { cwd: directory, input: JSON.stringify(report), encoding: 'utf8' });
@@ -168,7 +168,7 @@ test('writer replaces a newer document atomically in an isolated test directory'
   const directory = await mkdtemp(path.join(tmpdir(), 'newsletter-atomic-test-'));
   try {
     await mkdir(path.join(directory, 'scripts')); await mkdir(path.join(directory, 'dist', 'data'), { recursive: true });
-    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/history.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
+    for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/history.mjs', 'dist/economic-calendar.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
     await copyFile(new URL('./fixtures/original-newsletter.json', import.meta.url), path.join(directory, 'dist/data/latest.json'));
     // Test metadata only; this directory is never served or packaged for publication.
     const newer = { ...report, cutoffAt: '2026-10-12T09:15:47+07:00', coverageEnd: '2026-10-12T09:15:47+07:00' };
@@ -184,7 +184,7 @@ test('writer keeps previous days, updates the latest version of a day, and refus
   const directory = await mkdtemp(path.join(tmpdir(), 'newsletter-history-test-'));
   try {
     await mkdir(path.join(directory, 'scripts')); await mkdir(path.join(directory, 'dist', 'data'), { recursive: true });
-    for (const file of ['scripts/write-newsletter.mjs','dist/lib.mjs','dist/history.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
+    for (const file of ['scripts/write-newsletter.mjs','dist/lib.mjs','dist/history.mjs','dist/economic-calendar.mjs']) await copyFile(new URL('../' + file, import.meta.url), path.join(directory, file));
     // Synthetic date metadata for an isolated test; never published as a real daily report.
     const prior = { ...report, title: '[TEST FIXTURE] prior day', reportDate: '2026-10-11', cutoffAt: '2026-10-11T09:15:46+07:00', coverageEnd: '2026-10-11T09:15:46+07:00', coverageStart: '2026-10-10T09:15:46+07:00' };
     const latestFile = path.join(directory, 'dist/data/latest.json'); await import('node:fs/promises').then(fs => fs.writeFile(latestFile, JSON.stringify(prior)));

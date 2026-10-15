@@ -35,3 +35,7 @@ Bộ prompt và schema cho module xử lý từng bài viết/tài liệu trong 
 Dùng heartbeat hiện có `b-n-tin-kinh-t-th-tr-ng-09-00-vi-t-nam`, lúc 09:00 Asia/Ho_Chi_Minh. Máy/ứng dụng/mạng phải hoạt động. Quy trình nghiên cứu và phân tích gốc được giữ nguyên; chỉ thêm bước xuất cùng bản nội dung lên website. Xem `PUBLISHING.md`.
 
 Site mặc định riêng tư và sử dụng đăng nhập ChatGPT. `.openai/hosting.json` ghi đúng ID/hosting; không có API key trong frontend. Token ghi repository chỉ giữ trong bộ nhớ tác vụ và truyền qua stdin ẩn của helper Sites. Không tự đổi quyền truy cập, repository hoặc domain.
+
+## Lịch kinh tế quốc tế
+
+Trong “Lịch bản tin & sự kiện”, chọn “Sự kiện kinh tế” để xem CPI, PPI, Fed, GDP/PCE và việc làm. Lịch dùng giờ Việt Nam, có ngày/tuần, bộ lọc, nguồn và giải thích tác động; cập nhật cùng lượt tổng hợp 21:30. Xem [hợp đồng dữ liệu và quy trình](docs/economic-calendar.md). Không có kết nối tự động tới Forex Factory hoặc cập nhật kết quả trực tiếp theo giây.

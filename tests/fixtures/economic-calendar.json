@@ -1,0 +1,218 @@
+{
+  "version": 1,
+  "timezone": "Asia/Ho_Chi_Minh",
+  "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
+  "checkedAt": "2026-10-15T10:30:57+00:00",
+  "coverageStart": "2026-10-08",
+  "coverageEnd": "2026-11-14",
+  "events": [
+    {
+      "id": "us-cpi-2026-09",
+      "title": "Mỹ · Chỉ số giá tiêu dùng (CPI)",
+      "period": "09/2026",
+      "country": "US",
+      "currency": "USD",
+      "scheduledAt": "2026-10-14T08:30:00-04:00",
+      "scheduledDate": "2026-10-14",
+      "sourceTimezone": "America/New_York",
+      "status": "released",
+      "scheduleSource": {
+        "name": "BLS — lịch tháng 10/2026",
+        "url": "https://www.bls.gov/schedule/2026/10_sched.htm"
+      },
+      "impact": "high",
+      "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+      "description": "CPI đo thay đổi giá hàng hóa và dịch vụ người tiêu dùng mua. CPI cơ bản loại thực phẩm và năng lượng; so tháng trước và so cùng kỳ là hai cách đọc khác nhau.",
+      "analysis": {
+        "mechanism": "Nhận định: giá tiêu dùng hoặc giá đầu vào tăng mạnh hơn kỳ vọng có thể khiến thị trường điều chỉnh đường đi lãi suất Mỹ. Cần xem cả cấu phần và phản ứng lợi suất trái phiếu, không kết luận chỉ từ một con số.",
+        "vietnam": "Nhận định: nếu lợi suất Mỹ và USD tăng, tỷ giá và chi phí vốn ngoại của Việt Nam có thể chịu sức ép. Doanh nghiệp có nợ USD, nguyên liệu nhập khẩu và nguồn thu USD chịu tác động khác nhau; vàng còn phụ thuộc lợi suất thực và nhu cầu trú ẩn.",
+        "conditions": "So sánh đúng kỳ và cách điều chỉnh mùa vụ. Kiểm tra kết quả chính thức, số sửa đổi và phản ứng sau công bố. Kết quả cao hơn dự báo không bảo đảm USD tăng hoặc vàng giảm."
+      },
+      "metrics": [
+        {
+          "label": "CPI tổng thể — so cùng kỳ",
+          "unit": "%",
+          "basis": "So với cùng tháng năm trước; chưa điều chỉnh mùa vụ.",
+          "actual": {
+            "value": 3.7,
+            "period": "09/2026",
+            "source": {
+              "name": "BLS — CPI tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+            },
+            "publishedAt": "2026-10-14T08:30:00-04:00"
+          },
+          "forecast": null,
+          "previous": {
+            "value": 3.4,
+            "period": "08/2026",
+            "source": {
+              "name": "BLS — CPI tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+            },
+            "publishedAt": "2026-10-14T08:30:00-04:00"
+          }
+        },
+        {
+          "label": "CPI tổng thể — so tháng trước",
+          "unit": "%",
+          "basis": "So với tháng trước; đã điều chỉnh mùa vụ.",
+          "actual": {
+            "value": 0.6,
+            "period": "09/2026",
+            "source": {
+              "name": "BLS — CPI tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+            },
+            "publishedAt": "2026-10-14T08:30:00-04:00"
+          },
+          "forecast": null,
+          "previous": {
+            "value": 0.4,
+            "period": "08/2026",
+            "source": {
+              "name": "BLS — CPI tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+            },
+            "publishedAt": "2026-10-14T08:30:00-04:00"
+          }
+        },
+        {
+          "label": "CPI cơ bản — so cùng kỳ",
+          "unit": "%",
+          "basis": "Loại thực phẩm và năng lượng; so cùng tháng năm trước; chưa điều chỉnh mùa vụ.",
+          "actual": {
+            "value": 2.6,
+            "period": "09/2026",
+            "source": {
+              "name": "BLS — CPI tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+            },
+            "publishedAt": "2026-10-14T08:30:00-04:00"
+          },
+          "forecast": null,
+          "previous": {
+            "value": 2.4,
+            "period": "08/2026",
+            "source": {
+              "name": "BLS — CPI tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+            },
+            "publishedAt": "2026-10-14T08:30:00-04:00"
+          }
+        },
+        {
+          "label": "CPI cơ bản — so tháng trước",
+          "unit": "%",
+          "basis": "Loại thực phẩm và năng lượng; so với tháng trước; đã điều chỉnh mùa vụ.",
+          "actual": {
+            "value": 0.3,
+            "period": "09/2026",
+            "source": {
+              "name": "BLS — CPI tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+            },
+            "publishedAt": "2026-10-14T08:30:00-04:00"
+          },
+          "forecast": null,
+          "previous": {
+            "value": 0.3,
+            "period": "08/2026",
+            "source": {
+              "name": "BLS — CPI tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+            },
+            "publishedAt": "2026-10-14T08:30:00-04:00"
+          }
+        }
+      ],
+      "releasedAt": "2026-10-14T08:30:00-04:00",
+      "resultSource": {
+        "name": "BLS — CPI tháng 9/2026",
+        "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+      }
+    },
+    {
+      "id": "us-fomc-2026-10-decision",
+      "title": "Fed · Quyết định lãi suất và thông cáo",
+      "period": "Họp 27–28/10/2026",
+      "country": "US",
+      "currency": "USD",
+      "scheduledAt": "2026-10-28T14:00:00-04:00",
+      "scheduledDate": "2026-10-29",
+      "sourceTimezone": "America/New_York",
+      "status": "scheduled",
+      "scheduleSource": {
+        "name": "Federal Reserve — lịch tháng 10/2026",
+        "url": "https://www.federalreserve.gov/newsevents/2026-october.htm"
+      },
+      "impact": "high",
+      "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+      "description": "Ủy ban Thị trường Mở Liên bang (FOMC) quyết định chính sách tiền tệ của Fed. Khoảng lãi suất mục tiêu là một khoảng, không phải một mức lãi suất duy nhất.",
+      "analysis": {
+        "mechanism": "Nhận định: quyết định lãi suất thay đổi chi phí vốn ngắn hạn của Mỹ; thông cáo và họp báo có thể làm thị trường điều chỉnh kỳ vọng các kỳ sau. Giữ nguyên lãi suất vẫn có thể đi kèm thay đổi định hướng.",
+        "vietnam": "Nhận định: ảnh hưởng có thể truyền qua USD, tỷ giá, dòng vốn và mặt bằng lợi suất. Doanh nghiệp vay USD và doanh nghiệp xuất khẩu có mức tiếp xúc khác nhau; phản ứng chứng khoán còn phụ thuộc định giá và kỳ vọng đã có.",
+        "conditions": "Đọc quyết định, thông cáo và họp báo riêng; đối chiếu lãi suất trước và sau khi có nguồn. Không coi phát biểu là quyết định mới và không tự gán xác suất tăng/giảm lãi suất."
+      },
+      "metrics": [
+        {
+          "label": "Khoảng lãi suất mục tiêu",
+          "unit": "%",
+          "basis": "Ghi cả cận dưới và cận trên. Thay đổi lãi suất được đọc bằng điểm phần trăm hoặc điểm cơ bản; 1 điểm cơ bản bằng 0,01 điểm phần trăm.",
+          "actual": null,
+          "forecast": null,
+          "previous": null
+        }
+      ]
+    },
+    {
+      "id": "us-employment-2026-10",
+      "title": "Mỹ · Việc làm, thất nghiệp và tiền lương",
+      "period": "10/2026",
+      "country": "US",
+      "currency": "USD",
+      "scheduledAt": "2026-11-06T08:30:00-05:00",
+      "scheduledDate": "2026-11-06",
+      "sourceTimezone": "America/New_York",
+      "status": "scheduled",
+      "scheduleSource": {
+        "name": "BLS — lịch tháng 11/2026",
+        "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
+      },
+      "impact": "high",
+      "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+      "description": "Báo cáo việc làm kết hợp khảo sát doanh nghiệp và hộ gia đình. Số việc làm mới và tỷ lệ thất nghiệp đo những khía cạnh khác nhau.",
+      "analysis": {
+        "mechanism": "Nhận định: việc làm, thất nghiệp và tiền lương phản ánh các mặt khác nhau của thị trường lao động. Việc làm tăng và tiền lương cao có thể ảnh hưởng kỳ vọng lãi suất, nhưng cần kiểm tra số điều chỉnh và tỷ lệ tham gia lao động.",
+        "vietnam": "Nhận định: kênh tác động chủ yếu là sức mua Mỹ đối với hàng nhập khẩu, USD và chi phí vốn. Tác động lên doanh nghiệp Việt Nam phụ thuộc tỷ trọng xuất khẩu, nợ ngoại tệ và khả năng điều chỉnh giá.",
+        "conditions": "Không suy ra thị trường lao động khỏe chỉ từ số việc làm mới. Đối chiếu thất nghiệp, tiền lương, kỳ trước được sửa đổi và phản ứng thực tế của lợi suất/USD."
+      },
+      "metrics": [
+        {
+          "label": "Thay đổi việc làm phi nông nghiệp",
+          "unit": "việc làm",
+          "basis": "Số việc làm tăng/giảm so tháng trước; có điều chỉnh mùa vụ. Không phải số người có việc làm.",
+          "actual": null,
+          "forecast": null,
+          "previous": null
+        },
+        {
+          "label": "Tỷ lệ thất nghiệp",
+          "unit": "%",
+          "basis": "Tỷ lệ người thất nghiệp trong lực lượng lao động; không phải tỷ lệ trong toàn bộ dân số.",
+          "actual": null,
+          "forecast": null,
+          "previous": null
+        },
+        {
+          "label": "Tiền lương giờ bình quân — so tháng trước",
+          "unit": "%",
+          "basis": "Thay đổi tiền lương giờ bình quân so tháng trước; cần xem cùng cơ cấu lao động.",
+          "actual": null,
+          "forecast": null,
+          "previous": null
+        }
+      ]
+    }
+  ]
+}

@@ -5,10 +5,13 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { validateNewsletter, TIMEZONE } from '../dist/lib.mjs';
 import { validateArchiveIndex } from '../dist/history.mjs';
+import { validateEconomicCalendar, assertCalendarUpdate } from '../dist/economic-calendar.mjs';
 
 const data = fileURLToPath(new URL('../dist/data/', import.meta.url));
 const archive = path.join(data, 'archive');
 const latest = path.join(data, 'latest.json');
+const calendarFile = path.join(data, 'economic-calendar.json');
+const calendarOnly = process.argv.length === 3 && process.argv[2] === '--calendar';
 const runtime = fileURLToPath(new URL('../.sites-runtime/', import.meta.url));
 const lockPath = path.join(runtime, 'newsletter-writer.lock');
 const MAX_BYTES = 600_000;
@@ -33,7 +36,7 @@ async function readInput() {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     throw new Error('Refusing an empty or invalid report.');
   }
-  return validateNewsletter({ ...value, exportedAt: new Date().toISOString() });
+  return calendarOnly ? validateEconomicCalendar(value) : validateNewsletter({ ...value, exportedAt: new Date().toISOString() });
 }
 
 async function acquireLock() {
@@ -64,7 +67,7 @@ const canonical = value => {
   if (value && typeof value === 'object') return Object.fromEntries(Object.keys(value).sort().map(key => [key, canonical(value[key])]));
   return value;
 };
-const ENRICHMENT_KEYS = ['market_snapshot', 'academic_feed', 'source_status', 'feed_cache'];
+const ENRICHMENT_KEYS = ['market_snapshot', 'academic_feed', 'source_status', 'feed_cache', 'economic_calendar'];
 const sameContent = (a, b) => CONTENT_KEYS.every(key => a[key] === b[key])
   && a.meta?.version === b.meta?.version && a.meta?.timezone === b.meta?.timezone
   && ENRICHMENT_KEYS.every(key => JSON.stringify(canonical(a[key])) === JSON.stringify(canonical(b[key])));
@@ -153,6 +156,14 @@ async function publish(report) {
     reports: [...records.values()].map(({ reportDate, cutoffAt, title }) => ({ reportDate, cutoffAt, title })) });
   // Validate every serialized payload before changing any published file.
   const writes = [...pending].map(([date, record]) => [path.join(archive, date + '.json'), serialize(record)]);
+  if (report.economic_calendar) {
+    const previous = validateEconomicCalendar(await readJSON(calendarFile));
+    // A separately verified calendar can be newer than the newsletter snapshot.
+    if (!previous || Date.parse(previous.checkedAt) <= Date.parse(report.economic_calendar.checkedAt)) {
+      assertCalendarUpdate(previous, report.economic_calendar);
+      writes.push([calendarFile, serialize(report.economic_calendar)]);
+    } else if (previous.sourceThreadId !== report.sourceThreadId) throw new Error('Calendar belongs to a different pipeline.');
+  }
   writes.push([path.join(archive, 'index.json'), serialize(index, 8_000_000)]);
   if (!unchanged) writes.push([latest, serialize(report)]);
   await mkdir(archive, { recursive: true });
@@ -162,12 +173,22 @@ async function publish(report) {
     archivedDays: records.size };
 }
 
+async function publishCalendar(snapshot) {
+  const currentReport = validateNewsletter(await readJSON(latest));
+  if (!currentReport || snapshot.sourceThreadId !== currentReport.sourceThreadId) throw new Error('Calendar belongs to a different pipeline.');
+  const previous = validateEconomicCalendar(await readJSON(calendarFile));
+  assertCalendarUpdate(previous, snapshot);
+  await atomicWrite(calendarFile, serialize(snapshot));
+  return { calendar: 'published', checkedAt: snapshot.checkedAt, events: snapshot.events.length };
+}
+
 async function main() {
+  if (process.argv.length > 2 && !calendarOnly) throw new Error('Use JSON on stdin, optionally with --calendar.');
   const report = await readInput();
   const lock = await acquireLock();
   try {
     await lock.writeFile(JSON.stringify({ pid: process.pid, startedAt: new Date().toISOString() }));
-    console.log(JSON.stringify(await publish(report)));
+    console.log(JSON.stringify(await (calendarOnly ? publishCalendar(report) : publish(report))));
   } finally {
     try { await lock.close(); }
     finally { await unlink(lockPath); }

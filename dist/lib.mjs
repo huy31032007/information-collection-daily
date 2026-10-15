@@ -1,3 +1,4 @@
+import { validateEconomicCalendar } from './economic-calendar.mjs';
 export const TIMEZONE = 'Asia/Ho_Chi_Minh';
 export const MAX_CONTENT = 250_000;
 export const TOPICS = [
@@ -77,6 +78,7 @@ export function validateNewsletter(value, { now = new Date() } = {}) {
   if (Date.parse(value.cutoffAt) > now.getTime() || Date.parse(value.exportedAt) > now.getTime() || Date.parse(value.exportedAt) < Date.parse(value.cutoffAt)) throw new Error('Thời điểm bản tin hoặc xuất bản chưa hợp lệ.');
   const ids = parseSections(value.markdown).sections.filter(s => /^\d+$/.test(s.id)).map(s => s.id);
   if (ids.join(',') !== '1,2,3,4,5,6,7,8,9') throw new Error('Bản tin chưa có đủ chín mục theo quy trình.');
+  if (value.economic_calendar != null) validateEconomicCalendar(value.economic_calendar, { now, cutoffAt: value.cutoffAt, sourceThreadId: value.sourceThreadId });
   return value;
 }
 export function normalizeText(value) { return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase(); }

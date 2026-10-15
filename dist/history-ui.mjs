@@ -3,10 +3,11 @@ import { vietnamDate, formatTime, filterSections } from './lib.mjs';
 import { renderMarkdown } from './markdown.mjs';
 
 const make = (tag, text, className) => { const node = document.createElement(tag); if (text != null) node.textContent = text; if (className) node.className = className; return node; };
-export function renderCalendar(container, { month, date, mode, index, availabilityKnown = true, onSelect, onMove }) {
+export function renderCalendar(container, { month, date, mode, index, availabilityKnown = true, eventDates = [], calendarKind = 'reports', onSelect, onMove }) {
+  container.setAttribute('aria-label', calendarKind === 'events' ? 'Chọn ngày sự kiện kinh tế' : 'Chọn ngày bản tin');
   const focusedDate = document.activeElement?.dataset.calendarDate;
   const available = new Set(index?.reports.map(report => report.reportDate) || []);
-  const range = weekRange(date); const today = vietnamDate();
+  const range = weekRange(date); const today = vietnamDate(); const events = new Set(eventDates);
   document.getElementById('calendar-month').textContent = new Intl.DateTimeFormat('vi-VN', { month: 'long', year: 'numeric', timeZone: 'Asia/Ho_Chi_Minh' }).format(new Date(month + '-01T12:00:00+07:00'));
   container.replaceChildren();
   for (const day of monthGrid(month)) {
@@ -16,6 +17,7 @@ export function renderCalendar(container, { month, date, mode, index, availabili
     button.setAttribute('aria-label', dateLabel(day, { weekday: 'long' }) + (available.has(day) ? ' · Có bản tin' : availabilityKnown ? ' · Chưa có bản tin' : ' · Chưa xác nhận lịch sử'));
     if (day.slice(0, 7) !== month) button.classList.add('outside-month');
     if (available.has(day)) { button.classList.add('has-report'); button.append(make('span', null, 'calendar-dot')); }
+    if (calendarKind === 'events' && events.has(day)) { button.classList.add('has-event'); button.append(make('span', null, 'calendar-event-dot')); button.setAttribute('aria-label', button.getAttribute('aria-label') + ' · Có sự kiện kinh tế'); }
     if (day === today) { button.classList.add('is-today'); button.setAttribute('aria-current', 'date'); }
     button.addEventListener('click', () => onSelect(day));
     button.addEventListener('keydown', event => {

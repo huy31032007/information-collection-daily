@@ -11,7 +11,7 @@ async function sandbox() {
   const root = await mkdtemp(path.join(tmpdir(), 'newsletter-refactor-test-'));
   await mkdir(path.join(root, 'scripts'));
   await mkdir(path.join(root, 'dist/data'), { recursive: true });
-  for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/history.mjs']) {
+  for (const file of ['scripts/write-newsletter.mjs', 'dist/lib.mjs', 'dist/history.mjs', 'dist/economic-calendar.mjs']) {
     await copyFile(new URL('../' + file, import.meta.url), path.join(root, file));
   }
   await writeFile(path.join(root, 'dist/data/latest.json'), JSON.stringify(fixture));

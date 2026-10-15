@@ -4,7 +4,7 @@
 
 ## Đích xuất bản chính — GitHub và Cloudflare
 
-Theo yêu cầu mới của người dùng, sau mỗi bản tin phải tự commit/push lên repository hiện có và cập nhật Cloudflare Workers. Lịch hiện tại là 21:30 giờ Việt Nam (Asia/Ho_Chi_Minh), thay cho lượt sáng. Giữ nguyên nội dung bản tin, writer, giao diện và schema. Không tạo automation khác, API, database, nguồn thu thập tin, Worker hoặc domain mới.
+Theo yêu cầu mới của người dùng, sau mỗi bản tin phải tự commit/push lên repository hiện có và cập nhật Cloudflare Workers. Lịch hiện tại là 21:30 giờ Việt Nam (Asia/Ho_Chi_Minh), thay cho lượt sáng. Giữ nguyên nội dung bản tin, giao diện và pipeline; writer hỗ trợ thêm lịch kinh tế tùy chọn theo `docs/economic-calendar.md`. Không tạo automation khác, API, database, nguồn thu thập tin, Worker hoặc domain mới.
 
 Bản tin tối tổng kết thông tin từ 00:00 cùng ngày đến mốc chốt thực tế; ưu tiên chứng khoán Việt Nam sau đóng cửa và giá vàng cuối ngày hoặc báo giá gần nhất có đủ nguồn/thời điểm. Chỉ gọi là giá chốt khi nguồn xác nhận. Thị trường quốc tế có thể vẫn đang giao dịch lúc 21:30; phải ghi trạng thái và giờ dữ liệu. Lịch theo dõi ưu tiên tối còn lại và phiên kế tiếp. Không tạo thêm lượt sáng.
 
@@ -28,12 +28,12 @@ Tài liệu: [Workers Builds](https://developers.cloudflare.com/workers/ci-cd/bu
 
 1. Tạo một bản tin chuẩn theo đầy đủ hướng dẫn nghiên cứu hiện tại; dùng nguyên văn cho chat và web, giữ chín mục, nguồn, đơn vị, thời điểm và nhãn chắc chắn. Không research thêm để tạo bản khác cho website.
 2. Kiểm tra đúng workspace, `wrangler.json`, nhánh `main`, remote `origin` khớp repository trên và trạng thái Git. Không đoán endpoint/credential hoặc thay remote. Nếu có công việc ngoài phạm vi, bảo toàn và dừng bước commit/push để báo rõ; không stage lẫn.
-3. Dùng `node scripts/write-newsletter.mjs` với JSON qua stdin gồm title, reportDate, cutoffAt, coverageStart, coverageEnd, timezone=Asia/Ho_Chi_Minh, sourceThreadId, markdown nguyên văn. Có thể dùng tệp tạm trong `.sites-runtime/` đã ignore. coverageEnd=cutoffAt. Writer tự ghi exportedAt, giữ archive và cập nhật atomically, bảo vệ bản mới hơn. Không sửa/xóa tệp để vượt xung đột cùng mốc chốt.
-4. Kiểm tra chỉ các tệp dữ liệu do writer tạo được thay đổi: latest.json, archive/index.json và archive ngày. Giữ các ngày cũ, không dựng dữ liệu ngày thiếu. Chạy `npm run check` và `npm test`; khi chỉ dữ liệu đổi, không cài dependency hoặc chạy lại toàn bộ responsive suite.
+3. Dùng `node scripts/write-newsletter.mjs` với JSON qua stdin gồm title, reportDate, cutoffAt, coverageStart, coverageEnd, timezone=Asia/Ho_Chi_Minh, sourceThreadId, markdown nguyên văn. Có thể dùng tệp tạm trong `.sites-runtime/` đã ignore. coverageEnd=cutoffAt. Nếu có lịch đã xác minh, thêm trường tùy chọn economic_calendar theo docs/economic-calendar.md; không gắn dữ liệu kiểm tra sau cutoffAt. Writer tự ghi exportedAt, giữ archive và cập nhật atomically, bảo vệ bản mới hơn. Không sửa/xóa tệp để vượt xung đột cùng mốc chốt.
+4. Kiểm tra chỉ các tệp dữ liệu do writer tạo được thay đổi: latest.json, archive/index.json, archive ngày và economic-calendar.json nếu có cập nhật lịch. Giữ các ngày cũ, không dựng dữ liệu ngày thiếu. Chạy `npm run check` và `npm test`; khi chỉ dữ liệu đổi, không cài dependency hoặc chạy lại toàn bộ responsive suite.
 5. Fetch `origin main`, xác minh nhánh remote là tổ tiên của HEAD. Nếu GitHub có lịch sử chưa có trong local, bảo toàn cả hai phía và báo cần xử lý; không force-push, reset hoặc xóa lịch sử. Chỉ stage dữ liệu writer tạo, kiểm tra staged diff và commit ghi ngày bản tin. Nếu đã commit thì dùng commit đó, không commit rỗng.
 6. Push bằng `git push origin HEAD:main`, dùng xác thực Git đã có. Người dùng đã cho phép thao tác này sau mỗi bản tin; không xin lại xác nhận thường kỳ. Không tự tạo/lưu credential mới. Sau push, kiểm tra SHA refs/heads/main trên origin trùng HEAD.
 7. Push sẽ kích hoạt Workers Builds nếu Git integration đã bật đúng. Theo dõi qua công cụ/dashboard hiện có khi truy cập được; chờ có giới hạn, giãn khoảng kiểm tra, không tạo automation giám sát. Pending/building không phải thành công. Không tự deploy sang tài khoản/Worker khác hoặc sửa quyền/cấu hình tài khoản để vượt lỗi.
-8. Mở URL Cloudflare và đối chiếu data/latest.json, data/archive/index.json cùng archive vừa ghi: reportDate, cutoffAt và toàn văn markdown phải trùng local. Kiểm tra ngày mới, chọn ngày đúng và tổng hợp tuần thứ Hai–Chủ nhật giữ số ngày đã lưu/thiếu. HTTP 200 hoặc build thành công một mình chưa chứng minh nội dung mới đúng. Nếu HTTP bị chặn mà trình duyệt mở được, đọc/đối chiếu bằng trình duyệt; không tắt/bỏ qua bảo vệ truy cập.
+8. Mở URL Cloudflare và đối chiếu data/latest.json, data/archive/index.json cùng archive vừa ghi: reportDate, cutoffAt và toàn văn markdown phải trùng local. Kiểm tra ngày mới, chọn ngày đúng và tổng hợp tuần thứ Hai–Chủ nhật giữ số ngày đã lưu/thiếu. Khi có lịch mới, đối chiếu data/economic-calendar.json cùng checkedAt, toàn bộ sự kiện và dữ liệu kết quả; thử chế độ Sự kiện kinh tế. Lịch theo bản tin cũ chỉ dùng snapshot lưu trong archive. HTTP 200 hoặc build thành công một mình chưa chứng minh nội dung mới đúng. Nếu HTTP bị chặn mà trình duyệt mở được, đọc/đối chiếu bằng trình duyệt; không tắt/bỏ qua bảo vệ truy cập.
 9. Vẫn đăng bản tin vào chat nếu một bước lỗi. Báo đúng trạng thái commit/push/deploy/readback và URL thật. Nếu Cloudflare còn nội dung cũ, nói rõ chưa hoàn tất deploy; không tuyên bố đã cập nhật. Giữ dữ liệu để retry, không nghiên cứu lại hoặc đè bản mới hơn bằng bản cũ.
 
 Lịch sử và tuần dùng writer/web hiện có; commit/push cả archive do writer tạo, không cần research hoặc automation riêng. Lịch vẫn local, chỉ chạy khi máy/mạng/ứng dụng khả dụng.
@@ -64,3 +64,7 @@ Lịch sử và tuần dùng writer/web hiện có; commit/push cả archive do 
 ## Giới hạn vận hành
 
 Lịch là local và chỉ thực hiện khi môi trường chạy khả dụng. Lưu thành công hướng dẫn không bảo đảm lượt chạy tương lai. Đường xuất bản cần kiểm chứng thực tế; không chờ tới 21:30 lượt kế tiếp chỉ để kiểm tra bước ghi/publish/readback. Không dùng JavaScript polling trên trình duyệt thay cho lịch tạo và xuất bản bản tin.
+
+## Lịch sự kiện kinh tế
+
+Thực hiện [hợp đồng và quy trình lịch](docs/economic-calendar.md) trong cùng lượt tổng hợp 21:30. Không thêm automation, nguồn dự báo không có quyền sử dụng hoặc research bản tin khác riêng cho web. Lịch chính thức lấy BLS/Fed/BEA; Forex Factory chỉ có liên kết tham khảo khi chưa xác minh quyền tái xuất bản.
