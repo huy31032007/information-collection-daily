@@ -47,3 +47,7 @@ Trong “Lịch bản tin & sự kiện”, chọn ngày hoặc tuần để xem
 - `dist/reading.css`: chữ số thẳng cột, đoạn phân tích tối đa 70ch, giãn dòng 1.7 và chế độ giảm chuyển động. Bảng tài chính giữ độ rộng khả dụng.
 
 Ba stylesheet được tải theo thứ tự trên. Màu xanh/đỏ có cả ký hiệu và số biến động; màu lịch chỉ phân loại bản tin/sự kiện. Dữ liệu, nguồn và mốc thời gian không bị thay đổi bởi giao diện.
+
+## Quy chuẩn biên tập bản tin
+
+[Hướng dẫn biên tập](docs/financial-editorial-standard.md) áp dụng vào lượt tổng hợp 21:30 hiện có: kết luận → bằng chứng → cơ chế → phản biện → theo dõi. Giữ chín mục và giải thích cho người mới học. Các ngưỡng kế toán trong tài liệu tham khảo không được dùng làm kết luận tự động về gian lận hay định giá. Thay đổi hướng dẫn không viết lại bản tin đã lưu hoặc tự thêm dữ liệu mới.

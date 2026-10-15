@@ -26,6 +26,8 @@ Tài liệu: [Workers Builds](https://developers.cloudflare.com/workers/ci-cd/bu
 
 ### Quy trình thường kỳ
 
+Trước khi soạn bản tin, đọc [quy chuẩn biên tập](docs/financial-editorial-standard.md): kết luận trước, bằng chứng và mốc so sánh, cơ chế tác động, phản biện và tín hiệu theo dõi. Giữ chín mục, giải thích cho người mới học và mọi ràng buộc nguồn/thời điểm; không dùng ngưỡng dòng tiền như bằng chứng tự động về gian lận.
+
 1. Tạo một bản tin chuẩn theo đầy đủ hướng dẫn nghiên cứu hiện tại; dùng nguyên văn cho chat và web, giữ chín mục, nguồn, đơn vị, thời điểm và nhãn chắc chắn. Không research thêm để tạo bản khác cho website.
 2. Kiểm tra đúng workspace, `wrangler.json`, nhánh `main`, remote `origin` khớp repository trên và trạng thái Git. Không đoán endpoint/credential hoặc thay remote. Nếu có công việc ngoài phạm vi, bảo toàn và dừng bước commit/push để báo rõ; không stage lẫn.
 3. Dùng `node scripts/write-newsletter.mjs` với JSON qua stdin gồm title, reportDate, cutoffAt, coverageStart, coverageEnd, timezone=Asia/Ho_Chi_Minh, sourceThreadId, markdown nguyên văn. Có thể dùng tệp tạm trong `.sites-runtime/` đã ignore. coverageEnd=cutoffAt. Nếu có lịch đã xác minh, thêm trường tùy chọn economic_calendar theo docs/economic-calendar.md; không gắn dữ liệu kiểm tra sau cutoffAt. Writer tự ghi exportedAt, giữ archive và cập nhật atomically, bảo vệ bản mới hơn. Không sửa/xóa tệp để vượt xung đột cùng mốc chốt.
