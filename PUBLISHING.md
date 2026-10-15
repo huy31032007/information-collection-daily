@@ -26,6 +26,8 @@ Tài liệu: [Workers Builds](https://developers.cloudflare.com/workers/ci-cd/bu
 
 ### Quy trình thường kỳ
 
+Đọc [chính sách chọn nguồn](docs/source-policy.md) trong cùng lượt nghiên cứu: ưu tiên nguồn gốc theo thông tin cần xác minh, bổ sung tiền tệ/trái phiếu khi liên quan, dùng RSS hiện có để phát hiện link rồi mở bài gốc. Nhãn vai trò nguồn không thay kiểm chứng. Writer và dữ liệu xuất bản giữ nguyên.
+
 Trước khi soạn bản tin, đọc [quy chuẩn biên tập](docs/financial-editorial-standard.md): kết luận trước, bằng chứng và mốc so sánh, cơ chế tác động, phản biện và tín hiệu theo dõi. Giữ chín mục, giải thích cho người mới học và mọi ràng buộc nguồn/thời điểm; không dùng ngưỡng dòng tiền như bằng chứng tự động về gian lận.
 
 1. Tạo một bản tin chuẩn theo đầy đủ hướng dẫn nghiên cứu hiện tại; dùng nguyên văn cho chat và web, giữ chín mục, nguồn, đơn vị, thời điểm và nhãn chắc chắn. Không research thêm để tạo bản khác cho website.

@@ -51,3 +51,7 @@ Ba stylesheet được tải theo thứ tự trên. Màu xanh/đỏ có cả ký
 ## Quy chuẩn biên tập bản tin
 
 [Hướng dẫn biên tập](docs/financial-editorial-standard.md) áp dụng vào lượt tổng hợp 21:30 hiện có: kết luận → bằng chứng → cơ chế → phản biện → theo dõi. Giữ chín mục và giải thích cho người mới học. Các ngưỡng kế toán trong tài liệu tham khảo không được dùng làm kết luận tự động về gian lận hay định giá. Thay đổi hướng dẫn không viết lại bản tin đã lưu hoặc tự thêm dữ liệu mới.
+
+## Vai trò và chính sách nguồn
+
+[Nguồn và giới hạn kiểm chứng](docs/source-policy.md) hướng dẫn chọn công bố gốc, bổ sung tiền tệ/trái phiếu, RSS phát hiện tin và các nguồn cần quyền truy cập. Trên web, nhãn nguồn cho biết loại đơn vị phát hành, không phải dấu xác thực. Mở “Vai trò của nguồn trong bản tin” ở mục 9 để đọc giải thích và truy cập từng nguồn đã dẫn. Không đổi schema hoặc dữ liệu bản tin cũ.

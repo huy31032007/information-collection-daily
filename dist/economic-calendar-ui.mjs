@@ -1,3 +1,4 @@
+import { enhanceSourceLinks } from './source-ui.mjs';
 import { validateEconomicCalendar, assertCalendarUpdate, calendarDate, eventStatus, eventRange, selectEvents, formatEventValue, surprise } from './economic-calendar.mjs';
 import { formatTime, safeLink } from './lib.mjs';
 import { dateLabel } from './history.mjs';
@@ -63,6 +64,7 @@ export function renderEconomicEvents(container, events, referenceTime) {
     const originalTime = event.scheduledAt ? ' · Giờ tại nguồn: ' + new Intl.DateTimeFormat('vi-VN', { timeZone: event.sourceTimezone, dateStyle: 'short', timeStyle: 'short' }).format(new Date(event.scheduledAt)) + ' (' + event.sourceTimezone + ')' : '';
     body.append(sources, make('p', 'Giờ trên lịch: Asia/Ho_Chi_Minh (UTC+7)' + originalTime, 'event-basis')); card.append(body); container.append(card);
   }
+  enhanceSourceLinks(container);
 }
 
 export function createEconomicCalendar({ fetchJSON, getReport, getSelection, onSelect, onChange }) {

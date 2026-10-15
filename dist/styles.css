@@ -183,3 +183,19 @@ input:focus-visible,select:focus-visible{border-color:var(--accent)}
 .market-learning{margin:14px 0 0}.market-learning>summary{font-size:12px}.market-learning .learning-concept>summary{font-size:13px}
 .report-section>.learning-group{margin-top:0;margin-bottom:22px}
 @media(max-width:559px){.learning-group>summary{padding:11px 12px}.learning-intro{padding-inline:12px}.learning-concept{margin-inline:12px}.metric-reading{padding-inline:10px}}
+
+/* Provenance labels identify publisher roles, without implying verification. */
+.source-attribution{display:inline-flex;align-items:center;flex-wrap:wrap;gap:4px 7px;max-width:100%;min-width:0}
+.source-role-badge{display:inline-block;max-width:100%;padding:3px 7px;border:1px solid var(--line);border-radius:999px;background:var(--elevated);color:var(--muted);font-size:10px;line-height:1.6;font-weight:500;overflow-wrap:anywhere}
+.source-attribution a{min-height:36px;display:inline-flex;align-items:center;overflow-wrap:anywhere}
+.source-directory{margin:0 0 var(--space-6);border:1px solid var(--line);border-radius:12px;background:var(--paper);min-width:0}
+.source-directory>summary{padding:14px 16px;min-height:44px;cursor:pointer;color:var(--accent);font-size:14px;font-weight:600;overflow-wrap:anywhere}
+.source-directory-intro{font-size:13px;line-height:1.7;color:var(--body-copy);margin:0;padding:0 16px 16px;max-width:var(--reading-measure)}
+.source-directory-list{list-style:none;margin:0;padding:0 16px 16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.source-directory-list>li{min-width:0;border-top:1px solid var(--line);padding-top:14px}
+.source-directory-heading{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 10px;min-width:0}
+.source-directory-heading strong{font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+.source-role-note{font-size:12px;line-height:1.7;color:var(--muted);margin:8px 0}
+.source-directory-links{display:flex;flex-wrap:wrap;gap:4px 14px}
+.source-directory-links a{font-size:12px;line-height:1.6;min-height:44px;display:inline-flex;align-items:center}
+@media(max-width:559px){.source-directory-list{grid-template-columns:minmax(0,1fr)}.source-attribution a{min-height:44px}}
