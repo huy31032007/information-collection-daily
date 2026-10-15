@@ -2,6 +2,7 @@ import { validateEconomicCalendar, assertCalendarUpdate, calendarDate, eventStat
 import { formatTime, safeLink } from './lib.mjs';
 import { addDays, dateLabel } from './history.mjs';
 import { renderCalendar } from './history-ui.mjs';
+import { eventLearning, metricLearning } from './learning-ui.mjs';
 
 const make = (tag, text, className) => { const node = document.createElement(tag); if (text != null) node.textContent = text; if (className) node.className = className; return node; };
 const impactLabels = { high: 'Cao', medium: 'Vừa', low: 'Thấp' };
@@ -41,11 +42,12 @@ export function renderEconomicEvents(container, events, referenceTime) {
     }
     summary.append(make('span', 'Chi tiết & nguồn', 'event-disclosure')); card.append(summary);
     const body = make('div', null, 'event-body');
-    body.append(make('p', event.description));
+    body.append(make('p', event.description), eventLearning(event));
     if (event.outcome) body.append(make('p', event.outcome, 'event-outcome'));
     for (const metric of event.metrics) {
       const row = make('section', null, 'event-metric'); row.append(make('h4', metric.label), make('p', metric.basis, 'event-basis'));
       const values = make('div', null, 'event-values'); values.append(datum(metric.actual, metric, 'Thực tế'), datum(metric.forecast, metric, 'Dự báo'), datum(metric.previous, metric, 'Kỳ trước')); row.append(values);
+      row.append(metricLearning(metric, metric === event.metrics[0] && Boolean(metric.actual)));
       const delta = surprise(metric); if (delta != null) row.append(make('p', 'Thực tế − dự báo: ' + delta + '. Chênh lệch này không tự xác định chiều biến động tài sản.', 'event-surprise'));
       const sources = make('div', null, 'event-metric-sources');
       for (const [key, label] of [['actual', 'Thực tế'], ['forecast', 'Dự báo'], ['previous', 'Kỳ trước']]) {

@@ -68,3 +68,9 @@ Số chênh lệch actual − forecast chỉ tính khi cả hai là số cùng c
 `npm run check` kiểm tra cú pháp, archive và lịch hiện hành. `npm test` chạy thêm `tests/economic-calendar.test.mjs`: nguồn/giờ, DST, ngày Việt Nam, thời điểm dự báo, dữ liệu tương lai, số 0/âm/sửa đổi, guard và writer hai chế độ. Các fixture dùng dữ liệu lịch sử có thật, các biến thể giả định chỉ nằm trong test cô lập.
 
 Kiểm tra trình duyệt ở 320, 360, 390, 768, 1024, 1280 px gồm nội dung mở rộng, không tràn ngang, liên kết nguồn, bàn phím, bộ lọc, lỗi/tải/chưa có dữ liệu, lịch sử và tổng hợp tuần. Không cần thêm dependency để chạy ứng dụng; môi trường QA dùng Playwright sẵn có.
+
+## Giải thích dành cho người mới học
+
+Web bổ sung kiến thức nền từ `dist/learning.mjs`, hiển thị qua `dist/learning-ui.mjs` ở thẻ thị trường, chuyên mục bản tin và chi tiết sự kiện. Mỗi bài giải thích có định nghĩa, cách tính/cách đọc, ví dụ ghi rõ “Ví dụ giả định”, ý nghĩa và điểm dễ nhầm; link tài liệu gốc được giữ cạnh bài. Kiến thức nền không thay thế nguồn, thời điểm hoặc nguyên văn bản tin đã lưu.
+
+Phần “Đọc số liệu và sự thay đổi từng bước” dùng chính metrics đã được validator kiểm tra. Chỉ so số của hai kỳ tháng/quý liền nhau cùng cách đo; chênh lệch hai tỷ lệ % dùng điểm phần trăm. Số 0 không bị coi là dữ liệu thiếu. Khi thiếu mốc, khác kỳ, là khoảng chữ hoặc chưa có kết quả/dự báo, phần giải thích nói rõ giới hạn và không tự điền. Các phép tính chỉ giải thích số liệu, không tự xác nhận nguyên nhân giá tài sản thay đổi. Bản tin tiếp theo cần giải thích ngay thuật ngữ mới khi xuất hiện, rồi phân tích cơ chế có điều kiện như quy trình đã đặt ra.

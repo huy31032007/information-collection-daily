@@ -1,4 +1,5 @@
 import { createEconomicCalendar } from './economic-calendar-ui.mjs';
+import { enhanceMarketLearning, enhanceReportLearning } from './learning-ui.mjs';
 import { TOPICS, TIMEZONE, validateNewsletter, parseSections, extractSources, formatTime, reportFreshness, filterSections, vietnamDate } from './lib.mjs';
 import { renderMarkdown } from './markdown.mjs';
 import { renderDashboard, renderReportList } from './dashboard.mjs';
@@ -115,6 +116,7 @@ function render() {
   const count = sections.filter(s => s.id !== 'glossary').length;
   byId('result-count').textContent = `${count} / 9 chuyên mục${sections.some(s => s.id === 'glossary') ? ' · kèm giải thích thuật ngữ' : ''}`;
   renderReportList(content, sections);
+  enhanceReportLearning(content);
 }
 function setDayMetadata(report) {
   byId('report-date').textContent = new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(report.cutoffAt));
@@ -128,6 +130,7 @@ function setDayMetadata(report) {
 function installReport(report) {
   state.report = report; const parsed = parseSections(report.markdown); state.sections = parsed.sections;
   renderDashboard(byId('market-overview'), state.sections, report);
+  enhanceMarketLearning(byId('market-overview'));
   setDayMetadata(report);
   byId('report-context').replaceChildren(renderMarkdown(parsed.intro));
   render();
