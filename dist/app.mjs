@@ -49,7 +49,7 @@ function toggleNavigation() {
   else desktopNavigationCollapsed = false;
   syncNavigation();
   requestAnimationFrame(() => {
-    if (byId('toggle-sidebar').getAttribute('aria-expanded') === 'true') byId('sidebar-close').focus();
+    if (byId('toggle-sidebar').getAttribute('aria-expanded') === 'true' && !byId('sidebar').contains(document.activeElement)) byId('sidebar-close').focus();
   });
 }
 byId('toggle-sidebar').addEventListener('click', toggleNavigation);
@@ -59,9 +59,13 @@ document.addEventListener('keydown', event => {
   if ((event.metaKey || event.ctrlKey) && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'b' && !event.repeat && !event.target.closest('input, textarea, select, [contenteditable]')) {
     event.preventDefault(); toggleNavigation();
   }
+  if (event.key === 'Escape' && byId('reader-nav-group').open && byId('reader-nav-group').contains(document.activeElement)) {
+    event.preventDefault(); byId('reader-nav-group').open = false;
+    byId('reader-nav-group').querySelector('summary').focus(); return;
+  }
   if (event.key === 'Escape' && document.body.classList.contains('sidebar-open')) closeNavigation({ focus: true });
   if (event.key === 'Tab' && document.body.classList.contains('sidebar-open')) {
-    const controls = [...byId('sidebar').querySelectorAll('a, button')]; const first = controls[0], last = controls.at(-1);
+    const controls = [...byId('sidebar').querySelectorAll('a, button, summary')].filter(node => node.getClientRects().length && !node.disabled && !node.closest('details:not([open]) > nav')); const first = controls[0], last = controls.at(-1);
     if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   }
@@ -70,6 +74,14 @@ mobileNavigation.addEventListener('change', () => {
   document.body.classList.remove('sidebar-open'); syncNavigation();
   if (byId('sidebar').inert && byId('sidebar').contains(document.activeElement)) byId('toggle-sidebar').focus();
 }); syncNavigation();
+function syncReaderNavigation() {
+  const group = byId('reader-nav-group'), summary = group.querySelector('summary');
+  summary.setAttribute('aria-expanded', String(group.open));
+  if (!group.open && group.querySelector('a[aria-current="location"]')) summary.setAttribute('aria-current', 'location');
+  else summary.removeAttribute('aria-current');
+}
+byId('reader-nav-group').addEventListener('toggle', syncReaderNavigation);
+syncReaderNavigation();
 for (const anchor of document.querySelectorAll('[data-dashboard-nav]')) anchor.addEventListener('click', event => {
   event.preventDefault(); resetFilters(); if (mobileNavigation.matches) closeNavigation();
   if (anchor.hash === '#history-panel') setHistoryExpanded(true);
@@ -80,6 +92,7 @@ for (const anchor of document.querySelectorAll('[data-dashboard-nav]')) anchor.a
   focusTarget?.focus({ preventScroll: true });
   history.replaceState(null, '', anchor.hash);
   for (const link of document.querySelectorAll('[data-dashboard-nav]')) { if (link === anchor) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current'); }
+  syncReaderNavigation();
 });
 byId('market-overview').addEventListener('click', event => {
   if (!event.target.closest('a[href="#section-2"]')) return;
