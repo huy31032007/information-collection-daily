@@ -3,6 +3,11 @@
   "timezone": "Asia/Ho_Chi_Minh",
   "reports": [
     {
+      "reportDate": "2026-10-16",
+      "cutoffAt": "2026-10-16T23:06:36+07:00",
+      "title": "Tổng kết 16/10/2026 — Chứng khoán hồi, sức mua cần kiểm chứng"
+    },
+    {
       "reportDate": "2026-10-15",
       "cutoffAt": "2026-10-16T00:49:42+07:00",
       "title": "Tổng kết 15/10 — cập nhật muộn 16/10/2026"

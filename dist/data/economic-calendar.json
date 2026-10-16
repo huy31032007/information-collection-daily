@@ -2,7 +2,7 @@
   "version": 1,
   "timezone": "Asia/Ho_Chi_Minh",
   "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
-  "checkedAt": "2026-10-16T00:49:42+07:00",
+  "checkedAt": "2026-10-16T23:05:25+07:00",
   "coverageStart": "2026-10-08",
   "coverageEnd": "2026-11-14",
   "events": [
@@ -466,7 +466,7 @@
       "scheduledAt": "2026-10-16T08:30:00-04:00",
       "scheduledDate": "2026-10-16",
       "sourceTimezone": "America/New_York",
-      "status": "scheduled",
+      "status": "released",
       "scheduleSource": {
         "name": "BLS — lịch tháng 10/2026",
         "url": "https://www.bls.gov/schedule/2026/10_sched.htm"
@@ -475,11 +475,65 @@
       "impactReason": "Nhận định: giá thương mại có liên quan đến chi phí hàng nhập và doanh thu xuất khẩu; mức phản ứng thực tế còn tùy cơ cấu và kỳ vọng.",
       "description": "Chỉ số đo thay đổi giá hàng hóa và dịch vụ Mỹ nhập khẩu/xuất khẩu; không phải mức tăng kim ngạch thương mại.",
       "analysis": {
-        "mechanism": "Nhận định: thay đổi giá nhập khẩu có thể truyền vào chi phí và giá bán; sức cầu, tỷ giá và khả năng chuyển giá có thể bù trừ.",
+        "mechanism": "Nhận định: giá nhập khẩu tháng 9 tăng 1,1% so tháng trước, so với mức tăng 0,5% của tháng 8 đã sửa đổi. Chênh lệch tốc độ là 0,6 điểm phần trăm, không phải mức giá tăng thêm 0,6%. Chi phí hàng nhập có thể truyền vào giá bán tùy cạnh tranh, tồn kho và khả năng chuyển chi phí; chỉ số không đo lượng hàng.",
         "vietnam": "Nhận định: cần xem nhóm hàng Việt Nam có tiếp xúc với thị trường Mỹ, tỷ giá và điều khoản hợp đồng; chưa đủ dữ kiện để lượng hóa tác động cho doanh nghiệp.",
-        "conditions": "Chưa có thực tế hoặc dự báo đã xác minh. Không suy kết quả từ việc đã đến giờ; cần đối chiếu kỳ và cách đo sau công bố."
+        "conditions": "Kết quả được BLS công bố ngày 16/10/2026 lúc 08:30 Eastern Time. So đúng chỉ tiêu giá bằng USD và kỳ dữ liệu; các chỉ số này không điều chỉnh mùa vụ. Chưa có dự báo đồng thuận đã xác minh nên không gọi là bất ngờ. Số tháng 8 là số đã sửa đổi trong bản công bố tháng 9."
       },
-      "metrics": []
+      "metrics": [
+        {
+          "label": "Giá nhập khẩu — so tháng trước",
+          "unit": "%",
+          "basis": "So với tháng trước; giá tính bằng USD; không điều chỉnh mùa vụ. Kỳ trước là tháng 8/2026 đã sửa đổi trong bản công bố ngày 16/10.",
+          "actual": {
+            "value": 1.1,
+            "period": "09/2026",
+            "source": {
+              "name": "BLS — Chỉ số giá xuất nhập khẩu tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/ximpim.nr0.htm"
+            },
+            "publishedAt": "2026-10-16T08:30:00-04:00"
+          },
+          "forecast": null,
+          "previous": {
+            "value": 0.5,
+            "period": "08/2026",
+            "source": {
+              "name": "BLS — Chỉ số giá xuất nhập khẩu tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/ximpim.nr0.htm"
+            },
+            "publishedAt": "2026-10-16T08:30:00-04:00"
+          }
+        },
+        {
+          "label": "Giá xuất khẩu — so tháng trước",
+          "unit": "%",
+          "basis": "So với tháng trước; giá tính bằng USD; không điều chỉnh mùa vụ. Kỳ trước là tháng 8/2026 đã sửa đổi trong bản công bố ngày 16/10.",
+          "actual": {
+            "value": 2.2,
+            "period": "09/2026",
+            "source": {
+              "name": "BLS — Chỉ số giá xuất nhập khẩu tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/ximpim.nr0.htm"
+            },
+            "publishedAt": "2026-10-16T08:30:00-04:00"
+          },
+          "forecast": null,
+          "previous": {
+            "value": 1.2,
+            "period": "08/2026",
+            "source": {
+              "name": "BLS — Chỉ số giá xuất nhập khẩu tháng 9/2026",
+              "url": "https://www.bls.gov/news.release/ximpim.nr0.htm"
+            },
+            "publishedAt": "2026-10-16T08:30:00-04:00"
+          }
+        }
+      ],
+      "releasedAt": "2026-10-16T08:30:00-04:00",
+      "resultSource": {
+        "name": "BLS — Chỉ số giá xuất nhập khẩu tháng 9/2026",
+        "url": "https://www.bls.gov/news.release/ximpim.nr0.htm"
+      }
     }
   ]
 }
