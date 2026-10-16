@@ -57,6 +57,14 @@ export function formatTime(value, options = {}) {
 export function reportFreshness(report, now = new Date()) {
   return report.reportDate === vietnamDate(now) ? 'today' : 'older';
 }
+export function reportDateMatchesCutoff(reportDate, cutoffAt) {
+  if (typeof reportDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(reportDate)) return false;
+  const day = new Date(reportDate + 'T12:00:00Z'), cutoff = new Date(cutoffAt);
+  if (!Number.isFinite(day.getTime()) || day.toISOString().slice(0, 10) !== reportDate || !Number.isFinite(cutoff.getTime())) return false;
+  const cutoffDate = vietnamDate(cutoff);
+  day.setUTCDate(day.getUTCDate() + 1);
+  return cutoffDate === reportDate || cutoffDate === day.toISOString().slice(0, 10);
+}
 export function validateNewsletter(value, { now = new Date() } = {}) {
   if (value === null) return null;
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Định dạng bản tin không hợp lệ.');
@@ -74,7 +82,9 @@ export function validateNewsletter(value, { now = new Date() } = {}) {
     if (numbers.some((number, index) => number !== roundTrip[index])) throw new Error('Mốc thời gian bản tin không hợp lệ.');
     if (parts[7] !== 'Z') { const zoneHour = Number(parts[7].slice(1, 3)), zoneMinute = Number(parts[7].slice(4)); if (zoneHour > 14 || zoneMinute > 59 || (zoneHour === 14 && zoneMinute !== 0)) throw new Error('Múi giờ thời điểm không hợp lệ.'); }
   }
-  if (Date.parse(value.coverageStart) >= Date.parse(value.coverageEnd) || Date.parse(value.coverageEnd) !== Date.parse(value.cutoffAt) || vietnamDate(new Date(value.cutoffAt)) !== value.reportDate) throw new Error('Khoảng tổng hợp không khớp ngày và mốc chốt.');
+  if (Date.parse(value.coverageStart) >= Date.parse(value.coverageEnd) || Date.parse(value.coverageEnd) !== Date.parse(value.cutoffAt) || !reportDateMatchesCutoff(value.reportDate, value.cutoffAt)) throw new Error('Khoảng tổng hợp không khớp ngày và mốc chốt.');
+  // A late evening edition belongs to the day summarized, with its real next-day cutoff.
+  if (vietnamDate(new Date(value.cutoffAt)) !== value.reportDate && Date.parse(value.coverageStart) !== Date.parse(value.reportDate + 'T00:00:00+07:00')) throw new Error('Bản tin cập nhật muộn phải tổng kết từ đầu ngày bản tin.');
   if (Date.parse(value.cutoffAt) > now.getTime() || Date.parse(value.exportedAt) > now.getTime() || Date.parse(value.exportedAt) < Date.parse(value.cutoffAt)) throw new Error('Thời điểm bản tin hoặc xuất bản chưa hợp lệ.');
   const ids = parseSections(value.markdown).sections.filter(s => /^\d+$/.test(s.id)).map(s => s.id);
   if (ids.join(',') !== '1,2,3,4,5,6,7,8,9') throw new Error('Bản tin chưa có đủ chín mục theo quy trình.');

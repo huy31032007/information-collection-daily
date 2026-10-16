@@ -8,6 +8,10 @@ Theo yêu cầu mới của người dùng, sau mỗi bản tin phải tự comm
 
 Bản tin tối tổng kết thông tin từ 00:00 cùng ngày đến mốc chốt thực tế; ưu tiên chứng khoán Việt Nam sau đóng cửa và giá vàng cuối ngày hoặc báo giá gần nhất có đủ nguồn/thời điểm. Chỉ gọi là giá chốt khi nguồn xác nhận. Thị trường quốc tế có thể vẫn đang giao dịch lúc 21:30; phải ghi trạng thái và giờ dữ liệu. Lịch theo dõi ưu tiên tối còn lại và phiên kế tiếp. Không tạo thêm lượt sáng.
 
+`reportDate` là **ngày được tổng kết**, còn `cutoffAt` là **thời điểm chốt thực tế**. Nếu lượt tối chạy muộn sang ngày kế tiếp, giữ reportDate của ngày tổng kết, coverageStart từ 00:00 ngày đó và cutoffAt/coverageEnd theo giờ thực tế; không lùi giờ chốt, giờ giá hoặc checkedAt của lịch. Website và kho ngày dùng reportDate, vì vậy bản tối ngày kế tiếp có chỗ riêng. Validator chỉ nhận cùng ngày hoặc cập nhật muộn sang ngày liền sau với khoảng tổng hợp bắt đầu đúng 00:00 ngày bản tin.
+
+Theo yêu cầu chuyển bản làm bù 15/10 khỏi ngày16/10, writer có thao tác bảo trì rõ ràng `node scripts/write-newsletter.mjs --reassign-date 2026-10-16 < bản-đã-hiệu-chỉnh.json`. Chỉ dùng khi người dùng yêu cầu sửa ngày: nhận đủ JSON qua stdin, giữ nguyên mốc và toàn bộ các chuyên mục, chỉ cho đổi ngày về ngày liền trước và lời giải thích mở đầu. Thao tác dùng cùng khóa writer, từ chối bản mới hơn, ngày đích đã có nội dung khác, nguồn/cutoff xung đột; ghi bản đích/index/latest atomically rồi mới bỏ bản sao ở ngày sai. Có thể retry trạng thái ghi dở. Không dùng thao tác này trong các lượt cập nhật thường kỳ; guard cùng mốc chốt của chế độ thường vẫn giữ nguyên. Git lưu lịch sử bản trước khi chuyển.
+
 - Workspace: `/Users/quanghuyvu/Documents/Workspace/Claude Code/projects/information-collection` (macOS có thể trả tên thư mục `Claude code`).
 - Repository: `https://github.com/huy31032007/information-collection-daily.git`; remote `origin`, nhánh đích `main`.
 - Worker: `information-collection-daily`, do người dùng xác nhận bằng URL và ảnh dashboard.

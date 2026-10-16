@@ -121,8 +121,9 @@ function render() {
   enhanceReportSources(content, sections);
 }
 function setDayMetadata(report) {
-  byId('report-date').textContent = new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(report.cutoffAt));
-  byId('cutoff-time').textContent = 'Chốt ' + new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(report.cutoffAt));
+  byId('report-date').textContent = dateLabel(report.reportDate);
+  const cutoffDate = vietnamDate(new Date(report.cutoffAt));
+  byId('cutoff-time').textContent = 'Chốt ' + new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(report.cutoffAt)) + (cutoffDate !== report.reportDate ? ' · ' + dateLabel(cutoffDate) : '');
   byId('coverage').textContent = formatTime(report.coverageStart, { year: undefined, second: undefined }) + ' → ' + formatTime(report.coverageEnd, { year: undefined, second: undefined });
   const sources = [...new Set(extractSources(report.markdown).map(source => source.name))].sort((a, b) => a.localeCompare(b, 'vi'));
   byId('source-count').textContent = String(sources.length); byId('section-count').textContent = '09';
@@ -140,7 +141,7 @@ function installReport(report) {
 }
 function freshStatus(report) {
   if (!state.followingLatest) { status(`Đang xem bản tin đã lưu ngày ${dateLabel(report.reportDate)}, chốt ${formatTime(report.cutoffAt)} giờ Việt Nam. Giá giữ đúng thời điểm nguồn.`, 'warning'); return; }
-  if (reportFreshness(report) === 'older') status(`Chưa có bản tin hôm nay. Bản gần nhất chốt ${formatTime(report.cutoffAt)} giờ Việt Nam; giá giữ theo thời điểm trong nguồn.`, 'warning');
+  if (reportFreshness(report) === 'older') status(`Chưa có bản tin hôm nay. Bản gần nhất của ngày ${dateLabel(report.reportDate)}, chốt ${formatTime(report.cutoffAt)} giờ Việt Nam; giá giữ theo thời điểm trong nguồn.`, 'warning');
   else status(`Bản tin ngày ${byId('report-date').textContent} · chốt ${byId('cutoff-time').textContent.replace('Chốt ', '')} giờ Việt Nam. Giá là dữ liệu tại thời điểm nguồn, không phải báo giá trực tiếp.`);
 }
 async function fetchJSON(url, limit = 600_000) {

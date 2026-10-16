@@ -1,4 +1,4 @@
-import { TIMEZONE, validateNewsletter, vietnamDate, parseSections, extractSources, normalizeText } from './lib.mjs';
+import { TIMEZONE, validateNewsletter, reportDateMatchesCutoff, parseSections, extractSources, normalizeText } from './lib.mjs';
 
 export function validDate(value) {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -28,7 +28,7 @@ export function validateArchiveIndex(value, { now = new Date() } = {}) {
   if (!value || value.version !== 1 || value.timezone !== TIMEZONE || !Array.isArray(value.reports) || value.reports.length > 10000) throw new Error('Danh sách bản tin đã lưu không hợp lệ.');
   const dates = new Set();
   for (const row of value.reports) {
-    if (!row || !validDate(row.reportDate) || dates.has(row.reportDate) || typeof row.title !== 'string' || !row.title.trim() || row.title.length > 200 || typeof row.cutoffAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(row.cutoffAt) || !Number.isFinite(Date.parse(row.cutoffAt)) || vietnamDate(new Date(row.cutoffAt)) !== row.reportDate || Date.parse(row.cutoffAt) > now.getTime()) throw new Error('Mốc ngày trong lịch bản tin không hợp lệ.');
+    if (!row || !validDate(row.reportDate) || dates.has(row.reportDate) || typeof row.title !== 'string' || !row.title.trim() || row.title.length > 200 || typeof row.cutoffAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(row.cutoffAt) || !Number.isFinite(Date.parse(row.cutoffAt)) || !reportDateMatchesCutoff(row.reportDate, row.cutoffAt) || Date.parse(row.cutoffAt) > now.getTime()) throw new Error('Mốc ngày trong lịch bản tin không hợp lệ.');
     dates.add(row.reportDate);
     if (!validDate(row.cutoffAt.slice(0, 10))) throw new Error('Ngày chốt trong lịch không hợp lệ.');
     const time = row.cutoffAt.slice(11, 19).split(':').map(Number);
