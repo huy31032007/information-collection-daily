@@ -221,14 +221,19 @@ input:focus-visible,select:focus-visible{border-color:var(--accent)}
   }
 }
 
-/* The existing reader links remain reachable through their original heading. */
+/* One navigation menu; secondary destinations expand inline. */
 .sidebar-reading-group { min-width: 0; }
-.sidebar-reading-group > summary { display: flex; align-items: center; justify-content: space-between; cursor: pointer; list-style: none; }
+.sidebar-reading-group > .sidebar-nav { margin-bottom: 0; margin-top: 5px; }
+.sidebar-reading-group > summary { display: flex; align-items: center; justify-content: space-between; gap: 11px; min-height: 44px; padding: 10px 12px; border-radius: 7px; color: var(--muted); font-size: 13px; cursor: pointer; list-style: none; transition: background .16s, color .16s; }
 .sidebar-reading-group > summary::-webkit-details-marker { display: none; }
+.sidebar-reading-group > summary:hover { background: var(--elevated); color: var(--ink); }
 .sidebar-reading-group > summary svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; flex: none; transform: rotate(180deg); }
 .sidebar-reading-group[open] > summary svg { transform: none; }
-.sidebar-reading-group > summary[aria-current=location] { font-weight: 700; box-shadow: inset 2px 0 var(--accent); }
+.sidebar-reading-group > summary[aria-current=location] { background: var(--tint); color: var(--accent); font-weight: 650; }
 @media (prefers-reduced-motion: no-preference) {
   .sidebar-reading-group > summary svg { transition: transform 180ms ease; }
-  .sidebar-reading-group[open] > nav { animation: panel-reveal 180ms ease-out; }
+  .sidebar-reading-group[open] > .sidebar-nav { animation: panel-reveal 180ms ease-out; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-reading-group > summary { transition: none; }
 }

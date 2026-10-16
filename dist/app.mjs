@@ -65,7 +65,7 @@ document.addEventListener('keydown', event => {
   }
   if (event.key === 'Escape' && document.body.classList.contains('sidebar-open')) closeNavigation({ focus: true });
   if (event.key === 'Tab' && document.body.classList.contains('sidebar-open')) {
-    const controls = [...byId('sidebar').querySelectorAll('a, button, summary')].filter(node => node.getClientRects().length && !node.disabled && !node.closest('details:not([open]) > nav')); const first = controls[0], last = controls.at(-1);
+    const controls = [...byId('sidebar').querySelectorAll('a, button, summary')].filter(node => node.getClientRects().length && !node.disabled && !node.closest('details:not([open]) > .sidebar-nav')); const first = controls[0], last = controls.at(-1);
     if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   }
@@ -77,6 +77,9 @@ mobileNavigation.addEventListener('change', () => {
 function syncReaderNavigation() {
   const group = byId('reader-nav-group'), summary = group.querySelector('summary');
   summary.setAttribute('aria-expanded', String(group.open));
+  const label = byId('reader-nav-label');
+  if (label) label.textContent = group.open ? 'Thu gọn' : 'Xem thêm';
+  summary.setAttribute('aria-label', group.open ? 'Thu gọn các mục điều hướng bổ sung' : 'Xem thêm các mục điều hướng');
   if (!group.open && group.querySelector('a[aria-current="location"]')) summary.setAttribute('aria-current', 'location');
   else summary.removeAttribute('aria-current');
 }
