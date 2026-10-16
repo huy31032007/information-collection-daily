@@ -3,6 +3,11 @@
   "timezone": "Asia/Ho_Chi_Minh",
   "reports": [
     {
+      "reportDate": "2026-10-16",
+      "cutoffAt": "2026-10-16T00:49:42+07:00",
+      "title": "Tổng kết 15/10 — cập nhật muộn 16/10/2026"
+    },
+    {
       "reportDate": "2026-10-14",
       "cutoffAt": "2026-10-14T21:48:37+07:00",
       "title": "Bản tin cuối ngày — 14/10/2026"

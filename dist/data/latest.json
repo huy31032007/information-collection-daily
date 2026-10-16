@@ -1,11 +1,496 @@
 {
-  "reportDate": "2026-10-14",
-  "cutoffAt": "2026-10-14T21:48:37+07:00",
-  "coverageStart": "2026-10-14T00:00:00+07:00",
-  "coverageEnd": "2026-10-14T21:48:37+07:00",
+  "title": "Tổng kết 15/10 — cập nhật muộn 16/10/2026",
+  "reportDate": "2026-10-16",
+  "cutoffAt": "2026-10-16T00:49:42+07:00",
+  "coverageStart": "2026-10-15T00:00:00+07:00",
+  "coverageEnd": "2026-10-16T00:49:42+07:00",
   "timezone": "Asia/Ho_Chi_Minh",
   "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
-  "title": "Bản tin cuối ngày — 14/10/2026",
-  "markdown": "# Bản tin cuối ngày — 14/10/2026\n\n**Cập nhật và chốt dữ liệu: 21:48:37 ngày 14/10/2026 · Asia/Ho_Chi_Minh (UTC+7).**\n**Khoảng tổng hợp: 00:00–21:48:37 ngày 14/10/2026.**\n\nChứng khoán Việt Nam đã đóng cửa. Vàng trong nước dùng báo giá gần nhất có thời điểm xác minh; không mặc định mọi đơn vị đã chốt ngày. Vàng và dầu quốc tế bên dưới là dữ liệu trong phiên, không phải giá đóng cửa ngày 14/10. Giờ đăng bài, giờ báo giá và giờ chốt bản tin được tách riêng.\n\n## 1. Tóm tắt nhanh\n\n- **Chứng khoán tiếp tục chịu sức ép:** VN-Index đóng cửa 14/10 tại **1.704,87 điểm**, giảm **14,55 điểm, tương đương 0,85%**, so với 13/10. Nhận định: cần theo dõi mức lan tỏa của lực mua, vì một số nhóm tăng vẫn chưa đủ kéo chỉ số phục hồi. [Thời báo Tài chính, 17:06](https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-14-10-vn-index-lui-sat-moc-1-700-diem-dong-tien-phan-hoa-205355.html).\n- **Vàng miếng SJC tại DOJI:** bảng chính thức ghi cập nhật **21:48 ngày 14/10**, mua **140,3**, bán **143,3 triệu đồng/lượng** sau quy đổi đơn vị. Nhận định: cần xem cả chênh lệch mua/bán, không chỉ giá bán ra. Đây là báo giá gần nhất đọc được, chưa được nguồn xác nhận là giá đóng cửa. [DOJI](https://banggia.doji.vn/gold-price).\n- **Lạm phát Mỹ đã có kết quả:** số liệu tháng 9 công bố **19:30 ngày 14/10 giờ Việt Nam** cho thấy giá tiêu dùng tăng **0,6% theo tháng, 3,7% theo năm**. Nhận định: dữ liệu làm tăng rủi ro chi phí vốn quốc tế duy trì cao; chưa đồng nghĩa ngân hàng trung ương đã quyết định tăng lãi suất. [Cục Thống kê Lao động Mỹ](https://www.bls.gov/news.release/archives/cpi_10142026.htm).\n- **Dầu vẫn ở mặt bằng cao:** Reuters ghi Brent **105,56 USD/thùng** lúc **20:25 ngày 14/10 giờ Việt Nam**. Nhận định: chi phí nhập khẩu năng lượng còn đáng theo dõi, nhưng giá bán lẻ Việt Nam không đổi ngay theo từng nhịp dầu quốc tế. [Reuters qua MarketScreener](https://www.marketscreener.com/news/oil-prices-climb-as-iran-deploys-new-tactics-to-target-ships-transiting-hormuz-ce785dd2db8bf323).\n\n## 2. Thị trường chứng khoán — phân tích chuyên sâu\n\n**Nhận định — 1–5 phiên:** thị trường còn yếu ở cấp chỉ số, dòng tiền phân hóa; độ tin cậy **vừa**, vì hai chỉ số lớn giảm trong khi một số nhóm và sàn khác tăng. **Nhận định — 1–3 tháng:** chưa đủ bằng chứng xác nhận phục hồi bền vững; độ tin cậy về hướng đi **thấp** do thiếu bộ dữ liệu cập nhật, đồng nhất về lợi nhuận, tiền thực thu/thực chi và định giá.\n\nBảng là **đóng cửa phiên 14/10/2026**, thay đổi **so với đóng cửa 13/10/2026**. Đơn vị mức chỉ số và thay đổi tuyệt đối là **điểm**. Nguồn công bố bài lúc **17:06 ngày 14/10**, không nêu phút chốt từng chỉ số.\n\n| Chỉ số | Đóng cửa 14/10, điểm | Thay đổi so với 13/10 | Thời điểm dữ liệu |\n| --- | --- | --- | --- |\n| VN-Index | 1.704,87 | −14,55; −0,85% | Đóng cửa 14/10/2026; nguồn công bố 17:06 |\n| VN30 | 1.852,44 | −8,55; −0,46% | Đóng cửa 14/10/2026; nguồn công bố 17:06 |\n| HNX-Index | 265,16 | +0,91; +0,34% | Đóng cửa 14/10/2026; nguồn công bố 17:06 |\n| UPCoM-Index | 123,94 | +0,09; +0,07% | Đóng cửa 14/10/2026; nguồn công bố 17:06 |\n\nNguồn: [Thời báo Tài chính](https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-14-10-vn-index-lui-sat-moc-1-700-diem-dong-tien-phan-hoa-205355.html); VN-Index được đối chiếu với [Công ty Chứng khoán Nhật Bản, bản cập nhật 14/10](https://www.japan-sec.vn/cap-nhat-tin-ngay-14-10-2026/). VN-Index và VN30 theo các rổ cổ phiếu khác nhau trên Sở Giao dịch Chứng khoán TP.HCM, gọi tắt HOSE; HNX là Sở Giao dịch Chứng khoán Hà Nội; UPCoM là thị trường cổ phiếu công ty đại chúng chưa niêm yết do HNX tổ chức.\n\n**Giao dịch và giới hạn dữ liệu:** bài Thời báo Tài chính nêu tổng giá trị giao dịch HOSE khoảng **13.732 tỷ đồng phiên 14/10**. Đây không phải riêng giao dịch khớp lệnh. Bài có hai bộ đếm tăng/giảm khác nhau và mô tả thanh khoản chưa thống nhất; chưa xác minh được phạm vi chênh lệch, nên không ghép số hoặc tự tính bình quân 20 phiên. [Nguồn](https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-14-10-vn-index-lui-sat-moc-1-700-diem-dong-tien-phan-hoa-205355.html).\n\nBài riêng lúc **19:33 ngày 14/10** ghi khối ngoại trên HOSE mua **1.372,93 tỷ**, bán **2.145,17 tỷ đồng**; chênh lệch tính từ hai số đã làm tròn là **bán ròng 772,24 tỷ đồng**. Chưa tách được khớp lệnh/thỏa thuận; chưa có số tự doanh đủ kiểm chứng. [Nguồn](https://thoibaotaichinhvietnam.vn/khoi-ngoai-noi-chuoi-ban-rong-205361.html). **Nhận định:** bán ròng cho biết hoạt động của một nhóm, chưa đo được tiền của toàn thị trường.\n\n**Góc nhìn vi mô — Nhận định:** thép và thủy sản là điểm sáng theo báo, nhưng chưa đủ để kết luận lợi nhuận ngành đã cải thiện. [Diễn biến](https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-14-10-vn-index-lui-sat-moc-1-700-diem-dong-tien-phan-hoa-205355.html). Với thép, cần xét giá bán sau chi phí nguyên liệu, sản lượng và hàng tồn kho. Với thủy sản, cần xét đơn hàng, giá bán, thức ăn, vận chuyển và tỷ giá. Cùng ngành nhưng doanh nghiệp có hợp đồng, nợ và thị trường xuất khẩu khác nhau sẽ chịu tác động khác nhau. Một phiên cổ phiếu tăng chưa chứng minh tiền doanh nghiệp thực thu đã tăng.\n\n**Góc nhìn vĩ mô — Nhận định:** dữ liệu lạm phát Mỹ được công bố **sau khi thị trường Việt Nam đóng cửa**, nên không quy nó là nguyên nhân trực tiếp của phiên giảm hôm nay. Kênh cần theo dõi cho phiên tới là kỳ vọng lãi suất quốc tế → đồng USD và chi phí vốn → tỷ giá, nợ vay và mức giá nhà đầu tư chấp nhận trả. Tác động có thể bị bù trừ bởi lợi nhuận doanh nghiệp hoặc yếu tố riêng từng ngành. [Giờ công bố chính thức](https://www.bls.gov/news.release/archives/cpi_10142026.htm).\n\n**Định giá và kỹ thuật:** chưa có đủ dữ liệu để tính đường trung bình, xác lập vùng hỗ trợ/kháng cự hoặc gọi cổ phiếu “rẻ”. Mốc tròn **1.700 điểm** được báo nhắc như ngưỡng tâm lý, không tự là vùng đã kiểm định nhiều lần. [Nguồn](https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-14-10-vn-index-lui-sat-moc-1-700-diem-dong-tien-phan-hoa-205355.html).\n\n**Nhận định — ba kịch bản cho các phiên tới:**\n\n- **Cơ sở:** phân hóa tiếp diễn nếu một số nhóm tăng nhưng lực mua chưa lan rộng. Đánh giá thay đổi khi nhiều nhóm cùng cải thiện qua nhiều phiên.\n- **Tích cực:** mức tăng đi cùng độ rộng tốt hơn và giao dịch khớp lệnh cải thiện trên phạm vi thống kê nhất quán. Một vài mã lớn kéo chỉ số chưa đủ xác nhận.\n- **Tiêu cực:** số mã giảm áp đảo và giao dịch khớp lệnh tăng trong phiên giảm. Cần kiểm tra giao dịch lớn trước khi kết luận sức ép bán lan rộng.\n\nCác kịch bản không phải khuyến nghị mua, bán, nắm giữ hoặc sử dụng đòn bẩy.\n\n## 3. Giá vàng\n\n**Trong nước — bảng DOJI chính thức ghi cập nhật 21:48 ngày 14/10/2026.** Trang không ghi rõ địa bàn áp dụng trong bảng đọc được và không xác nhận đây là giá đóng cửa.\n\nNguồn niêm yết theo **nghìn đồng/chỉ**. Bảng dưới quy về **triệu đồng/lượng**, với **1 lượng = 10 chỉ**: chẳng hạn 14.030 nghìn đồng/chỉ × 10 = 140,3 triệu đồng/lượng.\n\n| Sản phẩm | Mua vào | Bán ra | Thời điểm dữ liệu |\n| --- | --- | --- | --- |\n| Vàng miếng SJC tại DOJI | 140,3 triệu đồng/lượng | 143,3 triệu đồng/lượng | Trang DOJI ghi cập nhật 21:48 ngày 14/10/2026 |\n| Nhẫn tròn 9999 Hưng Thịnh Vượng tại DOJI | 139,0 triệu đồng/lượng | 143,0 triệu đồng/lượng | Trang DOJI ghi cập nhật 21:48 ngày 14/10/2026 |\n\nNguồn: [DOJI](https://banggia.doji.vn/gold-price). Giờ trang cập nhật không tự chứng minh giá vừa thay đổi ở phút đó. Báo giá cuối ngày được nguồn xác nhận là giá chốt: **Chưa xác minh**.\n\nTTXVN ghi tại **09:15 ngày 14/10** vàng miếng SJC ở DOJI **140,3–143,3 triệu đồng/lượng**, giảm **1 triệu đồng/lượng mỗi chiều so với chốt 13/10**. Mức đọc được tối nay bằng hai mức sáng đó; chưa đủ để nói giá không thay đổi trong mọi thời điểm của ngày. [TTXVN, bài 09:42](https://www.vietnamplus.vn/gia-vang-trong-nuoc-giam-sjc-ve-nguong-1433-trieu-dong-moi-luong-post1141856.vnp). Bảng buổi chiều của [Báo Lâm Đồng, dữ liệu ghi 15:48](https://baolamdong.vn/gia-vang-sjc-nhan-tron-chieu-14-10-2026-tai-pnj-doji-btmc-va-btmh-giam-toi-1-trieu-dong-luong-469281.html) hỗ trợ đối chiếu, nhưng không thay giờ của bảng chính thức. Không so trực tiếp vàng miếng với nhẫn như cùng sản phẩm.\n\n**Nhận định — vi mô:** chênh lệch mua/bán của dòng SJC trên là **3 triệu đồng/lượng = 143,3 − 140,3**, cùng bảng 21:48. Đây là khoảng cách giữa giá khách mua và giá doanh nghiệp mua lại, không phải vàng tăng trong ngày. Khác sản phẩm, điều kiện thu mua và thời điểm có thể tạo mức chênh khác nhau.\n\n**Thế giới:** Reuters ghi vàng **giao ngay 4.086,06 USD/ounce troy**, giảm **1,7% theo bản tin nguồn**, lúc **20:03 ngày 14/10 giờ Việt Nam**, tức **13:03 UTC**. Bài cập nhật **20:23 giờ Việt Nam**. Đây là giá trong phiên, không phải đóng cửa 14/10. [Reuters](https://ca.marketscreener.com/news/gold-prices-hold-firm-ahead-of-us-inflation-data-ce785dd2d880f326).\n\nBảng thế giới DOJI mới hơn, ghi **21:48 ngày 14/10**, hiển thị **4.103,226 USD/oz**. Trang chưa nêu rõ loại giá và cơ sở so sánh, nên chỉ ghi là **giá tham chiếu DOJI hiển thị**, không ghép với giá giao ngay Reuters để tính tăng/giảm. [DOJI](https://banggia.doji.vn/gold-price).\n\n**Nhận định — vĩ mô:** lạm phát cao không bảo đảm vàng tăng ngay. Reuters ghi USD và lợi suất trái phiếu Mỹ tăng sau dữ liệu; vàng chịu sức ép khi thị trường kỳ vọng lãi suất cao hơn. [Nguồn](https://ca.marketscreener.com/news/gold-prices-hold-firm-ahead-of-us-inflation-data-ce785dd2d880f326). Cơ chế là vàng không trả lãi, trong khi tài sản trả lãi có thể trở nên cạnh tranh hơn. Nhu cầu phòng rủi ro có thể bù trừ; chưa có dữ liệu đủ để định lượng mức bù. Không quy đổi sang đồng/lượng hoặc tính chênh lệch trong nước–thế giới khi chưa đồng bộ tỷ giá, sản phẩm và thời điểm.\n\n## 4. Giá xăng dầu\n\n**Bán lẻ Việt Nam:** chưa có công bố điều chỉnh mới được xác minh trong lượt tra cứu. Kỳ gần nhất đã kiểm tra có hiệu lực **15:00 ngày 08/10/2026**, đến kỳ điều hành tiếp theo. [Thông cáo Petrolimex](https://labs.petrolimex.com.vn/ndi/thong-cao-bao-chi/petrolimex-dieu-chinh-gia-xang-dau-tu-15-gio-00-phut-ngay-08-10-2026.html).\n\nVOV ngày 14/10 dẫn các mức đang áp dụng sau kỳ 08/10, đơn vị **đồng/lít**:\n\n| Nhiên liệu | Giá kỳ 08/10 được VOV dẫn | Thời điểm áp dụng |\n| --- | --- | --- |\n| Xăng E10 RON95-III | 28.250 đồng/lít | Từ 15:00 ngày 08/10/2026 |\n| Xăng E5 RON92 | 27.700 đồng/lít | Từ 15:00 ngày 08/10/2026 |\n| Dầu diesel 0,05S | 29.120 đồng/lít | Từ 15:00 ngày 08/10/2026 |\n\n[Nguồn giá bán lẻ](https://vov.vn/thi-truong/gia-xang-dau-hom-nay-1410-gia-dau-brent-tang-89-centthung-post1341002.vov). Đây là mức kỳ cũ đang được dẫn là còn áp dụng, không phải điều chỉnh mới tối 14/10. Bảng VOV chưa nêu đầy đủ địa bàn; không khẳng định mọi cửa hàng bán cùng giá.\n\n**Dầu thế giới — đang giao dịch, không phải giá thanh toán phiên 14/10.** Nguồn không nêu rõ tháng giao hàng cho các mức dưới đây.\n\nLúc **20:25 ngày 14/10 giờ Việt Nam**, tức **13:25 UTC**, theo Reuters:\n\n| Giá dầu tham chiếu | Giá trong phiên 14/10 | Mốc so sánh |\n| --- | --- | --- |\n| Brent | 105,56 USD/thùng | Không tự tính: thiếu đối chiếu cùng kỳ hạn |\n| WTI | 95,39 USD/thùng | Không tự tính: thiếu đối chiếu cùng kỳ hạn |\n\nNguồn: [Reuters qua MarketScreener, bài cập nhật 21:09 ngày 14/10 giờ Việt Nam](https://www.marketscreener.com/news/oil-prices-climb-as-iran-deploys-new-tactics-to-target-ships-transiting-hormuz-ce785dd2db8bf323). Không trộn giá dầu tương lai với giá giao ngay hoặc lấy hai tháng giao hàng khác nhau để tính biến động. Nguồn có nêu biến động trong bài; bản tin chưa đối chiếu đủ mốc tham chiếu từng hợp đồng nên giữ nguyên giá và thời điểm, không dựng phần trăm.\n\n**Nhận định — vĩ mô và vi mô:** rủi ro sản xuất/vận chuyển Trung Đông và triển vọng nguồn diesel Nga đang được thị trường cân nhắc; Reuters dẫn đánh giá rằng xuất khẩu hồi phục chưa đồng nghĩa sản lượng mới tăng tương ứng. [Nguồn](https://www.marketscreener.com/news/oil-prices-climb-as-iran-deploys-new-tactics-to-target-ships-transiting-hormuz-ce785dd2db8bf323). Các thông tin an ninh chưa được bản tin kiểm chứng độc lập với cơ quan sở tại, nên không dùng để khẳng định mức mất nguồn cung cụ thể.\n\nVới Việt Nam, giá dầu → giá nhiên liệu sau lọc dầu, cước vận chuyển, tỷ giá và cơ chế điều hành → chi phí doanh nghiệp, có độ trễ. Vận tải khó tăng cước có thể chịu sức ép; doanh nghiệp lọc dầu còn phụ thuộc khoảng chênh giá sản phẩm và nguyên liệu, còn phân phối phụ thuộc cơ chế giá và lượng bán. Không suy ra mọi cổ phiếu dầu khí hưởng lợi khi dầu tăng. Chưa có dữ liệu doanh nghiệp để lượng hóa tác động lợi nhuận.\n\n## 5. Tin kinh tế và tài chính\n\n**Lạm phát Mỹ tăng tốc — Đã xác nhận.** Cục Thống kê Lao động Mỹ, viết tắt BLS, công bố lúc **19:30 ngày 14/10 giờ Việt Nam**: chỉ số giá tiêu dùng tháng 9 tăng **0,6% theo tháng** sau điều chỉnh mùa vụ, so với **0,4% tháng 8**; tăng **3,7% theo năm**, so với **3,4% tháng 8**. Phần loại thực phẩm và năng lượng tăng **0,3% theo tháng, 2,6% theo năm**. [BLS](https://www.bls.gov/news.release/archives/cpi_10142026.htm).\n\n**Nhận định:** năng lượng đắt có thể tăng chi phí đầu vào, còn lạm phát dai dẳng khiến việc giảm chi phí vốn khó hơn. Kênh tới Việt Nam là USD, tỷ giá và chi phí tài trợ; không phải lãi suất Việt Nam tự động đổi sau một báo cáo Mỹ. Cần theo dõi dữ liệu giá sản xuất và quyết định thực tế của Cục Dự trữ Liên bang Mỹ, gọi tắt Fed. Reuters xác nhận phản ứng trên vàng và thị trường lãi suất; kỳ vọng của nhà đầu tư khác quyết định đã ban hành. [Đối chiếu Reuters](https://ca.marketscreener.com/news/gold-prices-hold-firm-ahead-of-us-inflation-data-ce785dd2d880f326).\n\n**Tín dụng xanh và thị trường carbon — Đã xác nhận sự kiện, triển khai còn đang diễn biến.** Hội thảo ngày **14/10**, công bố **17:45**, nhấn mạnh kết hợp vốn vay cho chuyển đổi công nghệ với nguồn thu từ giảm phát thải. [Báo Chính phủ](https://baochinhphu.vn/tin-dung-xanh-bat-tay-thi-truong-carbon-khoi-thong-dong-von-cho-doanh-nghiep-10226101417580149.htm). **Nhận định:** doanh nghiệp có thể cải thiện khả năng tài trợ nếu dự án chứng minh được hiệu quả và đáp ứng điều kiện. Nhưng kết quả giảm phát thải phải được đo, xác minh và đủ điều kiện giao dịch trước khi coi là doanh thu; phát biểu tại hội thảo chưa bảo đảm ngân hàng đã cấp vốn hay có người mua tín chỉ.\n\n**Xây dựng: tách số thực hiện với mục tiêu — Đã xác nhận theo báo cáo được công bố.** Báo Chính phủ lúc **20:16 ngày 14/10** dẫn mức tăng **10,31% giá trị tăng thêm toàn ngành trong chín tháng 2026**, đồng thời nêu kịch bản tăng trưởng được giao từ đầu năm là **11,8%**. Hai số khác kỳ và khác tính chất, không lấy chênh lệch làm mức “thiếu hụt lợi nhuận”. [Nguồn](https://baochinhphu.vn/nganh-xay-dung-kien-dinh-muc-tieu-tang-truong-hai-con-so-ca-nam-2026-102261014200703066.htm).\n\n**Nhận định:** hoạt động xây dựng có thể tạo nhu cầu vật liệu, vận tải và lao động, nhưng hiệu quả từng doanh nghiệp còn phụ thuộc giá hợp đồng, chi phí và thu tiền. Sản lượng hoặc giá trị ngành tăng chưa chứng minh nhà thầu có dòng tiền tốt; cần theo dõi nghiệm thu, thanh toán và nợ phải thu.\n\n## 6. Tin chính trị liên quan\n\n**Đối thoại Việt Nam–Hoa Kỳ về đầu tư — Đã xác nhận cuộc gặp; kiến nghị chưa phải chính sách có hiệu lực.** Báo Chính phủ công bố **10:41 ngày 14/10** về cuộc tiếp đại diện Hoa Kỳ và doanh nghiệp. Nội dung gồm công nghệ, chuỗi cung ứng, năng lượng, thủ tục đầu tư và phát hành/niêm yết cổ phiếu. [Nguồn](https://baochinhphu.vn/pho-thu-tuong-thuong-truc-pham-gia-tuc-de-nghi-doanh-nghiep-hoa-ky-hien-ke-thuc-day-hop-tac-dau-tu-102261014102628785.htm).\n\n**Nhận định:** nếu kiến nghị được chuyển thành quy định và triển khai, chi phí thủ tục hoặc trở ngại tiếp cận vốn có thể giảm, hỗ trợ doanh nghiệp đủ điều kiện. Nhưng mong muốn mở rộng hợp tác không đồng nghĩa cam kết đầu tư ràng buộc hoặc vốn đã giải ngân. Cần xem văn bản ban hành, ngày hiệu lực, điều kiện áp dụng và dự án cụ thể trước khi gắn lợi ích cho doanh nghiệp niêm yết. Đây là kênh tác động trung hạn; không quy cuộc gặp là nguyên nhân chắc chắn của giá cổ phiếu hôm nay.\n\n## 7. Điều cần theo dõi tối nay và phiên tới\n\n- **19:30 ngày 15/10/2026 giờ Việt Nam:** Mỹ công bố chỉ số giá sản xuất tháng 9, tiếng Anh Producer Price Index, viết tắt **PPI**; lịch BLS ghi **08:30 giờ miền Đông Mỹ**. PPI đo thay đổi giá phía người sản xuất. Nhận định: dữ liệu giúp kiểm tra sức ép chi phí sau báo cáo giá tiêu dùng; chưa có kết quả hay bộ kỳ vọng đồng thuận đủ xác minh trong bản tin. [Lịch chính thức](https://www.bls.gov/schedule/2026/10_sched.htm).\n- **Phiên Việt Nam kế tiếp, dự kiến 15/10 nếu giao dịch bình thường:** theo dõi độ rộng, giao dịch khớp lệnh và phản ứng sau dữ liệu Mỹ. Nhận định: một phiên chỉ số tăng nhưng ít cổ phiếu tham gia chưa đủ đổi kết luận thận trọng. Chưa đặt giờ riêng cho một quyết định chính sách trong nước vì chưa xác minh được lịch.\n- **Phần còn lại đêm 14/10:** vàng, dầu và thị trường Mỹ có thể tiếp tục biến động. Bản tin chỉ phản ánh các mốc đã ghi; không coi số liệu trong phiên là đóng cửa. Chưa xác minh đủ giờ các phát biểu chính sách khác nên không tự điền lịch.\n\n## 8. Góc nhìn tổng hợp\n\n- **Nhận định:** sức ép lãi suất quốc tế có thể truyền tới tỷ giá và chi phí vốn Việt Nam, nhưng dữ liệu Mỹ công bố sau phiên trong nước. Phản ứng phiên tới cần được kiểm tra; không dùng tin buổi tối giải thích ngược phiên đã kết thúc. [BLS](https://www.bls.gov/news.release/archives/cpi_10142026.htm).\n- **Nhận định:** chỉ số giảm và một số ngành tăng có thể cùng tồn tại. Điểm số, độ rộng, giao dịch và nền tảng doanh nghiệp cần được đọc chung; dữ liệu hiện chưa đủ để khẳng định phục hồi bền vững. [Chứng khoán 14/10](https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-14-10-vn-index-lui-sat-moc-1-700-diem-dong-tien-phan-hoa-205355.html).\n- **Nhận định:** giá vàng trong nước, vàng quốc tế và dầu đang ở các mốc giờ, loại sản phẩm khác nhau. Không nối chúng thành một biến động chung; cần đồng bộ dữ liệu trước khi quy đổi hoặc định lượng tác động. [DOJI](https://banggia.doji.vn/gold-price), [Reuters về vàng](https://ca.marketscreener.com/news/gold-prices-hold-firm-ahead-of-us-inflation-data-ce785dd2d880f326), [Reuters về dầu](https://www.marketscreener.com/news/oil-prices-climb-as-iran-deploys-new-tactics-to-target-ships-transiting-hormuz-ce785dd2db8bf323).\n\n## 9. Nguồn\n\nTất cả nguồn dưới đây được mở trong lượt tra cứu tối **14/10/2026, trước mốc chốt 21:48:37 giờ Việt Nam**. Không tự gán phút truy cập riêng cho từng bài.\n\n- [Thời báo Tài chính — chứng khoán 14/10](https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-14-10-vn-index-lui-sat-moc-1-700-diem-dong-tien-phan-hoa-205355.html): **17:06 ngày 14/10**; chỉ số đóng cửa cùng ngày, ghi rõ giới hạn độ rộng/thanh khoản.\n- [Công ty Chứng khoán Nhật Bản](https://www.japan-sec.vn/cap-nhat-tin-ngay-14-10-2026/): cập nhật ngày **14/10**, chưa xác định giờ công bố; đối chiếu VN-Index.\n- [Thời báo Tài chính — giao dịch khối ngoại](https://thoibaotaichinhvietnam.vn/khoi-ngoai-noi-chuoi-ban-rong-205361.html): **19:33 ngày 14/10**.\n- [DOJI — bảng chính thức](https://banggia.doji.vn/gold-price): trang ghi **21:48 ngày 14/10**; giá trong nước theo nghìn đồng/chỉ, giá tham chiếu thế giới theo USD/oz.\n- [TTXVN — vàng trong nước](https://www.vietnamplus.vn/gia-vang-trong-nuoc-giam-sjc-ve-nguong-1433-trieu-dong-moi-luong-post1141856.vnp): công bố **09:42**, mốc giá **09:15 ngày 14/10**.\n- [Báo Lâm Đồng — vàng buổi chiều](https://baolamdong.vn/gia-vang-sjc-nhan-tron-chieu-14-10-2026-tai-pnj-doji-btmc-va-btmh-giam-toi-1-trieu-dong-luong-469281.html): bảng ghi cập nhật **15:48 ngày 14/10**; dùng đối chiếu, không coi là giá chốt.\n- [Reuters qua MarketScreener — vàng](https://ca.marketscreener.com/news/gold-prices-hold-firm-ahead-of-us-inflation-data-ce785dd2d880f326): bài cập nhật **20:23**, mốc giá **20:03 ngày 14/10 giờ Việt Nam**.\n- [Reuters qua MarketScreener — dầu](https://www.marketscreener.com/news/oil-prices-climb-as-iran-deploys-new-tactics-to-target-ships-transiting-hormuz-ce785dd2db8bf323): bài cập nhật **21:09**, mốc giá **20:25 ngày 14/10 giờ Việt Nam**.\n- [Petrolimex — kỳ giá 08/10](https://labs.petrolimex.com.vn/ndi/thong-cao-bao-chi/petrolimex-dieu-chinh-gia-xang-dau-tu-15-gio-00-phut-ngay-08-10-2026.html): công bố và hiệu lực **15:00 ngày 08/10**; dữ liệu kỳ đang áp dụng.\n- [VOV — xăng dầu 14/10](https://vov.vn/thi-truong/gia-xang-dau-hom-nay-1410-gia-dau-brent-tang-89-centthung-post1341002.vov): bài ngày **14/10**; mức bán lẻ thuộc kỳ 08/10.\n- [BLS — giá tiêu dùng tháng 9](https://www.bls.gov/news.release/archives/cpi_10142026.htm): công bố **08:30 giờ miền Đông Mỹ ngày 14/10**, tức **19:30 giờ Việt Nam**.\n- [BLS — lịch tháng 10](https://www.bls.gov/schedule/2026/10_sched.htm): dùng ngày/giờ sự kiện, không phải kết quả thực hiện.\n- [Báo Chính phủ — tín dụng xanh](https://baochinhphu.vn/tin-dung-xanh-bat-tay-thi-truong-carbon-khoi-thong-dong-von-cho-doanh-nghiep-10226101417580149.htm): **17:45 ngày 14/10**.\n- [Báo Chính phủ — ngành xây dựng](https://baochinhphu.vn/nganh-xay-dung-kien-dinh-muc-tieu-tang-truong-hai-con-so-ca-nam-2026-102261014200703066.htm): **20:16 ngày 14/10**.\n- [Báo Chính phủ — đối thoại đầu tư Việt Nam–Hoa Kỳ](https://baochinhphu.vn/pho-thu-tuong-thuong-truc-pham-gia-tuc-de-nghi-doanh-nghiep-hoa-ky-hien-ke-thuc-day-hop-tac-dau-tu-102261014102628785.htm): **10:41 ngày 14/10**.\n- [PNJ — bảng trực tiếp](https://www.pnj.com.vn/blog/gia-vang/): đã mở nhưng phần ngày cập nhật đọc được trống; không gán giá trên trang thành báo giá mới lúc chốt.\n\n## Giải thích thuật ngữ trong bản tin\n\n**Điểm, phần trăm, điểm phần trăm:** điểm là đơn vị chỉ số, không phải số đồng mỗi cổ phiếu mất đi. **Ví dụ giả định:** chỉ số từ 1.700 lên 1.717 thì tăng 17 điểm; phần trăm tăng = 17 ÷ 1.700 × 100 = 1%. Lãi suất từ 4% lên 5% tăng 1 **điểm phần trăm**, tương đương 100 **điểm cơ bản**, không phải tăng 1%. Rổ chỉ số có nhiều cổ phiếu với ảnh hưởng khác nhau, nên biến động chỉ số không áp dụng đều cho từng mã.\n\n**Độ rộng, vốn hóa và thanh khoản:** độ rộng đếm số mã tăng/giảm/đứng giá trong cùng phạm vi, thời điểm. Vốn hóa một công ty = giá cổ phiếu × số cổ phiếu lưu hành, không phải tiền công ty nhận khi giá cổ phiếu tăng. Thanh khoản thị trường nói về khả năng giao dịch với ít tác động giá; giao dịch nhiều là một dấu hiệu, chưa bảo đảm dễ bán mọi cổ phiếu.\n\n**Khối lượng, giá trị, khớp lệnh và thỏa thuận:** khối lượng là số cổ phiếu, giá trị là tiền giao dịch. **Ví dụ giả định:** 1.000 cổ phiếu ở 20.000 đồng có giá trị 20 triệu đồng. Khớp lệnh ghép lệnh mua/bán trên hệ thống; thỏa thuận theo điều kiện hai bên thống nhất. Tổng giao dịch có thể gồm cả hai, nên không dùng thay cho riêng khớp lệnh.\n\n**Mua/bán ròng:** bán ròng = giá trị bán − giá trị mua, cùng nhóm nhà đầu tư, phạm vi và kỳ. **Ví dụ giả định:** mua 100 tỷ, bán 130 tỷ thì bán ròng 30 tỷ; số này không phải tổng giao dịch và không đo dòng vốn của mọi nhà đầu tư.\n\n**Lạm phát và lãi suất:** chỉ số giá tiêu dùng, tiếng Anh Consumer Price Index hoặc **CPI**, đo giá của rổ hàng hóa/dịch vụ. Tỷ lệ theo tháng so với tháng trước, theo năm so với cùng tháng năm trước. Điều chỉnh mùa vụ loại ảnh hưởng lặp lại theo mùa để so các tháng thuận hơn. Lạm phát cơ bản Mỹ trong bản tin là phần loại thực phẩm và năng lượng; không có nghĩa người dân không trả các khoản đó. **Ví dụ giả định:** chỉ số từ 120 lên 121,2 tăng 1%, không phải tăng 1,2%. Lãi suất thực xấp xỉ lãi suất danh nghĩa trừ lạm phát theo cách đo phù hợp; không lấy riêng lãi suất trừ một chỉ số giá khác kỳ để kết luận chắc chắn.\n\n**Lợi suất, giá giao ngay và hợp đồng tương lai:** lợi suất trái phiếu là mức sinh lời theo giá giao dịch và điều kiện của trái phiếu; không đồng nhất với lãi suất tiền gửi. Giao ngay là giao dịch giao nhận sớm; hợp đồng tương lai gắn với kỳ giao hàng. Hai mức khác loại hoặc khác giờ không tạo thành một mức tăng/giảm hợp lệ. Ounce troy là đơn vị khối lượng dùng cho kim loại quý; **USD** là đô la Mỹ. “Trong phiên” nghĩa là phiên chưa kết thúc ở mốc đang nói, không phải giá chốt.\n\n**Giá trị tăng thêm, dòng tiền và tín chỉ carbon:** giá trị tăng thêm là giá trị sản xuất tạo thêm sau khi trừ đầu vào trung gian; không phải lợi nhuận của từng công ty. Dòng tiền là tiền thực thu/thực chi; doanh thu hoặc lợi nhuận ghi nhận có thể chưa thu được tiền. Tín chỉ carbon đại diện cho kết quả giảm/hấp thụ phát thải theo quy tắc của hệ thống; cần xác minh và đủ điều kiện giao dịch, không tự có doanh thu chỉ vì doanh nghiệp dự kiến giảm phát thải.\n\n",
-  "exportedAt": "2026-10-14T14:53:00.300Z"
+  "markdown": "# Tổng kết 15/10 — cập nhật muộn 16/10/2026\n\n**Chốt dữ liệu: 00:49:42 ngày 16/10/2026, Asia/Ho_Chi_Minh (UTC+7). Khoảng tổng hợp: 00:00 ngày 15/10 đến 00:49:42 ngày 16/10/2026.**\n\nĐây là bản làm bù lượt tối 15/10, thực hiện sau nửa đêm. Chứng khoán dưới đây thuộc phiên 15/10; bảng vàng trong nước mang giờ cập nhật 16/10; giá quốc tế giữ đúng giờ quan sát riêng. Không coi chúng là cùng một thời điểm hoặc giá đóng cửa đồng loạt. Bản tin được lưu theo ngày thực hiện 16/10, không dựng một bản ghi đã xuất bản ngày 15/10.\n\n## 1. Tóm tắt nhanh\n\n- **VN-Index đóng cửa phiên 15/10 ở 1.698,35 điểm, giảm 0,38% so phiên 14/10.** VN30 cũng giảm, UPCoM tăng: diễn biến phân hóa, chưa đủ để kết luận toàn thị trường cùng suy yếu. [Báo cáo phiên 15/10](https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-15-10-vn-index-mat-moc-1-700-diem-dong-tien-phan-hoa-205415.html).\n- **Giá điều hành xăng giảm từ 15:00 ngày 15/10:** E5 RON92 tối đa 26.971 đồng/lít, E10 RON95-III 27.029 đồng/lít. Đây là mức tối đa trong công bố điều hành, không phải bảng giá của mọi cửa hàng. [Bộ Công Thương](https://moit.gov.vn/tin-tuc/thong-tin-ve-viec-dieu-hanh-gia-xang-dau-ngay-15-10-2026.html).\n- **Giá sản xuất Mỹ tháng 9 tăng 1,3% so tháng trước**, từ mức tháng 8 đã điều chỉnh 0,5%. Nhận định: sức ép giá có thể ảnh hưởng kỳ vọng lãi suất và tỷ giá; chưa có dự báo đồng thuận được xác minh để gọi kết quả này là bất ngờ. [BLS, bản công bố lưu tại Bộ Lao động Mỹ](https://www.dol.gov/newsroom/economicdata/ppi_10152026.pdf).\n- **DOJI hiển thị vàng miếng SJC mua 140,3 — bán 143,3 triệu đồng/lượng**, cập nhật 00:49 ngày 16/10. Chưa xác minh đây là giá chốt phiên 15/10; không tính biến động ngày khi thiếu báo giá cuối ngày trước tương thích. [Bảng giá DOJI](https://banggia.doji.vn/gold-price).\n\n## 2. Thị trường chứng khoán — phân tích chuyên sâu\n\n**Nhận định:** Trong 1–5 phiên tới, rủi ro suy yếu ở nhóm chỉ số lớn vẫn cần theo dõi; mức tin cậy vừa vì phiên 15/10 có phân hóa. Với 1–3 tháng, chưa đủ dữ liệu lợi nhuận, dòng tiền và định giá để xác lập hướng đi có độ tin cậy cao. VN30 giảm cùng VN-Index nhưng UPCoM tăng, nên không thể suy từ điểm chỉ số rằng mọi cổ phiếu đều giảm.\n\nĐóng cửa phiên 15/10, so với đóng cửa 14/10; đơn vị điểm:\n\n| Chỉ số | Đóng cửa, điểm | Thay đổi (điểm; %) so với 14/10 | Thời điểm dữ liệu |\n| --- | --- | --- | --- |\n| VN-Index | 1.698,35 | −6,52; −0,38% | Đóng cửa 15/10/2026; bài đăng 17:15 |\n| VN30 | 1.843,71 | −8,73; −0,47% | Đóng cửa 15/10/2026; bài đăng 17:15 |\n| HNX-Index | 259,29 | −5,87; −2,21% | Đóng cửa 15/10/2026; bài đăng 17:15 |\n| UPCoM-Index | 124,15 | +0,21; +0,17% | Đóng cửa 15/10/2026; bài đăng 17:15 |\n\nNguồn: [Thời báo Tài chính Việt Nam, phiên 15/10](https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-15-10-vn-index-mat-moc-1-700-diem-dong-tien-phan-hoa-205415.html), đối chiếu [phiên 14/10](https://thoibaotaichinhvietnam.vn/chung-khoan-ngay-14-10-vn-index-lui-sat-moc-1-700-diem-dong-tien-phan-hoa-205355.html). Phần trăm tính từ hai mức đóng cửa, làm tròn hai chữ số. Nguồn không nêu phút chốt từng chỉ số; chưa đọc được dữ liệu trực tiếp từ sở giao dịch.\n\n**Học cách đọc:** Điểm là đơn vị của chỉ số, không phải tiền. Với VN-Index: 1.698,35 − 1.704,87 = −6,52 điểm; lấy −6,52 / 1.704,87 × 100 ≈ −0,38%. VN-Index phản ánh thị trường HOSE; VN30 giúp xem riêng rổ cổ phiếu lớn, thanh khoản cao. Hai chỉ số có phần giao nhau, không phải hai khoản đầu tư độc lập để cộng lợi nhuận.\n\n**Dòng tiền chưa chứng minh hồi phục lan tỏa.** Rổ VN30 có 13 mã tăng, 16 giảm, một đứng giá theo [JSI](https://www.japan-sec.vn/cap-nhat-tin-ngay-15-10-2026/). Độ rộng là số mã tăng/giảm trong một phạm vi. Bộ đếm toàn thị trường chưa đồng nhất nên không ghép. Giá trị giao dịch HOSE được báo nêu 15.043 tỷ đồng, chưa tách rõ khớp lệnh/thỏa thuận; thiếu bình quân 20 phiên tương thích để kết luận thanh khoản mạnh/yếu. Khớp lệnh là lệnh được hệ thống ghép; thỏa thuận theo điều kiện các bên thống nhất. Hai loại không nhất thiết cùng đo sức mua.\n\nKhối ngoại bán ròng theo [TTTC](https://thoibaotaichinhvietnam.vn/khoi-ngoai-ban-rong-10-phien-lien-tiep-mbb-nguoc-dong-hut-von-205407.html) và [Đầu tư Chứng khoán](https://www.tinnhanhchungkhoan.vn/giao-dich-chung-khoan-khoi-ngoai-ngay-1510-tiep-tuc-ban-rong-hon-710-ty-dong-post399539.html), nhưng trị số/phạm vi chưa thống nhất. Bán ròng là giá trị bán lớn hơn mua; không tự đo toàn bộ vốn rút khỏi Việt Nam.\n\n**Góc nhìn vi mô — Nhận định:** Chứng khoán tăng, ngân hàng diễn biến trái chiều, năng lượng giảm theo báo cáo phiên. Đây là giá cổ phiếu, chưa chứng minh lợi nhuận ngành. Công ty chứng khoán nhạy với doanh thu giao dịch và chi phí tài trợ; ngân hàng còn phụ thuộc chi phí huy động, chất lượng khoản vay. Khai thác dầu, lọc dầu và phân phối có cấu trúc doanh thu/chi phí khác nhau. Không gán cùng một tác động dầu quốc tế cho cả nhóm.\n\n**Góc nhìn vĩ mô — Nhận định:** Giá xăng điều hành giảm có thể hạ một phần chi phí vận chuyển sau khi doanh nghiệp sử dụng nhiên liệu mới. Tồn kho, hợp đồng và cạnh tranh quyết định lợi ích giữ lại hay chuyển cho khách hàng. PPI Mỹ công bố sau phiên Việt Nam, vì vậy không phải bằng chứng trực tiếp giải thích phiên giảm 15/10. Cần theo dõi phản ứng USD, lợi suất và tỷ giá ở phiên sau. Chưa đủ đầu vào để đánh giá cổ phiếu “rẻ”, tính đường trung bình hoặc xác nhận hỗ trợ/kháng cự kỹ thuật.\n\n**Ba kịch bản — Nhận định:** Cơ sở là tiếp tục phân hóa nếu chỉ số lớn yếu nhưng một số nhóm giữ sức mua. Tích cực hơn khi nhiều nhóm cùng cải thiện qua nhiều phiên, với dữ liệu khớp lệnh nhất quán. Tiêu cực hơn khi số mã giảm mở rộng đồng thời giao dịch ở các phiên giảm tăng. Các đánh giá phải đổi khi bằng chứng trên đổi; không đặt xác suất, mục tiêu điểm hoặc khuyến nghị giao dịch.\n\n## 3. Giá vàng\n\n**Trong nước — báo giá gần nhất đọc được, không phải giá chốt đã xác nhận.** Bảng DOJI ghi cập nhật **00:49 ngày 16/10/2026**, chưa nêu địa bàn áp dụng cho từng dòng:\n\n| Sản phẩm và đơn vị | Mua vào | Bán ra | Thời điểm dữ liệu |\n| --- | --- | --- | --- |\n| Vàng miếng SJC do DOJI niêm yết | 140,3 triệu đồng/lượng | 143,3 triệu đồng/lượng | Bảng cập nhật 00:49, 16/10/2026 |\n| Nhẫn tròn 9999 Hưng Thịnh Vượng | 139,0 triệu đồng/lượng | 143,0 triệu đồng/lượng | Bảng cập nhật 00:49, 16/10/2026 |\n\nNguồn: [DOJI](https://banggia.doji.vn/gold-price). Bảng gốc dùng nghìn đồng/chỉ; 1 lượng = 10 chỉ. Ví dụ quy đổi giá bán SJC: 14.330 × 1.000 × 10 = 143.300.000 đồng/lượng. Giờ cập nhật bảng không chứng minh thời điểm giá vừa thay đổi. Không có mốc cuối ngày trước tương thích để tính mức tăng/giảm.\n\nMua vào/bán ra là theo phía cửa hàng: bạn bán vàng thì tham chiếu giá cửa hàng mua. Cùng bảng SJC, chênh lệch bán−mua là 3 triệu đồng/lượng; đây là khoảng chênh hai phía báo giá, không phải biến động ngày hoặc mức lãi/lỗ đã thực hiện của bạn.\n\n**Thế giới:** Reuters ghi vàng giao ngay **4.156,52 USD/ounce troy lúc 20:30 ngày 15/10 giờ Việt Nam**; bài cập nhật 20:48. Giao ngay là báo giá cho giao dịch giao gần, khác hợp đồng giao một tháng tương lai. Ounce troy là đơn vị khối lượng kim loại quý; không đem số này so trực tiếp với đồng/lượng. Chưa có mốc đóng cửa trước tương thích để tự tính biến động. Đây là quan sát trong phiên, không phải giá tại mốc chốt bản tin. [Reuters qua MarketScreener](https://ca.marketscreener.com/news/gold-climbs-over-1-on-softer-dollar-yields-ahead-of-us-inflation-data-ce785dd3da88f721).\n\n**Nhận định:** Vàng không trả lãi; nếu lợi suất thực — mức sinh lời sau xét lạm phát — tăng, chi phí cơ hội giữ vàng có thể tăng. USD yếu có thể hỗ trợ sức mua của người dùng tiền khác, nhưng nhu cầu trú ẩn có thể bù trừ. Trong nước còn có nguồn cung, sản phẩm và khoảng mua/bán riêng. Chưa đủ tỷ giá, độ tinh khiết và báo giá đồng thời để lượng hóa chênh lệch trong nước–thế giới. Lần mở lại nguồn quốc tế bị lỗi; không có giá mới hơn được xác minh.\n\n## 4. Giá xăng dầu\n\n**Việt Nam — có công bố điều hành mới, áp dụng từ 15:00 ngày 15/10/2026.** Các mức dưới là giá tối đa theo công bố, so với mức điều hành trước đó, không thay bảng bán thực tế của từng doanh nghiệp:\n\n| Loại nhiên liệu | Mức tối đa mới | Thay đổi so kỳ trước | Đơn vị |\n| --- | --- | --- | --- |\n| E5 RON92 | 26.971 | −732 | đồng/lít |\n| E10 RON95-III | 27.029 | −1.225 | đồng/lít |\n| Diesel 0,05S | 29.106 | −22 | đồng/lít |\n| Mazut 180CST 3,5S | 22.135 | +1.043 | đồng/kg |\n\nNguồn: [Bộ Công Thương, đăng 15:14 ngày 15/10](https://moit.gov.vn/tin-tuc/thong-tin-ve-viec-dieu-hanh-gia-xang-dau-ngay-15-10-2026.html), đối chiếu [Nhân Dân, 16:21 cùng ngày](https://nhandan.vn/gia-xang-giam-manh-dau-mazut-tang-hon-1000-dongkg-post995540.html). Diesel là nhiên liệu cho nhiều động cơ vận tải; mazut là dầu nhiên liệu nặng, dùng ở một số hoạt động công nghiệp/tàu biển. Mazut tính theo kg, không theo lít.\n\n**Dầu quốc tế — còn trong phiên.** Lúc **23:14 ngày 15/10 giờ Việt Nam**, Reuters ghi:\n\n| Giá dầu tham chiếu | Giá | Mốc so sánh |\n| --- | --- | --- |\n| Brent | 106,08 USD/thùng | Không có mốc so sánh tương thích được xác minh |\n| WTI | 98,05 USD/thùng | Không có mốc so sánh tương thích được xác minh |\n\nNguồn: [Reuters qua CNA](https://www.channelnewsasia.com/business/brent-steady-us-weighs-easing-sanctions-global-shadow-fleet-6460986), bài cập nhật 23:39:53 ngày 15/10 giờ Việt Nam. Brent là chuẩn tham chiếu quốc tế; WTI là chuẩn dầu Mỹ, bài ghi hợp đồng tương lai nhưng không nêu tháng giao. Không gọi đây là giá đóng cửa hoặc gán tháng hợp đồng. Chưa xác minh được giá mới hơn khi mở lại nguồn.\n\n**Tồn kho Mỹ:** Báo cáo EIA cho tuần kết thúc **9/10**, công bố theo lịch 23:00 ngày 15/10 giờ Việt Nam, ghi dầu thô thương mại không gồm dự trữ chiến lược **415,6 triệu thùng, giảm 8,6 triệu thùng so tuần kết thúc 2/10**; xăng tăng 3,5 triệu thùng, nhiên liệu chưng cất giảm 2,5 triệu thùng. Giữ mức thay đổi EIA tính từ số chưa làm tròn, không tự thay bằng phép trừ các mức đã làm tròn. [EIA, bảng cân đối dầu](https://ir.eia.gov/wpsr/overview.pdf), [lịch công bố](https://www.eia.gov/petroleum/supply/weekly/schedule.php).\n\n**Nhận định:** Tồn kho là lượng còn lại tại một thời điểm, không phải sản lượng hay nhu cầu trong cả tuần. Dầu thô giảm có thể làm tăng lo ngại nguồn sẵn có, nhưng nhập khẩu và lượng đưa vào lọc dầu cũng làm tồn kho đổi; xăng tăng là bằng chứng đối trọng. Không kết luận nhu cầu đã bùng lên chỉ từ dầu thô giảm. Ở Việt Nam, giá sản phẩm lọc dầu, tỷ giá, thuế và cơ chế điều hành tạo độ trễ; dầu quốc tế tăng sau 23:00 không làm bảng điều hành 15:00 đổi ngay. Xăng giảm trong khi mazut tăng cũng khiến nhóm sử dụng hai loại nhiên liệu chịu tác động khác nhau, tùy hợp đồng và khả năng chuyển chi phí.\n\n## 5. Tin kinh tế và tài chính\n\n**Đã xác nhận — Giá sản xuất Mỹ tăng nhanh hơn tháng trước.** BLS công bố lúc **19:30 ngày 15/10 giờ Việt Nam**: PPI tháng 9 tăng **1,3% so tháng 8**, đã điều chỉnh mùa vụ; tháng 8 được sửa từ **0,4% lên 0,5%**. PPI đo giá nhà sản xuất nhận được; khác CPI đo giá người tiêu dùng trả. [BLS/DOL](https://www.dol.gov/newsroom/economicdata/ppi_10152026.pdf).\n\nLấy 1,3 − 0,5 = **0,8 điểm phần trăm**: chênh lệch hai tốc độ tăng, không phải giá tăng thêm 0,8% so tháng 8. Điều chỉnh mùa vụ loại bớt dao động lặp lại theo mùa. **Nhận định:** áp lực giá có thể ảnh hưởng kỳ vọng lãi suất Mỹ, rồi USD và chi phí vốn; khả năng chuyển giá, sức cầu và dữ liệu tiếp theo có thể bù trừ. Không có dự báo đồng thuận khả dụng để tính bất ngờ; một công bố chưa xác nhận Fed sẽ đổi chính sách.\n\n**Đã xác nhận qua công bố chính thức — Hải quan hướng dẫn giai đoạn chuyển tiếp.** Báo Chính phủ cho biết quy định mới có hiệu lực 15/10; thủ tục đối với **phương tiện vận tải đường bộ, đường sắt và đường thủy nội địa** chưa triển khai trên Cổng một cửa tiếp tục theo phương thức hiện hành trong khi nâng cấp. **Nhận định:** hướng dẫn hồ sơ phương tiện rõ có thể giảm rủi ro gián đoạn vận tải, qua đó ảnh hưởng thời gian hàng chờ và vốn bị giữ trong hàng. Chưa có số đo thời gian/chi phí trước–sau để kết luận thông quan đã nhanh hơn; doanh nghiệp vẫn cần kiểm tra thủ tục cụ thể. [Báo Chính phủ, 18:32 ngày 15/10](https://baochinhphu.vn/hai-quan-hoa-toc-trien-khai-quy-dinh-moi-o-cua-khau-go-vuong-mac-thong-quan-102261015183425399.htm).\n\n## 6. Tin chính trị liên quan\n\n**Điều hành giá và giới hạn nợ công được nhắc trong công bố ngày 15/10.** Báo Chính phủ dẫn Công điện 70/CĐ-TTg về bảo đảm cung cầu, điều hành giá và Quyết định 1989/QĐ-TTg về chiến lược nợ công 2026–2030. Thông tin này là báo cáo chính thức về văn bản; bản tin chưa đối chiếu điều khoản hiệu lực trong bản ký. [Báo Chính phủ, 18:06 ngày 15/10](https://baochinhphu.vn/chi-dao-dieu-hanh-cua-chinh-phu-thu-tuong-chinh-phu-ngay-15-10-2026-102261015180303991.htm).\n\nThông cáo nêu CPI bình quân 9 tháng 2026 tăng **4,52% so bình quân 9 tháng 2025**. Đây là mức giá của một rổ tiêu dùng bình quân tăng, không có nghĩa mọi mặt hàng tăng đúng 4,52%. Không trừ số này với mục tiêu cả năm để kết luận mức vượt: hai kỳ khác nhau.\n\nCác trần được dẫn gồm nợ công không quá **60% GDP**, nợ Chính phủ không quá **50% GDP**. GDP là tổng sản phẩm trong nước, đo quy mô sản xuất của nền kinh tế. Đây là **giới hạn chính sách**, không phải tỷ lệ nợ thực tế hoặc số tiền mới giải ngân. Không có mốc so sánh khả dụng để nói trần vừa tăng/giảm.\n\n**Nhận định:** cơ cấu vay, tiến độ giải ngân và hiệu quả dự án có thể tác động cung trái phiếu, chi phí vốn và đơn hàng hạ tầng. Trần vay không tự tạo doanh thu hay lợi nhuận; cần theo dõi kế hoạch phát hành, nguồn trả nợ và giải ngân thực tế. Chưa đủ dữ kiện để gắn lợi ích cho doanh nghiệp cụ thể hoặc kết luận lãi suất sẽ đổi.\n\n## 7. Điều cần theo dõi tối nay và phiên tới\n\nTất cả giờ sau đã quy đổi sang **Asia/Ho_Chi_Minh**; đây là lịch chọn lọc, không bao phủ mọi công bố:\n\n- **19:30 ngày 16/10:** Mỹ công bố chỉ số giá xuất khẩu/nhập khẩu tháng 9. Theo dõi cơ cấu giá để hiểu sức ép thương mại; chưa có thực tế hoặc dự báo đã xác minh. [Lịch BLS tháng 10](https://www.bls.gov/schedule/2026/10_sched.htm).\n- **20:15 ngày 16/10:** Fed công bố sản xuất công nghiệp và mức sử dụng công suất. Công suất là khả năng sản xuất; tỷ lệ sử dụng cho biết phần đang được vận hành. **Nhận định:** đọc cùng giá cả giúp phân biệt sức cầu với sức ép cung; chưa có kết quả, không tự đặt mức kỳ vọng. [Lịch Fed](https://www.federalreserve.gov/newsevents/2026-october.htm).\n- **01:00 và 01:30 ngày 29/10:** lần lượt thông cáo quyết định và họp báo Fed, tương ứng 14:00/14:30 ngày 28/10 tại New York. Fed là ngân hàng trung ương Mỹ; FOMC là ủy ban quyết định chính sách tiền tệ. Hai sự kiện có thể truyền đạt thông tin khác nhau; không coi họp báo là quyết định riêng. [Fed tháng 10](https://www.federalreserve.gov/newsevents/2026-october.htm).\n- **19:30 ngày 29/10:** GDP quý III, ước tính ban đầu, và thu nhập/chi tiêu tháng 9, có chỉ số giá PCE — giá chi tiêu tiêu dùng cá nhân, khác phạm vi CPI. Chưa có kết quả. [BEA](https://www.bea.gov/news/schedule).\n\nTrong phạm vi lịch đã kiểm tra, báo cáo việc làm 6/11, CPI tháng 10 ngày 10/11, PPI tháng 10 ngày 13/11 đều vào **20:30 giờ Việt Nam**. Chênh giờ đổi vì New York chuyển sang giờ mùa đông; không cộng cố định 11 giờ quanh năm. [BLS tháng 11](https://www.bls.gov/schedule/2026/11_sched.htm).\n\nPPI 15/10 đã có kết quả ở mục 5, không còn là sự kiện sắp công bố. Lịch giữ CPI tháng 9 công bố 14/10 làm bối cảnh có ngày gốc, không coi là tin mới. [Công bố CPI tháng 9](https://www.bls.gov/news.release/archives/cpi_10142026.htm). Nút làm mới trên web tải bản đã xuất bản; không cập nhật kết quả theo giây.\n\n## 8. Góc nhìn tổng hợp\n\n- **Nhận định — Chi phí nhiên liệu thay đổi theo sản phẩm.** Giá điều hành xăng giảm, mazut tăng; tồn kho Mỹ cũng trái chiều giữa dầu thô và xăng. Vì vậy phải xem loại nhiên liệu và hợp đồng thực dùng trước khi suy ra tác động tới biên lợi nhuận — phần doanh thu còn sau chi phí tương ứng. Không thể lấy một giá Brent để kết luận cho mọi doanh nghiệp. Cơ sở ở mục 4; cần theo dõi bảng giá doanh nghiệp và kỳ điều hành tiếp.\n- **Nhận định — Sức ép giá và phản ứng tài sản là hai bước khác nhau.** PPI tăng nhanh hơn tháng trước là dữ kiện; USD/lợi suất và dòng vốn phản ứng thế nào còn phải quan sát. Không suy “lạm phát tăng thì vàng chắc chắn giảm”, hoặc dùng công bố sau giờ giao dịch để giải thích ngược phiên Việt Nam. Cơ sở và giới hạn ở mục 2, 3, 5.\n- **Nhận định — Phân hóa cần được kiểm chứng qua nhiều phiên.** VN30 giảm nhưng UPCoM tăng, bộ đếm và phạm vi giao dịch còn giới hạn. Điều kiện để đánh giá tích cực hơn là độ rộng và giao dịch khớp lệnh cải thiện đồng thời; yếu đi khi áp lực giảm lan rộng. Chưa đủ dữ liệu doanh nghiệp để kết luận định giá hay đưa khuyến nghị mua/bán.\n\n## 9. Nguồn\n\nNguồn được mở trong lượt nghiên cứu sau nửa đêm 16/10, trước mốc chốt 00:49:42; giờ bài đăng, giờ giá và kỳ thống kê được tách riêng. Các link trực tiếp đã đặt cạnh dữ kiện:\n\n- **Chứng khoán:** TTTC phiên 15/10 đăng 17:15; phiên 14/10 đăng 17:06 ngày 14/10; JSI ngày 15/10 không nêu giờ. Báo cáo khối ngoại TTTC 17:39 và Đầu tư Chứng khoán 17:58 ngày 15/10. Đây là nguồn báo chí/công ty chứng khoán, chưa đối chiếu feed trực tiếp HOSE/HNX.\n- **Vàng:** DOJI là nguồn gốc cho giá do chính họ niêm yết; bảng ghi 00:49 ngày 16/10, đọc lúc 00:49:28. Reuters qua MarketScreener là một nguồn tin được đăng lại, báo giá 20:30 ngày 15/10, không phải lần xác nhận độc lập thứ hai.\n- **Xăng dầu:** Bộ Công Thương đăng 15:14 ngày 15/10, hiệu lực 15:00; Nhân Dân đối chiếu lúc 16:21. Reuters qua CNA có giá 23:14 và cập nhật bài 23:39:53 ngày 15/10. EIA là nguồn gốc tồn kho tuần kết thúc 9/10.\n- **Kinh tế/chính sách:** BLS/DOL là công bố gốc PPI lúc 19:30 ngày 15/10; Báo Chính phủ đăng hai công bố 18:06 và 18:32. Lịch công bố dùng BLS, Fed và BEA. Forex Factory chỉ là liên kết tham khảo trên dashboard, không phải nguồn dự báo đã được đồng bộ.\n\n**Giới hạn kiểm chứng:** chưa có chuỗi kỹ thuật/định giá đồng nhất, dự báo đồng thuận có thời điểm trước công bố, báo giá cuối ngày trước phù hợp cho vàng/dầu, hoặc phân tách nhất quán khớp lệnh–thỏa thuận/khối ngoại. Không có số mới hơn được xác minh không có nghĩa giá không đổi. Các thiếu sót này không được điền bằng dữ liệu mẫu.\n\n## Giải thích thuật ngữ trong bản tin\n\n- **Phần trăm và điểm phần trăm:** phần trăm đo tỷ lệ so một gốc; điểm phần trăm là phép trừ hai tỷ lệ. Ví dụ thực tế PPI: 1,3% − 0,5% = 0,8 điểm phần trăm. Một điểm cơ bản bằng 0,01 điểm phần trăm; đây là đơn vị quy đổi, không phải một dự báo lãi suất.\n- **Vốn lưu động:** tiền bị gắn vào hoạt động thường ngày như hàng tồn kho, khoản khách hàng chưa trả, sau xét tín dụng nhà cung cấp. Lưu hàng lâu có thể giữ tiền lâu hơn; chưa có số ngày hoặc số tiền để lượng hóa trong tin hải quan này.\n- **Định giá:** so giá tài sản với lợi nhuận, tài sản hoặc dòng tiền theo một phương pháp và giả định. Giá cổ phiếu giảm đơn lẻ không chứng minh nó rẻ; bản tin chưa đủ dữ liệu để tính một kết luận định giá.\n\n",
+  "economic_calendar": {
+    "version": 1,
+    "timezone": "Asia/Ho_Chi_Minh",
+    "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
+    "checkedAt": "2026-10-16T00:49:42+07:00",
+    "coverageStart": "2026-10-08",
+    "coverageEnd": "2026-11-14",
+    "events": [
+      {
+        "id": "us-cpi-2026-09",
+        "title": "Mỹ · Chỉ số giá tiêu dùng (CPI)",
+        "period": "09/2026",
+        "country": "US",
+        "currency": "USD",
+        "scheduledAt": "2026-10-14T08:30:00-04:00",
+        "scheduledDate": "2026-10-14",
+        "sourceTimezone": "America/New_York",
+        "status": "released",
+        "scheduleSource": {
+          "name": "BLS — lịch tháng 10/2026",
+          "url": "https://www.bls.gov/schedule/2026/10_sched.htm"
+        },
+        "impact": "high",
+        "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+        "description": "CPI đo thay đổi giá hàng hóa và dịch vụ người tiêu dùng mua. CPI cơ bản loại thực phẩm và năng lượng; so tháng trước và so cùng kỳ là hai cách đọc khác nhau.",
+        "analysis": {
+          "mechanism": "Nhận định: giá tiêu dùng hoặc giá đầu vào tăng mạnh hơn kỳ vọng có thể khiến thị trường điều chỉnh đường đi lãi suất Mỹ. Cần xem cả cấu phần và phản ứng lợi suất trái phiếu, không kết luận chỉ từ một con số.",
+          "vietnam": "Nhận định: nếu lợi suất Mỹ và USD tăng, tỷ giá và chi phí vốn ngoại của Việt Nam có thể chịu sức ép. Doanh nghiệp có nợ USD, nguyên liệu nhập khẩu và nguồn thu USD chịu tác động khác nhau; vàng còn phụ thuộc lợi suất thực và nhu cầu trú ẩn.",
+          "conditions": "So sánh đúng kỳ và cách điều chỉnh mùa vụ. Kiểm tra kết quả chính thức, số sửa đổi và phản ứng sau công bố. Kết quả cao hơn dự báo không bảo đảm USD tăng hoặc vàng giảm."
+        },
+        "metrics": [
+          {
+            "label": "CPI tổng thể — so cùng kỳ",
+            "unit": "%",
+            "basis": "So với cùng tháng năm trước; chưa điều chỉnh mùa vụ.",
+            "actual": {
+              "value": 3.7,
+              "period": "09/2026",
+              "source": {
+                "name": "BLS — CPI tháng 9/2026",
+                "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+              },
+              "publishedAt": "2026-10-14T08:30:00-04:00"
+            },
+            "forecast": null,
+            "previous": {
+              "value": 3.4,
+              "period": "08/2026",
+              "source": {
+                "name": "BLS — CPI tháng 9/2026",
+                "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+              },
+              "publishedAt": "2026-10-14T08:30:00-04:00"
+            }
+          },
+          {
+            "label": "CPI tổng thể — so tháng trước",
+            "unit": "%",
+            "basis": "So với tháng trước; đã điều chỉnh mùa vụ.",
+            "actual": {
+              "value": 0.6,
+              "period": "09/2026",
+              "source": {
+                "name": "BLS — CPI tháng 9/2026",
+                "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+              },
+              "publishedAt": "2026-10-14T08:30:00-04:00"
+            },
+            "forecast": null,
+            "previous": {
+              "value": 0.4,
+              "period": "08/2026",
+              "source": {
+                "name": "BLS — CPI tháng 9/2026",
+                "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+              },
+              "publishedAt": "2026-10-14T08:30:00-04:00"
+            }
+          },
+          {
+            "label": "CPI cơ bản — so cùng kỳ",
+            "unit": "%",
+            "basis": "Loại thực phẩm và năng lượng; so cùng tháng năm trước; chưa điều chỉnh mùa vụ.",
+            "actual": {
+              "value": 2.6,
+              "period": "09/2026",
+              "source": {
+                "name": "BLS — CPI tháng 9/2026",
+                "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+              },
+              "publishedAt": "2026-10-14T08:30:00-04:00"
+            },
+            "forecast": null,
+            "previous": {
+              "value": 2.4,
+              "period": "08/2026",
+              "source": {
+                "name": "BLS — CPI tháng 9/2026",
+                "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+              },
+              "publishedAt": "2026-10-14T08:30:00-04:00"
+            }
+          },
+          {
+            "label": "CPI cơ bản — so tháng trước",
+            "unit": "%",
+            "basis": "Loại thực phẩm và năng lượng; so với tháng trước; đã điều chỉnh mùa vụ.",
+            "actual": {
+              "value": 0.3,
+              "period": "09/2026",
+              "source": {
+                "name": "BLS — CPI tháng 9/2026",
+                "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+              },
+              "publishedAt": "2026-10-14T08:30:00-04:00"
+            },
+            "forecast": null,
+            "previous": {
+              "value": 0.3,
+              "period": "08/2026",
+              "source": {
+                "name": "BLS — CPI tháng 9/2026",
+                "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+              },
+              "publishedAt": "2026-10-14T08:30:00-04:00"
+            }
+          }
+        ],
+        "releasedAt": "2026-10-14T08:30:00-04:00",
+        "resultSource": {
+          "name": "BLS — CPI tháng 9/2026",
+          "url": "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+        }
+      },
+      {
+        "id": "us-ppi-2026-09",
+        "title": "Mỹ · Giá sản xuất (PPI)",
+        "period": "09/2026",
+        "country": "US",
+        "currency": "USD",
+        "scheduledAt": "2026-10-15T08:30:00-04:00",
+        "scheduledDate": "2026-10-15",
+        "sourceTimezone": "America/New_York",
+        "status": "released",
+        "scheduleSource": {
+          "name": "BLS — lịch tháng 10/2026",
+          "url": "https://www.bls.gov/schedule/2026/10_sched.htm"
+        },
+        "impact": "medium",
+        "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+        "description": "PPI đo thay đổi giá mà nhà sản xuất nhận được. Giá đầu vào và khả năng chuyển chi phí sang khách hàng quyết định mức truyền sang giá tiêu dùng.",
+        "analysis": {
+          "mechanism": "Nhận định: PPI đo giá nhà sản xuất nhận được, không phải giá tiêu dùng. Tốc độ theo tháng 1,3% so với 0,5% tháng trước đã điều chỉnh chênh 0,8 điểm phần trăm. Áp lực giá có thể tác động kỳ vọng lãi suất, nhưng chưa có consensus được xác minh để gọi là bất ngờ.",
+          "vietnam": "Nhận định: nếu lợi suất Mỹ và USD tăng, tỷ giá và chi phí vốn ngoại của Việt Nam có thể chịu sức ép. Doanh nghiệp có nợ USD, nguyên liệu nhập khẩu và nguồn thu USD chịu tác động khác nhau; vàng còn phụ thuộc lợi suất thực và nhu cầu trú ẩn.",
+          "conditions": "So sánh đúng kỳ và cách điều chỉnh mùa vụ. Kiểm tra kết quả chính thức, số sửa đổi và phản ứng sau công bố. Kết quả cao hơn dự báo không bảo đảm USD tăng hoặc vàng giảm."
+        },
+        "metrics": [
+          {
+            "label": "PPI — so tháng trước",
+            "unit": "%",
+            "basis": "Giá bán nhận được của nhà sản xuất trong nước Mỹ; so tháng trước, đã điều chỉnh mùa vụ.",
+            "actual": {
+              "value": 1.3,
+              "period": "09/2026",
+              "source": {
+                "name": "BLS — PPI tháng 9/2026, bản công bố tại DOL",
+                "url": "https://www.dol.gov/newsroom/economicdata/ppi_10152026.pdf"
+              },
+              "publishedAt": "2026-10-15T08:30:00-04:00"
+            },
+            "forecast": null,
+            "previous": {
+              "value": 0.5,
+              "period": "08/2026",
+              "source": {
+                "name": "BLS — PPI tháng 9/2026, bản công bố tại DOL",
+                "url": "https://www.dol.gov/newsroom/economicdata/ppi_10152026.pdf"
+              },
+              "publishedAt": "2026-10-15T08:30:00-04:00",
+              "revisedFrom": 0.4
+            }
+          }
+        ],
+        "releasedAt": "2026-10-15T08:30:00-04:00",
+        "resultSource": {
+          "name": "BLS — PPI tháng 9/2026, bản công bố tại DOL",
+          "url": "https://www.dol.gov/newsroom/economicdata/ppi_10152026.pdf"
+        }
+      },
+      {
+        "id": "us-fomc-2026-10-decision",
+        "title": "Fed · Quyết định lãi suất và thông cáo",
+        "period": "Họp 27–28/10/2026",
+        "country": "US",
+        "currency": "USD",
+        "scheduledAt": "2026-10-28T14:00:00-04:00",
+        "scheduledDate": "2026-10-29",
+        "sourceTimezone": "America/New_York",
+        "status": "scheduled",
+        "scheduleSource": {
+          "name": "Federal Reserve — lịch tháng 10/2026",
+          "url": "https://www.federalreserve.gov/newsevents/2026-october.htm"
+        },
+        "impact": "high",
+        "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+        "description": "Ủy ban Thị trường Mở Liên bang (FOMC) quyết định chính sách tiền tệ của Fed. Khoảng lãi suất mục tiêu là một khoảng, không phải một mức lãi suất duy nhất.",
+        "analysis": {
+          "mechanism": "Nhận định: quyết định lãi suất thay đổi chi phí vốn ngắn hạn của Mỹ; thông cáo và họp báo có thể làm thị trường điều chỉnh kỳ vọng các kỳ sau. Giữ nguyên lãi suất vẫn có thể đi kèm thay đổi định hướng.",
+          "vietnam": "Nhận định: ảnh hưởng có thể truyền qua USD, tỷ giá, dòng vốn và mặt bằng lợi suất. Doanh nghiệp vay USD và doanh nghiệp xuất khẩu có mức tiếp xúc khác nhau; phản ứng chứng khoán còn phụ thuộc định giá và kỳ vọng đã có.",
+          "conditions": "Đọc quyết định, thông cáo và họp báo riêng; đối chiếu lãi suất trước và sau khi có nguồn. Không coi phát biểu là quyết định mới và không tự gán xác suất tăng/giảm lãi suất."
+        },
+        "metrics": [
+          {
+            "label": "Khoảng lãi suất mục tiêu",
+            "unit": "%",
+            "basis": "Ghi cả cận dưới và cận trên. Thay đổi lãi suất được đọc bằng điểm phần trăm hoặc điểm cơ bản; 1 điểm cơ bản bằng 0,01 điểm phần trăm.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          }
+        ]
+      },
+      {
+        "id": "us-fomc-2026-10-press",
+        "title": "Fed · Họp báo sau cuộc họp",
+        "period": "Họp 27–28/10/2026",
+        "country": "US",
+        "currency": "USD",
+        "scheduledAt": "2026-10-28T14:30:00-04:00",
+        "scheduledDate": "2026-10-29",
+        "sourceTimezone": "America/New_York",
+        "status": "scheduled",
+        "scheduleSource": {
+          "name": "Federal Reserve — lịch tháng 10/2026",
+          "url": "https://www.federalreserve.gov/newsevents/2026-october.htm"
+        },
+        "impact": "high",
+        "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+        "description": "Họp báo giải thích đánh giá kinh tế và chính sách sau thông cáo. Phát biểu và câu trả lời không tự tạo ra quyết định lãi suất mới.",
+        "analysis": {
+          "mechanism": "Nhận định: quyết định lãi suất thay đổi chi phí vốn ngắn hạn của Mỹ; thông cáo và họp báo có thể làm thị trường điều chỉnh kỳ vọng các kỳ sau. Giữ nguyên lãi suất vẫn có thể đi kèm thay đổi định hướng.",
+          "vietnam": "Nhận định: ảnh hưởng có thể truyền qua USD, tỷ giá, dòng vốn và mặt bằng lợi suất. Doanh nghiệp vay USD và doanh nghiệp xuất khẩu có mức tiếp xúc khác nhau; phản ứng chứng khoán còn phụ thuộc định giá và kỳ vọng đã có.",
+          "conditions": "Đọc quyết định, thông cáo và họp báo riêng; đối chiếu lãi suất trước và sau khi có nguồn. Không coi phát biểu là quyết định mới và không tự gán xác suất tăng/giảm lãi suất."
+        },
+        "metrics": []
+      },
+      {
+        "id": "us-gdp-2026-q3-advance",
+        "title": "Mỹ · GDP quý III, ước tính ban đầu",
+        "period": "Quý III/2026",
+        "country": "US",
+        "currency": "USD",
+        "scheduledAt": "2026-10-29T08:30:00-04:00",
+        "scheduledDate": "2026-10-29",
+        "sourceTimezone": "America/New_York",
+        "status": "scheduled",
+        "scheduleSource": {
+          "name": "BEA — lịch công bố",
+          "url": "https://www.bea.gov/news/schedule"
+        },
+        "impact": "high",
+        "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+        "description": "GDP là tổng giá trị hàng hóa và dịch vụ cuối cùng được sản xuất. Đây là lần ước tính ban đầu và có thể được điều chỉnh.",
+        "analysis": {
+          "mechanism": "Nhận định: GDP đo hoạt động kinh tế, còn chi tiêu hộ gia đình cho biết sức cầu. Tăng trưởng mạnh có thể hỗ trợ doanh thu nhưng cũng thay đổi kỳ vọng lãi suất; cần đọc cơ cấu và giá cả cùng nhau.",
+          "vietnam": "Nhận định: sức cầu Mỹ có liên hệ với đơn hàng của nhà xuất khẩu Việt Nam, với độ trễ khác nhau theo ngành. Tỷ giá, tồn kho, chính sách thương mại và cơ cấu khách hàng có thể bù trừ tác động.",
+          "conditions": "Phân biệt tăng trưởng thực với danh nghĩa, số ước tính ban đầu với điều chỉnh và tăng trưởng theo năm hóa với so cùng kỳ. Chưa có kết quả thì chỉ theo dõi lịch, không suy diễn mức tăng trưởng."
+        },
+        "metrics": [
+          {
+            "label": "GDP thực — so quý trước, năm hóa",
+            "unit": "%",
+            "basis": "Loại ảnh hưởng giá; quy đổi nhịp tăng theo quý thành nhịp năm. Không tương đương tăng trưởng so cùng quý năm trước.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          }
+        ]
+      },
+      {
+        "id": "us-pce-2026-09",
+        "title": "Mỹ · Thu nhập, chi tiêu và giá PCE",
+        "period": "09/2026",
+        "country": "US",
+        "currency": "USD",
+        "scheduledAt": "2026-10-29T08:30:00-04:00",
+        "scheduledDate": "2026-10-29",
+        "sourceTimezone": "America/New_York",
+        "status": "scheduled",
+        "scheduleSource": {
+          "name": "BEA — lịch công bố",
+          "url": "https://www.bea.gov/news/schedule"
+        },
+        "impact": "high",
+        "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+        "description": "Chỉ số giá chi tiêu tiêu dùng cá nhân (PCE) đo giá của các khoản tiêu dùng trong hệ thống tài khoản quốc gia. Phạm vi và trọng số khác CPI.",
+        "analysis": {
+          "mechanism": "Nhận định: giá tiêu dùng hoặc giá đầu vào tăng mạnh hơn kỳ vọng có thể khiến thị trường điều chỉnh đường đi lãi suất Mỹ. Cần xem cả cấu phần và phản ứng lợi suất trái phiếu, không kết luận chỉ từ một con số.",
+          "vietnam": "Nhận định: nếu lợi suất Mỹ và USD tăng, tỷ giá và chi phí vốn ngoại của Việt Nam có thể chịu sức ép. Doanh nghiệp có nợ USD, nguyên liệu nhập khẩu và nguồn thu USD chịu tác động khác nhau; vàng còn phụ thuộc lợi suất thực và nhu cầu trú ẩn.",
+          "conditions": "So sánh đúng kỳ và cách điều chỉnh mùa vụ. Kiểm tra kết quả chính thức, số sửa đổi và phản ứng sau công bố. Kết quả cao hơn dự báo không bảo đảm USD tăng hoặc vàng giảm."
+        },
+        "metrics": [
+          {
+            "label": "PCE tổng thể — so cùng kỳ",
+            "unit": "%",
+            "basis": "So với cùng tháng năm trước; không so trực tiếp với CPI như cùng một chỉ tiêu.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          },
+          {
+            "label": "PCE cơ bản — so cùng kỳ",
+            "unit": "%",
+            "basis": "Loại thực phẩm và năng lượng; so với cùng tháng năm trước.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          }
+        ]
+      },
+      {
+        "id": "us-employment-2026-10",
+        "title": "Mỹ · Việc làm, thất nghiệp và tiền lương",
+        "period": "10/2026",
+        "country": "US",
+        "currency": "USD",
+        "scheduledAt": "2026-11-06T08:30:00-05:00",
+        "scheduledDate": "2026-11-06",
+        "sourceTimezone": "America/New_York",
+        "status": "scheduled",
+        "scheduleSource": {
+          "name": "BLS — lịch tháng 11/2026",
+          "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
+        },
+        "impact": "high",
+        "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+        "description": "Báo cáo việc làm kết hợp khảo sát doanh nghiệp và hộ gia đình. Số việc làm mới và tỷ lệ thất nghiệp đo những khía cạnh khác nhau.",
+        "analysis": {
+          "mechanism": "Nhận định: việc làm, thất nghiệp và tiền lương phản ánh các mặt khác nhau của thị trường lao động. Việc làm tăng và tiền lương cao có thể ảnh hưởng kỳ vọng lãi suất, nhưng cần kiểm tra số điều chỉnh và tỷ lệ tham gia lao động.",
+          "vietnam": "Nhận định: kênh tác động chủ yếu là sức mua Mỹ đối với hàng nhập khẩu, USD và chi phí vốn. Tác động lên doanh nghiệp Việt Nam phụ thuộc tỷ trọng xuất khẩu, nợ ngoại tệ và khả năng điều chỉnh giá.",
+          "conditions": "Không suy ra thị trường lao động khỏe chỉ từ số việc làm mới. Đối chiếu thất nghiệp, tiền lương, kỳ trước được sửa đổi và phản ứng thực tế của lợi suất/USD."
+        },
+        "metrics": [
+          {
+            "label": "Thay đổi việc làm phi nông nghiệp",
+            "unit": "việc làm",
+            "basis": "Số việc làm tăng/giảm so tháng trước; có điều chỉnh mùa vụ. Không phải số người có việc làm.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          },
+          {
+            "label": "Tỷ lệ thất nghiệp",
+            "unit": "%",
+            "basis": "Tỷ lệ người thất nghiệp trong lực lượng lao động; không phải tỷ lệ trong toàn bộ dân số.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          },
+          {
+            "label": "Tiền lương giờ bình quân — so tháng trước",
+            "unit": "%",
+            "basis": "Thay đổi tiền lương giờ bình quân so tháng trước; cần xem cùng cơ cấu lao động.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          }
+        ]
+      },
+      {
+        "id": "us-cpi-2026-10",
+        "title": "Mỹ · Chỉ số giá tiêu dùng (CPI)",
+        "period": "10/2026",
+        "country": "US",
+        "currency": "USD",
+        "scheduledAt": "2026-11-10T08:30:00-05:00",
+        "scheduledDate": "2026-11-10",
+        "sourceTimezone": "America/New_York",
+        "status": "scheduled",
+        "scheduleSource": {
+          "name": "BLS — lịch tháng 11/2026",
+          "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
+        },
+        "impact": "high",
+        "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+        "description": "CPI đo thay đổi giá hàng hóa và dịch vụ người tiêu dùng mua. Tách chỉ số tổng thể/cơ bản và so tháng trước/so cùng kỳ.",
+        "analysis": {
+          "mechanism": "Nhận định: giá tiêu dùng hoặc giá đầu vào tăng mạnh hơn kỳ vọng có thể khiến thị trường điều chỉnh đường đi lãi suất Mỹ. Cần xem cả cấu phần và phản ứng lợi suất trái phiếu, không kết luận chỉ từ một con số.",
+          "vietnam": "Nhận định: nếu lợi suất Mỹ và USD tăng, tỷ giá và chi phí vốn ngoại của Việt Nam có thể chịu sức ép. Doanh nghiệp có nợ USD, nguyên liệu nhập khẩu và nguồn thu USD chịu tác động khác nhau; vàng còn phụ thuộc lợi suất thực và nhu cầu trú ẩn.",
+          "conditions": "So sánh đúng kỳ và cách điều chỉnh mùa vụ. Kiểm tra kết quả chính thức, số sửa đổi và phản ứng sau công bố. Kết quả cao hơn dự báo không bảo đảm USD tăng hoặc vàng giảm."
+        },
+        "metrics": [
+          {
+            "label": "CPI tổng thể — so cùng kỳ",
+            "unit": "%",
+            "basis": "So với cùng tháng năm trước; chưa điều chỉnh mùa vụ.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          },
+          {
+            "label": "CPI tổng thể — so tháng trước",
+            "unit": "%",
+            "basis": "So với tháng trước; đã điều chỉnh mùa vụ.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          },
+          {
+            "label": "CPI cơ bản — so cùng kỳ",
+            "unit": "%",
+            "basis": "Loại thực phẩm và năng lượng; so cùng tháng năm trước; chưa điều chỉnh mùa vụ.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          },
+          {
+            "label": "CPI cơ bản — so tháng trước",
+            "unit": "%",
+            "basis": "Loại thực phẩm và năng lượng; so với tháng trước; đã điều chỉnh mùa vụ.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          }
+        ]
+      },
+      {
+        "id": "us-ppi-2026-10",
+        "title": "Mỹ · Giá sản xuất (PPI)",
+        "period": "10/2026",
+        "country": "US",
+        "currency": "USD",
+        "scheduledAt": "2026-11-13T08:30:00-05:00",
+        "scheduledDate": "2026-11-13",
+        "sourceTimezone": "America/New_York",
+        "status": "scheduled",
+        "scheduleSource": {
+          "name": "BLS — lịch tháng 11/2026",
+          "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
+        },
+        "impact": "medium",
+        "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+        "description": "PPI phản ánh giá bán của nhà sản xuất. Cần xem cấu phần và mức truyền chi phí trước khi liên hệ với giá tiêu dùng.",
+        "analysis": {
+          "mechanism": "Nhận định: giá tiêu dùng hoặc giá đầu vào tăng mạnh hơn kỳ vọng có thể khiến thị trường điều chỉnh đường đi lãi suất Mỹ. Cần xem cả cấu phần và phản ứng lợi suất trái phiếu, không kết luận chỉ từ một con số.",
+          "vietnam": "Nhận định: nếu lợi suất Mỹ và USD tăng, tỷ giá và chi phí vốn ngoại của Việt Nam có thể chịu sức ép. Doanh nghiệp có nợ USD, nguyên liệu nhập khẩu và nguồn thu USD chịu tác động khác nhau; vàng còn phụ thuộc lợi suất thực và nhu cầu trú ẩn.",
+          "conditions": "So sánh đúng kỳ và cách điều chỉnh mùa vụ. Kiểm tra kết quả chính thức, số sửa đổi và phản ứng sau công bố. Kết quả cao hơn dự báo không bảo đảm USD tăng hoặc vàng giảm."
+        },
+        "metrics": [
+          {
+            "label": "PPI — so tháng trước",
+            "unit": "%",
+            "basis": "Giá bán nhận được của nhà sản xuất trong nước Mỹ; so tháng trước, đã điều chỉnh mùa vụ.",
+            "actual": null,
+            "forecast": null,
+            "previous": null
+          }
+        ]
+      },
+      {
+        "id": "us-import-export-prices-2026-09",
+        "title": "Mỹ · Chỉ số giá xuất khẩu và nhập khẩu",
+        "period": "09/2026",
+        "country": "US",
+        "currency": "USD",
+        "scheduledAt": "2026-10-16T08:30:00-04:00",
+        "scheduledDate": "2026-10-16",
+        "sourceTimezone": "America/New_York",
+        "status": "scheduled",
+        "scheduleSource": {
+          "name": "BLS — lịch tháng 10/2026",
+          "url": "https://www.bls.gov/schedule/2026/10_sched.htm"
+        },
+        "impact": "medium",
+        "impactReason": "Nhận định: giá thương mại có liên quan đến chi phí hàng nhập và doanh thu xuất khẩu; mức phản ứng thực tế còn tùy cơ cấu và kỳ vọng.",
+        "description": "Chỉ số đo thay đổi giá hàng hóa và dịch vụ Mỹ nhập khẩu/xuất khẩu; không phải mức tăng kim ngạch thương mại.",
+        "analysis": {
+          "mechanism": "Nhận định: thay đổi giá nhập khẩu có thể truyền vào chi phí và giá bán; sức cầu, tỷ giá và khả năng chuyển giá có thể bù trừ.",
+          "vietnam": "Nhận định: cần xem nhóm hàng Việt Nam có tiếp xúc với thị trường Mỹ, tỷ giá và điều khoản hợp đồng; chưa đủ dữ kiện để lượng hóa tác động cho doanh nghiệp.",
+          "conditions": "Chưa có thực tế hoặc dự báo đã xác minh. Không suy kết quả từ việc đã đến giờ; cần đối chiếu kỳ và cách đo sau công bố."
+        },
+        "metrics": []
+      }
+    ]
+  },
+  "exportedAt": "2026-10-16T01:34:48.517Z"
 }

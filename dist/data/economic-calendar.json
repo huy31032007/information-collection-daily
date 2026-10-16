@@ -2,7 +2,7 @@
   "version": 1,
   "timezone": "Asia/Ho_Chi_Minh",
   "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
-  "checkedAt": "2026-10-15T10:30:57+00:00",
+  "checkedAt": "2026-10-16T00:49:42+07:00",
   "coverageStart": "2026-10-08",
   "coverageEnd": "2026-11-14",
   "events": [
@@ -141,7 +141,7 @@
       "scheduledAt": "2026-10-15T08:30:00-04:00",
       "scheduledDate": "2026-10-15",
       "sourceTimezone": "America/New_York",
-      "status": "scheduled",
+      "status": "released",
       "scheduleSource": {
         "name": "BLS — lịch tháng 10/2026",
         "url": "https://www.bls.gov/schedule/2026/10_sched.htm"
@@ -150,7 +150,7 @@
       "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
       "description": "PPI đo thay đổi giá mà nhà sản xuất nhận được. Giá đầu vào và khả năng chuyển chi phí sang khách hàng quyết định mức truyền sang giá tiêu dùng.",
       "analysis": {
-        "mechanism": "Nhận định: giá tiêu dùng hoặc giá đầu vào tăng mạnh hơn kỳ vọng có thể khiến thị trường điều chỉnh đường đi lãi suất Mỹ. Cần xem cả cấu phần và phản ứng lợi suất trái phiếu, không kết luận chỉ từ một con số.",
+        "mechanism": "Nhận định: PPI đo giá nhà sản xuất nhận được, không phải giá tiêu dùng. Tốc độ theo tháng 1,3% so với 0,5% tháng trước đã điều chỉnh chênh 0,8 điểm phần trăm. Áp lực giá có thể tác động kỳ vọng lãi suất, nhưng chưa có consensus được xác minh để gọi là bất ngờ.",
         "vietnam": "Nhận định: nếu lợi suất Mỹ và USD tăng, tỷ giá và chi phí vốn ngoại của Việt Nam có thể chịu sức ép. Doanh nghiệp có nợ USD, nguyên liệu nhập khẩu và nguồn thu USD chịu tác động khác nhau; vàng còn phụ thuộc lợi suất thực và nhu cầu trú ẩn.",
         "conditions": "So sánh đúng kỳ và cách điều chỉnh mùa vụ. Kiểm tra kết quả chính thức, số sửa đổi và phản ứng sau công bố. Kết quả cao hơn dự báo không bảo đảm USD tăng hoặc vàng giảm."
       },
@@ -159,11 +159,33 @@
           "label": "PPI — so tháng trước",
           "unit": "%",
           "basis": "Giá bán nhận được của nhà sản xuất trong nước Mỹ; so tháng trước, đã điều chỉnh mùa vụ.",
-          "actual": null,
+          "actual": {
+            "value": 1.3,
+            "period": "09/2026",
+            "source": {
+              "name": "BLS — PPI tháng 9/2026, bản công bố tại DOL",
+              "url": "https://www.dol.gov/newsroom/economicdata/ppi_10152026.pdf"
+            },
+            "publishedAt": "2026-10-15T08:30:00-04:00"
+          },
           "forecast": null,
-          "previous": null
+          "previous": {
+            "value": 0.5,
+            "period": "08/2026",
+            "source": {
+              "name": "BLS — PPI tháng 9/2026, bản công bố tại DOL",
+              "url": "https://www.dol.gov/newsroom/economicdata/ppi_10152026.pdf"
+            },
+            "publishedAt": "2026-10-15T08:30:00-04:00",
+            "revisedFrom": 0.4
+          }
         }
-      ]
+      ],
+      "releasedAt": "2026-10-15T08:30:00-04:00",
+      "resultSource": {
+        "name": "BLS — PPI tháng 9/2026, bản công bố tại DOL",
+        "url": "https://www.dol.gov/newsroom/economicdata/ppi_10152026.pdf"
+      }
     },
     {
       "id": "us-fomc-2026-10-decision",
@@ -434,6 +456,30 @@
           "previous": null
         }
       ]
+    },
+    {
+      "id": "us-import-export-prices-2026-09",
+      "title": "Mỹ · Chỉ số giá xuất khẩu và nhập khẩu",
+      "period": "09/2026",
+      "country": "US",
+      "currency": "USD",
+      "scheduledAt": "2026-10-16T08:30:00-04:00",
+      "scheduledDate": "2026-10-16",
+      "sourceTimezone": "America/New_York",
+      "status": "scheduled",
+      "scheduleSource": {
+        "name": "BLS — lịch tháng 10/2026",
+        "url": "https://www.bls.gov/schedule/2026/10_sched.htm"
+      },
+      "impact": "medium",
+      "impactReason": "Nhận định: giá thương mại có liên quan đến chi phí hàng nhập và doanh thu xuất khẩu; mức phản ứng thực tế còn tùy cơ cấu và kỳ vọng.",
+      "description": "Chỉ số đo thay đổi giá hàng hóa và dịch vụ Mỹ nhập khẩu/xuất khẩu; không phải mức tăng kim ngạch thương mại.",
+      "analysis": {
+        "mechanism": "Nhận định: thay đổi giá nhập khẩu có thể truyền vào chi phí và giá bán; sức cầu, tỷ giá và khả năng chuyển giá có thể bù trừ.",
+        "vietnam": "Nhận định: cần xem nhóm hàng Việt Nam có tiếp xúc với thị trường Mỹ, tỷ giá và điều khoản hợp đồng; chưa đủ dữ kiện để lượng hóa tác động cho doanh nghiệp.",
+        "conditions": "Chưa có thực tế hoặc dự báo đã xác minh. Không suy kết quả từ việc đã đến giờ; cần đối chiếu kỳ và cách đo sau công bố."
+      },
+      "metrics": []
     }
   ]
 }
