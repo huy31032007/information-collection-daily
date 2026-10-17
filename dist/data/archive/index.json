@@ -3,6 +3,11 @@
   "timezone": "Asia/Ho_Chi_Minh",
   "reports": [
     {
+      "reportDate": "2026-10-17",
+      "cutoffAt": "2026-10-17T23:18:55+07:00",
+      "title": "Tổng kết 17/10/2026 — Dầu kết phiên tăng, thương mại cả năm là ước tính"
+    },
+    {
       "reportDate": "2026-10-16",
       "cutoffAt": "2026-10-16T23:06:36+07:00",
       "title": "Tổng kết 16/10/2026 — Chứng khoán hồi, sức mua cần kiểm chứng"

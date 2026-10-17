@@ -2,7 +2,7 @@
   "version": 1,
   "timezone": "Asia/Ho_Chi_Minh",
   "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
-  "checkedAt": "2026-10-16T23:05:25+07:00",
+  "checkedAt": "2026-10-17T23:18:55+07:00",
   "coverageStart": "2026-10-08",
   "coverageEnd": "2026-11-14",
   "events": [
@@ -534,6 +534,30 @@
         "name": "BLS — Chỉ số giá xuất nhập khẩu tháng 9/2026",
         "url": "https://www.bls.gov/news.release/ximpim.nr0.htm"
       }
+    },
+    {
+      "id": "vn-efta-fta-2026-signing",
+      "title": "Việt Nam–EFTA · Dự kiến ký hiệp định thương mại tự do",
+      "period": "Chương trình ngày 18/10/2026",
+      "country": "VN",
+      "currency": "VND",
+      "scheduledAt": null,
+      "scheduledDate": "2026-10-18",
+      "sourceTimezone": "Asia/Ho_Chi_Minh",
+      "status": "scheduled",
+      "scheduleSource": {
+        "name": "SECO — thông cáo chương trình thăm Việt Nam ngày 17/10",
+        "url": "https://www.seco-cooperation.admin.ch/en/newnsb/nFr5JFmp-iss"
+      },
+      "impact": "medium",
+      "impactReason": "Nhận định: liên quan đến tiếp cận thị trường, đầu tư và điều kiện thương mại; tác động thực tế phụ thuộc cam kết, hiệu lực và thực thi.",
+      "description": "Theo thông cáo Thụy Sĩ ngày 17/10, dự kiến ký hiệp định thương mại tự do giữa Việt Nam và bốn nước EFTA tại Hà Nội ngày 18/10. Chưa xác minh giờ cụ thể; lịch ký không đồng nghĩa ưu đãi thuế đã có hiệu lực.",
+      "analysis": {
+        "mechanism": "Nhận định: các cam kết có thể cải thiện tiếp cận thị trường sau hiệu lực, tùy mặt hàng và lộ trình. Chưa đọc đầy đủ biểu cam kết để lượng hóa.",
+        "vietnam": "Nhận định: doanh nghiệp xuất khẩu cần đáp ứng xuất xứ và tiêu chuẩn; doanh nghiệp nhập khẩu và cạnh tranh với hàng nhập chịu tác động khác nhau.",
+        "conditions": "Chưa có kết quả ký tại mốc chốt. Theo dõi văn bản ký, phê chuẩn, ngày hiệu lực và hướng dẫn. Không tự đặt giờ hoặc mức giảm thuế."
+      },
+      "metrics": []
     }
   ]
 }
