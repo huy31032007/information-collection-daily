@@ -2,7 +2,7 @@
   "version": 1,
   "timezone": "Asia/Ho_Chi_Minh",
   "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
-  "checkedAt": "2026-10-17T23:18:55+07:00",
+  "checkedAt": "2026-10-18T22:33:36+07:00",
   "coverageStart": "2026-10-08",
   "coverageEnd": "2026-11-14",
   "events": [
@@ -537,27 +537,33 @@
     },
     {
       "id": "vn-efta-fta-2026-signing",
-      "title": "Việt Nam–EFTA · Dự kiến ký hiệp định thương mại tự do",
-      "period": "Chương trình ngày 18/10/2026",
+      "title": "Việt Nam–EFTA · Ký hiệp định thương mại tự do",
+      "period": "Lễ ký ngày 18/10/2026",
       "country": "VN",
       "currency": "VND",
       "scheduledAt": null,
       "scheduledDate": "2026-10-18",
       "sourceTimezone": "Asia/Ho_Chi_Minh",
-      "status": "scheduled",
+      "status": "released",
       "scheduleSource": {
         "name": "SECO — thông cáo chương trình thăm Việt Nam ngày 17/10",
         "url": "https://www.seco-cooperation.admin.ch/en/newnsb/nFr5JFmp-iss"
       },
       "impact": "medium",
       "impactReason": "Nhận định: liên quan đến tiếp cận thị trường, đầu tư và điều kiện thương mại; tác động thực tế phụ thuộc cam kết, hiệu lực và thực thi.",
-      "description": "Theo thông cáo Thụy Sĩ ngày 17/10, dự kiến ký hiệp định thương mại tự do giữa Việt Nam và bốn nước EFTA tại Hà Nội ngày 18/10. Chưa xác minh giờ cụ thể; lịch ký không đồng nghĩa ưu đãi thuế đã có hiệu lực.",
+      "description": "Hiệp định thương mại tự do giữa Việt Nam và Iceland, Liechtenstein, Na Uy, Thụy Sĩ đã ký ngày 18/10. EFTA không phải EU. Kết quả đối chiếu EFTA: https://www.efta.int/media-resources/news/efta-and-viet-nam-sign-free-trade-agreement ; hiệu lực còn chờ: https://www.efta.int/trade-relations/free-trade-network/viet-nam .",
       "analysis": {
         "mechanism": "Nhận định: các cam kết có thể cải thiện tiếp cận thị trường sau hiệu lực, tùy mặt hàng và lộ trình. Chưa đọc đầy đủ biểu cam kết để lượng hóa.",
         "vietnam": "Nhận định: doanh nghiệp xuất khẩu cần đáp ứng xuất xứ và tiêu chuẩn; doanh nghiệp nhập khẩu và cạnh tranh với hàng nhập chịu tác động khác nhau.",
-        "conditions": "Chưa có kết quả ký tại mốc chốt. Theo dõi văn bản ký, phê chuẩn, ngày hiệu lực và hướng dẫn. Không tự đặt giờ hoặc mức giảm thuế."
+        "conditions": "Đã xác minh kết quả ký, chưa xác minh ngày hiệu lực. Mốc 10:33 là thời điểm Báo Chính phủ công bố bài ngày 18/10, không phải giờ lễ ký. Theo dõi phê chuẩn, hiệu lực, biểu cam kết từng mặt hàng và hướng dẫn xuất xứ; không tự đặt mức giảm thuế."
       },
-      "metrics": []
+      "metrics": [],
+      "releasedAt": "2026-10-18T10:33:00+07:00",
+      "resultSource": {
+        "name": "Báo Chính phủ — công bố kết quả ký ngày 18/10",
+        "url": "https://baochinhphu.vn/chinh-thuc-ky-ket-hiep-dinh-thuong-mai-tu-do-viet-nam-efta-102261018102418142.htm"
+      },
+      "outcome": "Đã ký tại Hà Nội sáng 18/10/2026, được Báo Chính phủ công bố lúc 10:33 cùng ngày và EFTA xác nhận độc lập. releasedAt là mốc bài công bố kết quả, không phải phút diễn ra lễ ký. Hồ sơ EFTA ghi ngày hiệu lực còn chờ; chưa thể coi ưu đãi thuế đã áp dụng."
     }
   ]
 }
