@@ -2,9 +2,9 @@
   "version": 1,
   "timezone": "Asia/Ho_Chi_Minh",
   "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
-  "checkedAt": "2026-10-19T23:33:53+07:00",
+  "checkedAt": "2026-10-20T15:25:32Z",
   "coverageStart": "2026-10-08",
-  "coverageEnd": "2026-11-14",
+  "coverageEnd": "2026-11-19",
   "events": [
     {
       "id": "us-cpi-2026-09",
@@ -564,6 +564,71 @@
         "url": "https://baochinhphu.vn/chinh-thuc-ky-ket-hiep-dinh-thuong-mai-tu-do-viet-nam-efta-102261018102418142.htm"
       },
       "outcome": "Đã ký tại Hà Nội sáng 18/10/2026, được Báo Chính phủ công bố lúc 10:33 cùng ngày và EFTA xác nhận độc lập. releasedAt là mốc bài công bố kết quả, không phải phút diễn ra lễ ký. Hồ sơ EFTA ghi ngày hiệu lực còn chờ; chưa thể coi ưu đãi thuế đã áp dụng."
+    },
+    {
+      "id": "us-import-export-prices-2026-10",
+      "title": "Mỹ · Chỉ số giá xuất khẩu và nhập khẩu",
+      "period": "10/2026",
+      "country": "US",
+      "currency": "USD",
+      "scheduledAt": "2026-11-17T08:30:00-05:00",
+      "scheduledDate": "2026-11-17",
+      "sourceTimezone": "America/New_York",
+      "status": "scheduled",
+      "scheduleSource": {
+        "name": "BLS — lịch tháng 11/2026",
+        "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
+      },
+      "impact": "medium",
+      "impactReason": "Nhận định: giá thương mại có liên quan đến chi phí hàng nhập và doanh thu xuất khẩu; mức phản ứng thực tế còn tùy cơ cấu và kỳ vọng.",
+      "description": "Chỉ số đo thay đổi giá hàng hóa và dịch vụ Mỹ nhập khẩu/xuất khẩu; không phải mức tăng kim ngạch hoặc lượng hàng thương mại.",
+      "analysis": {
+        "mechanism": "Nhận định: giá nhập khẩu thay đổi có thể truyền vào chi phí và giá bán tại Mỹ, tùy tỷ giá, tồn kho, cạnh tranh và khả năng chuyển chi phí cho khách hàng. Cần đọc cơ cấu mặt hàng trước khi liên hệ với lạm phát.",
+        "vietnam": "Nhận định: doanh nghiệp Việt Nam có khách hàng tại Mỹ có thể chịu thay đổi về nhu cầu, giá thương lượng và điều khoản hợp đồng; mức tác động khác nhau theo mặt hàng và tỷ trọng doanh thu. Chưa đủ dữ kiện để lượng hóa.",
+        "conditions": "Chưa có kết quả kỳ tháng 10 hoặc dự báo đồng thuận được xác minh. So đúng chỉ tiêu giá bằng USD, kỳ và phương pháp; không suy ra lượng hàng hay nguyên nhân giá tài sản chỉ từ số công bố."
+      },
+      "metrics": [
+        {
+          "label": "Giá nhập khẩu — so tháng trước",
+          "unit": "%",
+          "basis": "So với tháng trước; giá tính bằng USD; không điều chỉnh mùa vụ.",
+          "actual": null,
+          "forecast": null,
+          "previous": null
+        },
+        {
+          "label": "Giá xuất khẩu — so tháng trước",
+          "unit": "%",
+          "basis": "So với tháng trước; giá tính bằng USD; không điều chỉnh mùa vụ.",
+          "actual": null,
+          "forecast": null,
+          "previous": null
+        }
+      ]
+    },
+    {
+      "id": "us-fomc-2026-10-minutes",
+      "title": "Fed · Biên bản cuộc họp tháng 10",
+      "period": "Họp 27–28/10/2026",
+      "country": "US",
+      "currency": "USD",
+      "scheduledAt": "2026-11-18T14:00:00-05:00",
+      "scheduledDate": "2026-11-19",
+      "sourceTimezone": "America/New_York",
+      "status": "scheduled",
+      "scheduleSource": {
+        "name": "Federal Reserve — lịch tháng 11/2026",
+        "url": "https://www.federalreserve.gov/newsevents/2026-november.htm"
+      },
+      "impact": "medium",
+      "impactReason": "Nhận định: biên bản có thể bổ sung thông tin về thảo luận chính sách; phản ứng thực tế phụ thuộc phần thông tin mới và dữ liệu đã xuất hiện sau cuộc họp.",
+      "description": "Biên bản ghi lại thảo luận của cuộc họp FOMC ngày 27–28/10. Đây không phải một quyết định lãi suất mới; ngày công bố tại Việt Nam là 19/11, khác ngày 18/11 tại Mỹ.",
+      "analysis": {
+        "mechanism": "Nhận định: thông tin mới về đánh giá lạm phát, việc làm và rủi ro có thể làm thay đổi kỳ vọng lãi suất. Cần đối chiếu với thông cáo, họp báo và dữ liệu công bố sau cuộc họp; biên bản phản ánh thảo luận ở thời điểm họp.",
+        "vietnam": "Nhận định: nếu thông tin làm thay đổi lợi suất Mỹ hoặc USD, tác động có thể truyền tới tỷ giá và chi phí vốn ngoại tại Việt Nam. Doanh nghiệp có nợ và doanh thu USD có mức tiếp xúc khác nhau.",
+        "conditions": "Chưa có biên bản hoặc kết quả được xác minh. Không coi thảo luận là quyết định mới, không tự đặt xác suất thay đổi lãi suất và không suy ra phản ứng tài sản trước công bố."
+      },
+      "metrics": []
     }
   ]
 }
