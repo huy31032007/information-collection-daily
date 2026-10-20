@@ -15,7 +15,7 @@ Theo yêu cầu chuyển bản làm bù 15/10 khỏi ngày16/10, writer có thao
 - Workspace: `/Users/quanghuyvu/Documents/Workspace/Claude Code/projects/information-collection` (macOS có thể trả tên thư mục `Claude code`).
 - Repository: `https://github.com/huy31032007/information-collection-daily.git`; remote `origin`, nhánh đích `main`.
 - Worker: `information-collection-daily`, do người dùng xác nhận bằng URL và ảnh dashboard.
-- URL: `https://information-collection-daily.vuquanghuybill.workers.dev/`.
+- URL: `https://information-collection-daily.20-10-tctt67c.workers.dev/`.
 - `wrangler.json` chỉ phục vụ tệp tĩnh trong `dist/`. Không cần framework mới hoặc script backend.
 
 Ảnh dashboard xác nhận Worker và liên kết repository; liên kết một mình chưa chứng minh tự động deploy đang hoạt động. Mỗi lượt phải kiểm tra URL thực tế. Không dùng helper Sites thay cho push `origin`; không tự publish thêm Sites trong lượt thường kỳ. Site cũ và `.openai/hosting.json` được giữ nguyên để bảo toàn website trước đây, không xóa hoặc đổi audience.
