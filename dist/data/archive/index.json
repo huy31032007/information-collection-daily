@@ -3,6 +3,11 @@
   "timezone": "Asia/Ho_Chi_Minh",
   "reports": [
     {
+      "reportDate": "2026-10-21",
+      "cutoffAt": "2026-10-22T00:26:38+07:00",
+      "title": "Bản tin tài chính tối 21/10/2026"
+    },
+    {
       "reportDate": "2026-10-20",
       "cutoffAt": "2026-10-20T22:28:03+07:00",
       "title": "Bản tin tài chính tối 20/10/2026"
