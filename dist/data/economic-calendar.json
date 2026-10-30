@@ -2,7 +2,7 @@
   "version": 1,
   "timezone": "Asia/Ho_Chi_Minh",
   "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
-  "checkedAt": "2026-10-29T16:22:17Z",
+  "checkedAt": "2026-10-30T16:02:08Z",
   "coverageStart": "2026-10-08",
   "coverageEnd": "2026-11-25",
   "events": [
@@ -755,25 +755,118 @@
         "name": "BLS — lịch tháng 10/2026",
         "url": "https://www.bls.gov/schedule/2026/10_sched_list.htm"
       },
-      "status": "scheduled",
+      "status": "released",
       "impact": "high",
       "impactReason": "Nhận định: tiền lương và phúc lợi liên quan áp lực giá dịch vụ và chi phí doanh nghiệp.",
       "description": "Chỉ số chi phí lao động (ECI) theo dõi thay đổi chi phí tiền lương và phúc lợi của người sử dụng lao động.",
       "analysis": {
-        "mechanism": "Nhận định: chi phí lao động tăng dai dẳng có thể duy trì áp lực giá dịch vụ, tùy năng suất và khả năng chuyển chi phí.",
-        "vietnam": "Nhận định: tác động gián tiếp qua chính sách Fed, USD và sức cầu Mỹ; chưa thể suy ra lương doanh nghiệp Việt Nam.",
-        "conditions": "Đối chiếu số chính thức, kỳ và phương pháp. Dự báo chưa xác minh để null; không suy ra kết quả vì tới giờ."
+        "mechanism": "Nhận định: chi phí lao động quý III tăng 0,8%, từ 0,9% quý II; tốc độ chậm lại 0,1 điểm phần trăm nhưng mức chi phí vẫn tăng. Khả năng truyền sang giá bán còn tùy năng suất, cạnh tranh và lợi nhuận.",
+        "vietnam": "Nhận định: tác động gián tiếp qua sức cầu Mỹ, lãi suất và tỷ giá, khác nhau theo đơn hàng, nợ ngoại tệ và khả năng điều chỉnh giá. Không suy ra lương Việt Nam hay nguyên nhân phiên chứng khoán Việt Nam đã đóng cửa trước công bố.",
+        "conditions": "Đã công bố 19:30 ngày 30/10 giờ Việt Nam. Số quý đã điều chỉnh mùa vụ; số cùng kỳ chưa điều chỉnh mùa vụ. Dự báo đồng thuận chưa đủ nguồn/mốc trước công bố nên null. Cần xem năng suất và chi phí trên mỗi đơn vị sản phẩm, việc làm và số sửa đổi trước khi kết luận về Fed."
       },
       "metrics": [
         {
           "label": "Chi phí lao động dân sự — so quý trước",
           "unit": "%",
-          "basis": "So quý trước, điều chỉnh mùa vụ.",
-          "actual": null,
+          "basis": "So quý trước, đã điều chỉnh mùa vụ; gồm lương và phúc lợi.",
+          "actual": {
+            "value": 0.8,
+            "period": "Quý III/2026",
+            "source": {
+              "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
+              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+            },
+            "publishedAt": "2026-10-30T08:30:00-04:00"
+          },
           "forecast": null,
-          "previous": null
+          "previous": {
+            "value": 0.9,
+            "period": "Quý II/2026",
+            "source": {
+              "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
+              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+            },
+            "publishedAt": "2026-10-30T08:30:00-04:00"
+          }
+        },
+        {
+          "label": "Tiền lương dân sự — so quý trước",
+          "unit": "%",
+          "basis": "So quý trước, đã điều chỉnh mùa vụ; không phải lương của từng cá nhân.",
+          "actual": {
+            "value": 0.7,
+            "period": "Quý III/2026",
+            "source": {
+              "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
+              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+            },
+            "publishedAt": "2026-10-30T08:30:00-04:00"
+          },
+          "forecast": null,
+          "previous": {
+            "value": 0.9,
+            "period": "Quý II/2026",
+            "source": {
+              "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
+              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+            },
+            "publishedAt": "2026-10-30T08:30:00-04:00"
+          }
+        },
+        {
+          "label": "Phúc lợi dân sự — so quý trước",
+          "unit": "%",
+          "basis": "So quý trước, đã điều chỉnh mùa vụ.",
+          "actual": {
+            "value": 0.9,
+            "period": "Quý III/2026",
+            "source": {
+              "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
+              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+            },
+            "publishedAt": "2026-10-30T08:30:00-04:00"
+          },
+          "forecast": null,
+          "previous": {
+            "value": 1,
+            "period": "Quý II/2026",
+            "source": {
+              "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
+              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+            },
+            "publishedAt": "2026-10-30T08:30:00-04:00"
+          }
+        },
+        {
+          "label": "Chi phí lao động dân sự — so cùng kỳ",
+          "unit": "%",
+          "basis": "So cùng kỳ năm trước, chưa điều chỉnh mùa vụ; khác số theo quý.",
+          "actual": {
+            "value": 3.4,
+            "period": "Quý III/2026",
+            "source": {
+              "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
+              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+            },
+            "publishedAt": "2026-10-30T08:30:00-04:00"
+          },
+          "forecast": null,
+          "previous": {
+            "value": 3.4,
+            "period": "Quý II/2026",
+            "source": {
+              "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
+              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+            },
+            "publishedAt": "2026-10-30T08:30:00-04:00"
+          }
         }
-      ]
+      ],
+      "releasedAt": "2026-10-30T08:30:00-04:00",
+      "resultSource": {
+        "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
+        "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+      }
     },
     {
       "id": "us-gdp-2026-q3-second",
@@ -859,6 +952,72 @@
           "label": "PCE cơ bản — so tháng trước",
           "unit": "%",
           "basis": "So tháng trước, đã điều chỉnh mùa vụ; cơ bản loại thực phẩm và năng lượng.",
+          "actual": null,
+          "forecast": null,
+          "previous": null
+        }
+      ]
+    },
+    {
+      "id": "us-job-openings-2026-09",
+      "title": "Mỹ · Vị trí việc làm còn trống và luân chuyển lao động",
+      "period": "09/2026",
+      "country": "US",
+      "currency": "USD",
+      "scheduledAt": "2026-11-03T10:00:00-05:00",
+      "scheduledDate": "2026-11-03",
+      "sourceTimezone": "America/New_York",
+      "status": "scheduled",
+      "scheduleSource": {
+        "name": "BLS — lịch tháng 11/2026",
+        "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
+      },
+      "impact": "high",
+      "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+      "description": "Khảo sát JOLTS đo vị trí tuyển dụng còn trống, tuyển mới và nghỉ việc; số vị trí không phải số người đã có việc.",
+      "analysis": {
+        "mechanism": "Nhận định: vị trí tuyển dụng cho biết nhu cầu lao động chưa được đáp ứng. Cần xem cùng tuyển mới, nghỉ việc và lực lượng lao động để đánh giá áp lực tiền lương.",
+        "vietnam": "Nhận định: kênh tác động chủ yếu là sức mua Mỹ đối với hàng nhập khẩu, USD và chi phí vốn. Tác động lên doanh nghiệp Việt Nam phụ thuộc tỷ trọng xuất khẩu, nợ ngoại tệ và khả năng điều chỉnh giá.",
+        "conditions": "Lịch BLS tháng 11/2026 đã xác minh trong lượt 30/10. Chưa có kết quả hay dự báo đồng thuận có mốc trước công bố; không suy ra số vì tới giờ. Đối chiếu kỳ, phương pháp, số sửa đổi và phản ứng thực tế trước khi kết luận."
+      },
+      "metrics": [
+        {
+          "label": "Vị trí việc làm còn trống",
+          "unit": "vị trí",
+          "basis": "Số vị trí còn trống trong kỳ báo cáo; cần đọc phương pháp và điều chỉnh mùa vụ khi có kết quả.",
+          "actual": null,
+          "forecast": null,
+          "previous": null
+        }
+      ]
+    },
+    {
+      "id": "us-productivity-2026-q3-preliminary",
+      "title": "Mỹ · Năng suất và chi phí lao động quý III, ước tính đầu",
+      "period": "Quý III/2026",
+      "country": "US",
+      "currency": "USD",
+      "scheduledAt": "2026-11-05T08:30:00-05:00",
+      "scheduledDate": "2026-11-05",
+      "sourceTimezone": "America/New_York",
+      "status": "scheduled",
+      "scheduleSource": {
+        "name": "BLS — lịch tháng 11/2026",
+        "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
+      },
+      "impact": "high",
+      "impactReason": "Nhận định: liên quan trực tiếp đến lạm phát, lãi suất, sức cầu hoặc dòng vốn; mức biến động thực tế còn tùy kết quả và kỳ vọng.",
+      "description": "Năng suất đo lượng sản phẩm tạo ra trên một giờ lao động. Chi phí lao động trên một đơn vị sản phẩm khác ECI vì còn phụ thuộc sản lượng và năng suất.",
+      "analysis": {
+        "mechanism": "Nhận định: năng suất tăng có thể bù một phần chi phí nhân công, làm giảm sức ép giá trên mỗi sản phẩm. Cần đọc riêng năng suất, thù lao theo giờ và chi phí đơn vị, không đồng nhất với chỉ số ECI.",
+        "vietnam": "Nhận định: kênh tác động chủ yếu là sức mua Mỹ đối với hàng nhập khẩu, USD và chi phí vốn. Tác động lên doanh nghiệp Việt Nam phụ thuộc tỷ trọng xuất khẩu, nợ ngoại tệ và khả năng điều chỉnh giá.",
+        "conditions": "Lịch BLS tháng 11/2026 đã xác minh trong lượt 30/10. Chưa có kết quả hay dự báo đồng thuận có mốc trước công bố; không suy ra số vì tới giờ. Đối chiếu kỳ, phương pháp, số sửa đổi và phản ứng thực tế trước khi kết luận."
+      },
+      "metrics": [
+        {
+          "label": "Năng suất lao động khu vực kinh doanh phi nông nghiệp",
+          "unit": "%",
+          "basis": "Thay đổi so quý trước, điều chỉnh mùa vụ và quy đổi tốc độ năm hóa; xác minh phương pháp khi có kết quả.",
           "actual": null,
           "forecast": null,
           "previous": null
