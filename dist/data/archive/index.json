@@ -3,6 +3,11 @@
   "timezone": "Asia/Ho_Chi_Minh",
   "reports": [
     {
+      "reportDate": "2026-10-31",
+      "cutoffAt": "2026-11-01T21:29:22+07:00",
+      "title": "Bản tin kinh tế và thị trường — 31/10/2026 (làm bù)"
+    },
+    {
       "reportDate": "2026-10-30",
       "cutoffAt": "2026-10-30T23:02:08+07:00",
       "title": "Bản tin tài chính – kinh tế tối 30/10/2026"
