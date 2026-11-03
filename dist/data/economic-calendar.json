@@ -2,7 +2,7 @@
   "version": 1,
   "timezone": "Asia/Ho_Chi_Minh",
   "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
-  "checkedAt": "2026-10-30T16:02:08Z",
+  "checkedAt": "2026-11-03T14:31:41Z",
   "coverageStart": "2026-10-08",
   "coverageEnd": "2026-11-25",
   "events": [
@@ -774,7 +774,7 @@
             "period": "Quý III/2026",
             "source": {
               "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
-              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+              "url": "https://www.bls.gov/news.release/eci.htm"
             },
             "publishedAt": "2026-10-30T08:30:00-04:00"
           },
@@ -784,7 +784,7 @@
             "period": "Quý II/2026",
             "source": {
               "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
-              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+              "url": "https://www.bls.gov/news.release/eci.htm"
             },
             "publishedAt": "2026-10-30T08:30:00-04:00"
           }
@@ -798,7 +798,7 @@
             "period": "Quý III/2026",
             "source": {
               "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
-              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+              "url": "https://www.bls.gov/news.release/eci.htm"
             },
             "publishedAt": "2026-10-30T08:30:00-04:00"
           },
@@ -808,7 +808,7 @@
             "period": "Quý II/2026",
             "source": {
               "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
-              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+              "url": "https://www.bls.gov/news.release/eci.htm"
             },
             "publishedAt": "2026-10-30T08:30:00-04:00"
           }
@@ -822,7 +822,7 @@
             "period": "Quý III/2026",
             "source": {
               "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
-              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+              "url": "https://www.bls.gov/news.release/eci.htm"
             },
             "publishedAt": "2026-10-30T08:30:00-04:00"
           },
@@ -832,7 +832,7 @@
             "period": "Quý II/2026",
             "source": {
               "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
-              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+              "url": "https://www.bls.gov/news.release/eci.htm"
             },
             "publishedAt": "2026-10-30T08:30:00-04:00"
           }
@@ -846,7 +846,7 @@
             "period": "Quý III/2026",
             "source": {
               "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
-              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+              "url": "https://www.bls.gov/news.release/eci.htm"
             },
             "publishedAt": "2026-10-30T08:30:00-04:00"
           },
@@ -856,7 +856,7 @@
             "period": "Quý II/2026",
             "source": {
               "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
-              "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+              "url": "https://www.bls.gov/news.release/eci.htm"
             },
             "publishedAt": "2026-10-30T08:30:00-04:00"
           }
@@ -865,7 +865,7 @@
       "releasedAt": "2026-10-30T08:30:00-04:00",
       "resultSource": {
         "name": "BLS — ECI quý III/2026, công bố 30/10/2026",
-        "url": "https://www.bls.gov/news.release/eci.nr0.htm"
+        "url": "https://www.bls.gov/news.release/eci.htm"
       }
     },
     {
@@ -1018,6 +1018,39 @@
           "label": "Năng suất lao động khu vực kinh doanh phi nông nghiệp",
           "unit": "%",
           "basis": "Thay đổi so quý trước, điều chỉnh mùa vụ và quy đổi tốc độ năm hóa; xác minh phương pháp khi có kết quả.",
+          "actual": null,
+          "forecast": null,
+          "previous": null
+        }
+      ]
+    },
+    {
+      "id": "us-international-trade-2026-09",
+      "title": "Mỹ · Thương mại hàng hóa và dịch vụ tháng 9",
+      "period": "09/2026",
+      "country": "US",
+      "currency": "USD",
+      "scheduledAt": "2026-11-04T08:30:00-05:00",
+      "scheduledDate": "2026-11-04",
+      "sourceTimezone": "America/New_York",
+      "status": "scheduled",
+      "scheduleSource": {
+        "name": "BEA — lịch công bố 2026",
+        "url": "https://www.bea.gov/news/schedule"
+      },
+      "impact": "medium",
+      "impactReason": "Nhận định: nhập khẩu Mỹ liên quan sức cầu đối với hàng xuất khẩu Việt Nam; cần xem cơ cấu và phạm vi dữ liệu.",
+      "description": "Cán cân thương mại bằng xuất khẩu trừ nhập khẩu hàng hóa và dịch vụ. Tổng giá trị danh nghĩa còn chịu ảnh hưởng giá.",
+      "analysis": {
+        "mechanism": "Nhận định: nhập khẩu thay đổi có thể phản ánh nhu cầu hoặc giá hàng; tổng kim ngạch chưa đo riêng lượng hàng.",
+        "vietnam": "Nhận định: giúp đọc thị trường đầu ra nhưng cần số theo quốc gia, nhóm hàng để kết luận tác động đến Việt Nam.",
+        "conditions": "Đã đọc lịch BEA ngày 03/11/2026. Chưa có kết quả hoặc dự báo được xác minh; không đánh dấu có kết quả chỉ vì đến giờ."
+      },
+      "metrics": [
+        {
+          "label": "Cán cân thương mại hàng hóa và dịch vụ",
+          "unit": "tỷ USD",
+          "basis": "Số tháng 9/2026; đối chiếu phương pháp và điều chỉnh khi có kết quả.",
           "actual": null,
           "forecast": null,
           "previous": null
