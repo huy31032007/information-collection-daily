@@ -2,7 +2,7 @@
   "version": 1,
   "timezone": "Asia/Ho_Chi_Minh",
   "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
-  "checkedAt": "2026-11-03T14:31:41Z",
+  "checkedAt": "2026-11-04T15:55:42Z",
   "coverageStart": "2026-10-08",
   "coverageEnd": "2026-11-25",
   "events": [
@@ -967,7 +967,7 @@
       "scheduledAt": "2026-11-03T10:00:00-05:00",
       "scheduledDate": "2026-11-03",
       "sourceTimezone": "America/New_York",
-      "status": "scheduled",
+      "status": "released",
       "scheduleSource": {
         "name": "BLS — lịch tháng 11/2026",
         "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
@@ -978,18 +978,39 @@
       "analysis": {
         "mechanism": "Nhận định: vị trí tuyển dụng cho biết nhu cầu lao động chưa được đáp ứng. Cần xem cùng tuyển mới, nghỉ việc và lực lượng lao động để đánh giá áp lực tiền lương.",
         "vietnam": "Nhận định: kênh tác động chủ yếu là sức mua Mỹ đối với hàng nhập khẩu, USD và chi phí vốn. Tác động lên doanh nghiệp Việt Nam phụ thuộc tỷ trọng xuất khẩu, nợ ngoại tệ và khả năng điều chỉnh giá.",
-        "conditions": "Lịch BLS tháng 11/2026 đã xác minh trong lượt 30/10. Chưa có kết quả hay dự báo đồng thuận có mốc trước công bố; không suy ra số vì tới giờ. Đối chiếu kỳ, phương pháp, số sửa đổi và phản ứng thực tế trước khi kết luận."
+        "conditions": "Kết quả đã đọc trực tiếp ngày 04/11; công bố gốc lúc 10:00 EST ngày 03/11, không phải tin mới ngày 04/11. BLS đánh giá ít thay đổi; số tháng 8 đã sửa đổi. Không đồng nhất vị trí trống với người được tuyển hoặc việc làm ròng. Chưa xác minh dự báo trước công bố."
       },
       "metrics": [
         {
           "label": "Vị trí việc làm còn trống",
-          "unit": "vị trí",
-          "basis": "Số vị trí còn trống trong kỳ báo cáo; cần đọc phương pháp và điều chỉnh mùa vụ khi có kết quả.",
-          "actual": null,
+          "unit": "triệu vị trí",
+          "basis": "Vị trí còn trống vào ngày làm việc cuối tháng; điều chỉnh mùa vụ; số làm tròn trong thông cáo BLS.",
+          "actual": {
+            "value": 7.5,
+            "period": "09/2026",
+            "source": {
+              "name": "BLS — JOLTS tháng 9/2026, công bố 03/11/2026",
+              "url": "https://www.bls.gov/news.release/jolts.htm"
+            },
+            "publishedAt": "2026-11-03T10:00:00-05:00"
+          },
           "forecast": null,
-          "previous": null
+          "previous": {
+            "value": 7.2,
+            "period": "08/2026",
+            "source": {
+              "name": "BLS — JOLTS tháng 9/2026, công bố 03/11/2026",
+              "url": "https://www.bls.gov/news.release/jolts.htm"
+            },
+            "publishedAt": "2026-11-03T10:00:00-05:00"
+          }
         }
-      ]
+      ],
+      "releasedAt": "2026-11-03T10:00:00-05:00",
+      "resultSource": {
+        "name": "BLS — JOLTS tháng 9/2026, công bố 03/11/2026",
+        "url": "https://www.bls.gov/news.release/jolts.htm"
+      }
     },
     {
       "id": "us-productivity-2026-q3-preliminary",
@@ -1033,7 +1054,7 @@
       "scheduledAt": "2026-11-04T08:30:00-05:00",
       "scheduledDate": "2026-11-04",
       "sourceTimezone": "America/New_York",
-      "status": "scheduled",
+      "status": "released",
       "scheduleSource": {
         "name": "BEA — lịch công bố 2026",
         "url": "https://www.bea.gov/news/schedule"
@@ -1044,18 +1065,39 @@
       "analysis": {
         "mechanism": "Nhận định: nhập khẩu thay đổi có thể phản ánh nhu cầu hoặc giá hàng; tổng kim ngạch chưa đo riêng lượng hàng.",
         "vietnam": "Nhận định: giúp đọc thị trường đầu ra nhưng cần số theo quốc gia, nhóm hàng để kết luận tác động đến Việt Nam.",
-        "conditions": "Đã đọc lịch BEA ngày 03/11/2026. Chưa có kết quả hoặc dự báo được xác minh; không đánh dấu có kết quả chỉ vì đến giờ."
+        "conditions": "Kết quả chính thức công bố 08:30 EST ngày 04/11, tương ứng 20:30 Việt Nam; tháng 8 đã sửa đổi. Nhập khẩu 426,6 tỷ USD, tăng 1,2% so tháng trước, là giá trị danh nghĩa. Cán cân dùng số nguồn công bố, không tính lại từ các thành phần đã làm tròn. Chưa xác minh dự báo trước công bố."
       },
       "metrics": [
         {
           "label": "Cán cân thương mại hàng hóa và dịch vụ",
           "unit": "tỷ USD",
-          "basis": "Số tháng 9/2026; đối chiếu phương pháp và điều chỉnh khi có kết quả.",
-          "actual": null,
+          "basis": "Cán cân xuất khẩu trừ nhập khẩu hàng hóa và dịch vụ; điều chỉnh mùa vụ, chưa loại biến động giá; số âm là thâm hụt.",
+          "actual": {
+            "value": -105,
+            "period": "09/2026",
+            "source": {
+              "name": "BEA và Census — Thương mại hàng hóa, dịch vụ tháng 9/2026",
+              "url": "https://www.bea.gov/news/2026/us-international-trade-goods-and-services-september-2026"
+            },
+            "publishedAt": "2026-11-04T08:30:00-05:00"
+          },
           "forecast": null,
-          "previous": null
+          "previous": {
+            "value": -105.7,
+            "period": "08/2026",
+            "source": {
+              "name": "BEA và Census — Thương mại hàng hóa, dịch vụ tháng 9/2026",
+              "url": "https://www.bea.gov/news/2026/us-international-trade-goods-and-services-september-2026"
+            },
+            "publishedAt": "2026-11-04T08:30:00-05:00"
+          }
         }
-      ]
+      ],
+      "releasedAt": "2026-11-04T08:30:00-05:00",
+      "resultSource": {
+        "name": "BEA và Census — Thương mại hàng hóa, dịch vụ tháng 9/2026",
+        "url": "https://www.bea.gov/news/2026/us-international-trade-goods-and-services-september-2026"
+      }
     }
   ]
 }
