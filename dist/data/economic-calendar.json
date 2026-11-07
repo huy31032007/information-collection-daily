@@ -2,9 +2,9 @@
   "version": 1,
   "timezone": "Asia/Ho_Chi_Minh",
   "sourceThreadId": "01a12a08-5c54-7d82-90fd-f96fbbc539ff",
-  "checkedAt": "2026-11-04T15:55:42Z",
+  "checkedAt": "2026-11-07T14:38:44Z",
   "coverageStart": "2026-10-08",
-  "coverageEnd": "2026-11-25",
+  "coverageEnd": "2026-12-04",
   "events": [
     {
       "id": "us-cpi-2026-09",
@@ -439,7 +439,7 @@
       "scheduledAt": "2026-11-06T08:30:00-05:00",
       "scheduledDate": "2026-11-06",
       "sourceTimezone": "America/New_York",
-      "status": "scheduled",
+      "status": "released",
       "scheduleSource": {
         "name": "BLS — lịch tháng 11/2026",
         "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
@@ -450,22 +450,47 @@
       "analysis": {
         "mechanism": "Nhận định: việc làm, thất nghiệp và tiền lương phản ánh các mặt khác nhau của thị trường lao động. Việc làm tăng và tiền lương cao có thể ảnh hưởng kỳ vọng lãi suất, nhưng cần kiểm tra số điều chỉnh và tỷ lệ tham gia lao động.",
         "vietnam": "Nhận định: kênh tác động chủ yếu là sức mua Mỹ đối với hàng nhập khẩu, USD và chi phí vốn. Tác động lên doanh nghiệp Việt Nam phụ thuộc tỷ trọng xuất khẩu, nợ ngoại tệ và khả năng điều chỉnh giá.",
-        "conditions": "Không suy ra thị trường lao động khỏe chỉ từ số việc làm mới. Đối chiếu thất nghiệp, tiền lương, kỳ trước được sửa đổi và phản ứng thực tế của lợi suất/USD."
+        "conditions": "Kết quả chính thức công bố 08:30 EST ngày 06/11 (20:30 giờ Việt Nam cùng ngày). Tháng 10 tăng 165.000 việc làm; thất nghiệp 4,1%; lương giờ bình quân tăng 0,4% so tháng trước. Tháng 9 được sửa từ 29.000 lên 60.000 việc làm. Chưa có dự báo trước công bố được xác minh; đọc cùng số điều chỉnh và tỷ lệ tham gia lao động."
       },
       "metrics": [
         {
           "label": "Thay đổi việc làm phi nông nghiệp",
           "unit": "việc làm",
           "basis": "Số việc làm tăng/giảm so tháng trước; có điều chỉnh mùa vụ. Không phải số người có việc làm.",
-          "actual": null,
+          "actual": {
+            "value": 165000,
+            "period": "10/2026",
+            "source": {
+              "name": "BLS — Báo cáo tình hình việc làm tháng 10/2026",
+              "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm"
+            },
+            "publishedAt": "2026-11-06T08:30:00-05:00"
+          },
           "forecast": null,
-          "previous": null
+          "previous": {
+            "value": 60000,
+            "period": "09/2026",
+            "source": {
+              "name": "BLS — Báo cáo tình hình việc làm tháng 10/2026",
+              "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm"
+            },
+            "publishedAt": "2026-11-06T08:30:00-05:00",
+            "revisedFrom": 29000
+          }
         },
         {
           "label": "Tỷ lệ thất nghiệp",
           "unit": "%",
           "basis": "Tỷ lệ người thất nghiệp trong lực lượng lao động; không phải tỷ lệ trong toàn bộ dân số.",
-          "actual": null,
+          "actual": {
+            "value": 4.1,
+            "period": "10/2026",
+            "source": {
+              "name": "BLS — Báo cáo tình hình việc làm tháng 10/2026",
+              "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm"
+            },
+            "publishedAt": "2026-11-06T08:30:00-05:00"
+          },
           "forecast": null,
           "previous": null
         },
@@ -473,11 +498,24 @@
           "label": "Tiền lương giờ bình quân — so tháng trước",
           "unit": "%",
           "basis": "Thay đổi tiền lương giờ bình quân so tháng trước; cần xem cùng cơ cấu lao động.",
-          "actual": null,
+          "actual": {
+            "value": 0.4,
+            "period": "10/2026",
+            "source": {
+              "name": "BLS — Báo cáo tình hình việc làm tháng 10/2026",
+              "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm"
+            },
+            "publishedAt": "2026-11-06T08:30:00-05:00"
+          },
           "forecast": null,
           "previous": null
         }
-      ]
+      ],
+      "releasedAt": "2026-11-06T08:30:00-05:00",
+      "resultSource": {
+        "name": "BLS — Báo cáo tình hình việc làm tháng 10/2026",
+        "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm"
+      }
     },
     {
       "id": "us-cpi-2026-10",
@@ -1021,7 +1059,7 @@
       "scheduledAt": "2026-11-05T08:30:00-05:00",
       "scheduledDate": "2026-11-05",
       "sourceTimezone": "America/New_York",
-      "status": "scheduled",
+      "status": "released",
       "scheduleSource": {
         "name": "BLS — lịch tháng 11/2026",
         "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
@@ -1032,18 +1070,63 @@
       "analysis": {
         "mechanism": "Nhận định: năng suất tăng có thể bù một phần chi phí nhân công, làm giảm sức ép giá trên mỗi sản phẩm. Cần đọc riêng năng suất, thù lao theo giờ và chi phí đơn vị, không đồng nhất với chỉ số ECI.",
         "vietnam": "Nhận định: kênh tác động chủ yếu là sức mua Mỹ đối với hàng nhập khẩu, USD và chi phí vốn. Tác động lên doanh nghiệp Việt Nam phụ thuộc tỷ trọng xuất khẩu, nợ ngoại tệ và khả năng điều chỉnh giá.",
-        "conditions": "Lịch BLS tháng 11/2026 đã xác minh trong lượt 30/10. Chưa có kết quả hay dự báo đồng thuận có mốc trước công bố; không suy ra số vì tới giờ. Đối chiếu kỳ, phương pháp, số sửa đổi và phản ứng thực tế trước khi kết luận."
+        "conditions": "BLS công bố ước tính đầu lúc 08:30 EST ngày 05/11 (20:30 giờ Việt Nam). Năng suất phi nông nghiệp tăng 3,6%, chi phí lao động đơn vị giảm 0,7% và thù lao giờ tăng 2,9%, đều theo quý đã điều chỉnh mùa vụ, quy đổi năm hóa. Chưa xác minh dự báo trước công bố; đây là ước tính sẽ được cập nhật."
       },
       "metrics": [
         {
           "label": "Năng suất lao động khu vực kinh doanh phi nông nghiệp",
           "unit": "%",
           "basis": "Thay đổi so quý trước, điều chỉnh mùa vụ và quy đổi tốc độ năm hóa; xác minh phương pháp khi có kết quả.",
-          "actual": null,
+          "actual": {
+            "value": 3.6,
+            "period": "Quý III/2026",
+            "source": {
+              "name": "BLS — Năng suất và chi phí lao động quý III/2026, ước tính đầu",
+              "url": "https://www.bls.gov/news.release/prod2.nr0.htm"
+            },
+            "publishedAt": "2026-11-05T08:30:00-05:00"
+          },
+          "forecast": null,
+          "previous": null
+        },
+        {
+          "label": "Chi phí lao động đơn vị — so quý trước, năm hóa",
+          "unit": "%",
+          "basis": "Thay đổi so quý trước, điều chỉnh mùa vụ, quy đổi tốc độ năm hóa; số âm là giảm.",
+          "actual": {
+            "value": -0.7,
+            "period": "Quý III/2026",
+            "source": {
+              "name": "BLS — Năng suất và chi phí lao động quý III/2026, ước tính đầu",
+              "url": "https://www.bls.gov/news.release/prod2.nr0.htm"
+            },
+            "publishedAt": "2026-11-05T08:30:00-05:00"
+          },
+          "forecast": null,
+          "previous": null
+        },
+        {
+          "label": "Thù lao giờ — so quý trước, năm hóa",
+          "unit": "%",
+          "basis": "Thay đổi so quý trước, điều chỉnh mùa vụ, quy đổi tốc độ năm hóa.",
+          "actual": {
+            "value": 2.9,
+            "period": "Quý III/2026",
+            "source": {
+              "name": "BLS — Năng suất và chi phí lao động quý III/2026, ước tính đầu",
+              "url": "https://www.bls.gov/news.release/prod2.nr0.htm"
+            },
+            "publishedAt": "2026-11-05T08:30:00-05:00"
+          },
           "forecast": null,
           "previous": null
         }
-      ]
+      ],
+      "releasedAt": "2026-11-05T08:30:00-05:00",
+      "resultSource": {
+        "name": "BLS — Năng suất và chi phí lao động quý III/2026, ước tính đầu",
+        "url": "https://www.bls.gov/news.release/prod2.nr0.htm"
+      }
     },
     {
       "id": "us-international-trade-2026-09",
@@ -1098,6 +1181,112 @@
         "name": "BEA và Census — Thương mại hàng hóa, dịch vụ tháng 9/2026",
         "url": "https://www.bea.gov/news/2026/us-international-trade-goods-and-services-september-2026"
       }
+    },
+    {
+      "id": "us-jolts-2026-10",
+      "title": "Mỹ · Vị trí việc làm còn trống và luân chuyển lao động",
+      "period": "10/2026",
+      "country": "US",
+      "currency": "USD",
+      "scheduledAt": "2026-12-01T10:00:00-05:00",
+      "scheduledDate": "2026-12-01",
+      "sourceTimezone": "America/New_York",
+      "status": "scheduled",
+      "scheduleSource": {
+        "name": "BLS — lịch công bố tháng 11/2026",
+        "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
+      },
+      "impact": "high",
+      "impactReason": "Nhận định: Số vị trí việc làm trống có thể giúp đọc nhu cầu lao động; không đồng nhất với số người đã được tuyển.",
+      "description": "Số vị trí việc làm trống có thể giúp đọc nhu cầu lao động; không đồng nhất với số người đã được tuyển.",
+      "analysis": {
+        "mechanism": "Nhận định: vị trí tuyển dụng, tuyển mới và nghỉ việc cho biết các mặt khác nhau của thị trường lao động và có thể ảnh hưởng tiền lương, lạm phát, kỳ vọng lãi suất.",
+        "vietnam": "Nhận định: kênh chính là sức cầu Mỹ, USD và chi phí vốn; doanh nghiệp Việt Nam chịu tác động tùy tỷ trọng xuất khẩu và nợ ngoại tệ.",
+        "conditions": "Công bố theo lịch BLS lúc 10:00 EST ngày 01/12, tương ứng 22:00 giờ Việt Nam. Chưa có dự báo hoặc kết quả; không nhầm vị trí trống với tuyển dụng hay việc làm ròng."
+      },
+      "metrics": [
+        {
+          "label": "Vị trí việc làm còn trống",
+          "unit": "triệu vị trí",
+          "basis": "Vị trí cuối tháng, điều chỉnh mùa vụ; số người tuyển mới là chỉ tiêu khác.",
+          "actual": null,
+          "forecast": null,
+          "previous": null
+        }
+      ]
+    },
+    {
+      "id": "us-employment-2026-11",
+      "title": "Mỹ · Việc làm, thất nghiệp và tiền lương",
+      "period": "11/2026",
+      "country": "US",
+      "currency": "USD",
+      "scheduledAt": "2026-12-04T08:30:00-05:00",
+      "scheduledDate": "2026-12-04",
+      "sourceTimezone": "America/New_York",
+      "status": "scheduled",
+      "scheduleSource": {
+        "name": "BLS — lịch công bố tháng 11/2026",
+        "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
+      },
+      "impact": "high",
+      "impactReason": "Nhận định: Việc làm, thất nghiệp và tiền lương liên quan sức mua, chi phí lao động và đánh giá lạm phát.",
+      "description": "Việc làm, thất nghiệp và tiền lương liên quan sức mua, chi phí lao động và đánh giá lạm phát.",
+      "analysis": {
+        "mechanism": "Nhận định: cần đọc khảo sát doanh nghiệp và hộ gia đình, số điều chỉnh, thất nghiệp và tiền lương cùng nhau; không có một chỉ tiêu đơn lẻ quyết định lãi suất.",
+        "vietnam": "Nhận định: việc làm và sức mua Mỹ tác động đơn hàng xuất khẩu Việt Nam với độ trễ; USD và chi phí vốn là kênh gián tiếp.",
+        "conditions": "Lịch BLS xác nhận 08:30 EST ngày 04/12, tức 20:30 giờ Việt Nam. Chưa có kết quả/dự báo trước công bố được xác minh cho kỳ tháng 11."
+      },
+      "metrics": [
+        {
+          "label": "Thay đổi việc làm phi nông nghiệp",
+          "unit": "việc làm",
+          "basis": "So tháng trước, điều chỉnh mùa vụ; không phải số người có việc.",
+          "actual": null,
+          "forecast": null,
+          "previous": {
+            "value": 165000,
+            "period": "10/2026",
+            "source": {
+              "name": "BLS — Báo cáo tình hình việc làm tháng 10/2026",
+              "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm"
+            },
+            "publishedAt": "2026-11-06T08:30:00-05:00"
+          }
+        },
+        {
+          "label": "Tỷ lệ thất nghiệp",
+          "unit": "%",
+          "basis": "Người thất nghiệp chia cho lực lượng lao động.",
+          "actual": null,
+          "forecast": null,
+          "previous": {
+            "value": 4.1,
+            "period": "10/2026",
+            "source": {
+              "name": "BLS — Báo cáo tình hình việc làm tháng 10/2026",
+              "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm"
+            },
+            "publishedAt": "2026-11-06T08:30:00-05:00"
+          }
+        },
+        {
+          "label": "Tiền lương giờ bình quân — so tháng trước",
+          "unit": "%",
+          "basis": "Thay đổi trung bình theo tháng; có thể chịu ảnh hưởng cơ cấu lao động.",
+          "actual": null,
+          "forecast": null,
+          "previous": {
+            "value": 0.4,
+            "period": "10/2026",
+            "source": {
+              "name": "BLS — Báo cáo tình hình việc làm tháng 10/2026",
+              "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm"
+            },
+            "publishedAt": "2026-11-06T08:30:00-05:00"
+          }
+        }
+      ]
     }
   ]
 }
