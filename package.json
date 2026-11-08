@@ -4,10 +4,13 @@
   "type": "module",
   "scripts": {
     "check": "node scripts/check.mjs",
-    "test": "node --test tests/core.test.mjs tests/refactor.test.mjs tests/intelligence.test.mjs tests/economic-calendar.test.mjs tests/learning.test.mjs tests/sources.test.mjs",
+    "test": "node --test tests/core.test.mjs tests/refactor.test.mjs tests/intelligence.test.mjs tests/economic-calendar.test.mjs tests/learning.test.mjs tests/sources.test.mjs tests/ui-helpers.test.mjs",
+    "verify": "npm run check && npm test",
+    "preflight": "node scripts/preflight.mjs",
     "enrich": "node scripts/enrich-newsletter.mjs",
     "publish:newsletter": "node scripts/enrich-newsletter.mjs | node scripts/write-newsletter.mjs",
-    "preview": "node scripts/preview.mjs"
+    "preview": "node scripts/preview.mjs",
+    "qa:browser": "node scripts/browser-qa.mjs"
   },
   "dependencies": {
     "rss-parser": "^3.13.0"

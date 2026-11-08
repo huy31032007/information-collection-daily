@@ -51,11 +51,24 @@ export function parseSections(markdown) {
 export function vietnamDate(date = new Date()) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: TIMEZONE, year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
 }
+// ICU writes day/month without a year as "07-11"; Vietnamese readers expect "07/11".
+export const slashDayMonth = text => text.replace(/\b(\d{2})-(\d{2})\b/g, '$1/$2');
 export function formatTime(value, options = {}) {
-  return new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', ...options }).format(new Date(value));
+  return slashDayMonth(new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', ...options }).format(new Date(value)));
 }
 export function reportFreshness(report, now = new Date()) {
   return report.reportDate === vietnamDate(now) ? 'today' : 'older';
+}
+// The evening edition is published around 21:30 Vietnam time, so yesterday's
+// report is expected for most of the day and should not read as a warning.
+export const PUBLICATION_TIME = '21:30';
+export function editionStatus(report, now = new Date()) {
+  const today = vietnamDate(now);
+  if (report.reportDate === today) return 'today';
+  const yesterday = new Date(today + 'T12:00:00Z'); yesterday.setUTCDate(yesterday.getUTCDate() - 1);
+  if (report.reportDate !== yesterday.toISOString().slice(0, 10)) return 'older';
+  const clock = new Intl.DateTimeFormat('en-GB', { timeZone: TIMEZONE, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(now);
+  return clock < PUBLICATION_TIME ? 'awaiting' : 'compiling';
 }
 export function reportDateMatchesCutoff(reportDate, cutoffAt) {
   if (typeof reportDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(reportDate)) return false;

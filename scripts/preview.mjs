@@ -12,6 +12,13 @@ const server = http.createServer(async (request, response) => {
     const body = await readFile(filename); response.writeHead(200, { 'Content-Type': mime[path.extname(filename)], 'Cache-Control': 'no-cache', 'X-Content-Type-Options': 'nosniff' }); response.end(body);
   } catch { response.writeHead(404); response.end('Not found'); }
 });
-server.listen(0, '127.0.0.1', () => console.log('Local preview: http://127.0.0.1:' + server.address().port));
+// Stable port so the preview URL can be bookmarked; falls back to any free port when busy.
+const preferred = Number(process.env.PORT || process.argv[2] || 4173);
+server.once('error', error => {
+  if (error.code !== 'EADDRINUSE') throw error;
+  server.listen(0, '127.0.0.1');
+});
+server.on('listening', () => console.log('Local preview: http://127.0.0.1:' + server.address().port));
+server.listen(preferred, '127.0.0.1');
 process.on('SIGINT', () => server.close(() => process.exit(0)));
 process.on('SIGTERM', () => server.close(() => process.exit(0)));

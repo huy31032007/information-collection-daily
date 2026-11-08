@@ -1,4 +1,4 @@
-import { TIMEZONE, validateNewsletter, reportDateMatchesCutoff, parseSections, extractSources, normalizeText } from './lib.mjs';
+import { TIMEZONE, validateNewsletter, reportDateMatchesCutoff, parseSections, extractSources, normalizeText, slashDayMonth } from './lib.mjs';
 
 export function validDate(value) {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -17,7 +17,7 @@ export function weekRange(value) {
 }
 export function dateLabel(value, options = {}) {
   if (!validDate(value)) throw new Error('Ngày hiển thị không hợp lệ.');
-  return new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, day: '2-digit', month: '2-digit', year: 'numeric', ...options }).format(new Date(value + 'T12:00:00+07:00'));
+  return slashDayMonth(new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, day: '2-digit', month: '2-digit', year: 'numeric', ...options }).format(new Date(value + 'T12:00:00+07:00')));
 }
 export function monthGrid(month) {
   const first = month + '-01'; if (!validDate(first)) throw new Error('Tháng lịch không hợp lệ.');

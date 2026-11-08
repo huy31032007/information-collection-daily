@@ -1,7 +1,7 @@
 import { enhanceSourceLinks, enhanceReportSources } from './source-ui.mjs';
 import { createEconomicCalendar } from './economic-calendar-ui.mjs';
 import { enhanceMarketLearning, enhanceReportLearning } from './learning-ui.mjs';
-import { TOPICS, TIMEZONE, validateNewsletter, parseSections, extractSources, formatTime, reportFreshness, filterSections, vietnamDate } from './lib.mjs';
+import { TOPICS, TIMEZONE, PUBLICATION_TIME, validateNewsletter, parseSections, extractSources, formatTime, editionStatus, filterSections, normalizeText, vietnamDate } from './lib.mjs';
 import { renderMarkdown } from './markdown.mjs';
 import { renderDashboard, renderReportList } from './dashboard.mjs';
 import { validDate, addDays, dateLabel, weekRange, validateArchiveIndex, validateArchivedReport } from './history.mjs';
@@ -14,14 +14,39 @@ state.month = state.date.slice(0, 7);
 const archiveCache = new Map();
 const make = (tag, text, className) => { const node = document.createElement(tag); if (text != null) node.textContent = text; if (className) node.className = className; return node; };
 function status(text, kind = '') { const node = byId('status'); node.textContent = text; node.className = 'status ' + kind; }
+// Preferences are conveniences only; private windows or blocked storage fall back to defaults.
+const prefs = {
+  get(key) { try { return localStorage.getItem('ban-tin:' + key); } catch { return null; } },
+  set(key, value) { try { localStorage.setItem('ban-tin:' + key, value); } catch { /* ignore */ } },
+};
+const shortTime = value => formatTime(value, { year: undefined, second: undefined });
 
-function setHistoryExpanded(expanded) {
+function setHistoryExpanded(expanded, { remember = false } = {}) {
   byId('history-body').hidden = !expanded;
   byId('history-panel').classList.toggle('is-collapsed', !expanded);
   byId('toggle-history').setAttribute('aria-expanded', String(expanded));
-  byId('toggle-history-label').textContent = expanded ? 'Thu gọn' : 'Mở lịch';
+  byId('toggle-history-label').textContent = expanded ? 'Thu gọn lịch' : 'Mở lịch';
+  if (remember) prefs.set('history-expanded', String(expanded));
+  if (typeof observeSections === 'function' && state.report) observeSections();
 }
-byId('toggle-history').addEventListener('click', () => setHistoryExpanded(byId('history-body').hidden));
+byId('toggle-history').addEventListener('click', () => setHistoryExpanded(byId('history-body').hidden, { remember: true }));
+// The calendar is long; keep it closed until asked for so market data is visible first.
+setHistoryExpanded(validDate(initialDate) || new URL(location.href).searchParams.get('view') === 'week' || prefs.get('history-expanded') === 'true');
+
+// Theme: auto follows the system; the choice is remembered per browser.
+const THEMES = ['auto', 'light', 'dark'];
+const THEME_LABELS = { auto: 'Tự động theo hệ thống', light: 'Sáng', dark: 'Tối' };
+function applyTheme(theme) {
+  if (theme === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = theme;
+  const button = byId('theme-toggle'); button.dataset.themeState = theme;
+  const label = 'Giao diện: ' + THEME_LABELS[theme] + '. Bấm để đổi';
+  button.setAttribute('aria-label', label); button.title = label;
+}
+applyTheme(THEMES.includes(prefs.get('theme')) ? prefs.get('theme') : 'auto');
+byId('theme-toggle').addEventListener('click', () => {
+  const next = THEMES[(THEMES.indexOf(byId('theme-toggle').dataset.themeState) + 1) % THEMES.length];
+  applyTheme(next); prefs.set('theme', next);
+});
 
 const mobileNavigation = window.matchMedia('(max-width: 1023px)');
 let desktopNavigationCollapsed = false;
@@ -56,7 +81,7 @@ byId('toggle-sidebar').addEventListener('click', toggleNavigation);
 byId('sidebar-close').addEventListener('click', () => closeNavigation({ focus: true }));
 byId('sidebar-overlay').addEventListener('click', () => closeNavigation({ focus: true }));
 document.addEventListener('keydown', event => {
-  if ((event.metaKey || event.ctrlKey) && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'b' && !event.repeat && !event.target.closest('input, textarea, select, [contenteditable]')) {
+  if ((event.metaKey || event.ctrlKey) && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'b' && !event.repeat && !event.target.closest?.('input, textarea, select, [contenteditable]')) {
     event.preventDefault(); toggleNavigation();
   }
   if (event.key === 'Escape' && document.body.classList.contains('sidebar-open')) closeNavigation({ focus: true });
@@ -70,21 +95,42 @@ mobileNavigation.addEventListener('change', () => {
   document.body.classList.remove('sidebar-open'); syncNavigation();
   if (byId('sidebar').inert && byId('sidebar').contains(document.activeElement)) byId('toggle-sidebar').focus();
 }); syncNavigation();
+const navTarget = hash => document.querySelector(state.mode === 'week' ? hash === '#market-overview' ? '#weekly-content' : hash.replace('#section-', '#week-topic-') : hash);
+function markNav(hash) { for (const link of document.querySelectorAll('[data-dashboard-nav]')) { if (link.hash === hash) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current'); } }
 for (const anchor of document.querySelectorAll('[data-dashboard-nav]')) anchor.addEventListener('click', event => {
   event.preventDefault(); resetFilters(); if (mobileNavigation.matches) closeNavigation();
-  if (anchor.hash === '#history-panel') setHistoryExpanded(true);
-  const targetHash = state.mode === 'week' ? anchor.hash === '#market-overview' ? '#weekly-content' : anchor.hash.replace('#section-', '#week-topic-') : anchor.hash;
-  const target = document.querySelector(targetHash); if (target?.tagName === 'DETAILS') target.open = true; target?.scrollIntoView({ block: 'start' });
+  if (anchor.hash === '#history-panel') setHistoryExpanded(true, { remember: true });
+  const target = navTarget(anchor.hash); if (target?.tagName === 'DETAILS') target.open = true; target?.scrollIntoView({ block: 'start' });
   const focusTarget = target?.querySelector('summary') || target;
   if (focusTarget && !focusTarget.hasAttribute('tabindex')) focusTarget.tabIndex = -1;
   focusTarget?.focus({ preventScroll: true });
   history.replaceState(null, '', anchor.hash);
-  for (const link of document.querySelectorAll('[data-dashboard-nav]')) { if (link === anchor) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current'); }
+  markNav(anchor.hash); spy.pausedUntil = Date.now() + 900;
 });
+// Links from the dashboard into a section clear filters first so the section is present.
 byId('market-overview').addEventListener('click', event => {
-  if (!event.target.closest('a[href="#section-2"]')) return;
-  event.preventDefault(); resetFilters(); byId('section-2')?.scrollIntoView({ block: 'start' }); history.replaceState(null, '', '#section-2');
+  const link = event.target.closest('a[href^="#section-"]'); if (!link) return;
+  event.preventDefault(); resetFilters(); const target = byId(link.hash.slice(1)); target?.scrollIntoView({ block: 'start' });
+  target?.querySelector('h2')?.setAttribute('tabindex', '-1'); target?.querySelector('h2')?.focus({ preventScroll: true });
+  history.replaceState(null, '', link.hash); markNav(link.hash);
 });
+
+// Scroll spy: highlight the sidebar entry for the section being read.
+const spy = { observer: null, visible: new Map(), pausedUntil: 0 };
+function observeSections() {
+  spy.observer?.disconnect(); spy.visible.clear();
+  if (!('IntersectionObserver' in window)) return;
+  const links = [...document.querySelectorAll('[data-dashboard-nav]')];
+  const targets = new Map(links.map(link => [navTarget(link.hash), link.hash]).filter(([node]) => node && !node.hidden && !node.classList.contains('is-collapsed')));
+  spy.observer = new IntersectionObserver(entries => {
+    for (const entry of entries) { if (entry.isIntersecting) spy.visible.set(entry.target, entry.boundingClientRect.top); else spy.visible.delete(entry.target); }
+    if (Date.now() < spy.pausedUntil) return;
+    if (scrollY < 160 || !spy.visible.size) { if (scrollY < 160) markNav('#market-overview'); return; }
+    const [top] = [...spy.visible.keys()].sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
+    markNav(targets.get(top));
+  }, { rootMargin: '-96px 0px -55% 0px' });
+  for (const node of targets.keys()) spy.observer.observe(node);
+}
 
 for (const topic of TOPICS) {
   const button = make('button', topic.label); button.type = 'button'; button.dataset.topic = topic.id; button.setAttribute('aria-pressed', topic.id === 'all' ? 'true' : 'false');
@@ -92,12 +138,47 @@ for (const topic of TOPICS) {
 }
 function resetFilters() {
   state.filters = { topic: 'all', source: '', period: 'any', query: '' };
-  byId('search').value = ''; byId('source-filter').value = ''; byId('period-filter').value = 'any'; render();
+  byId('search').value = ''; byId('source-filter').value = ''; render();
 }
-byId('search').addEventListener('input', event => { state.filters.query = event.target.value; render(); });
+let searchTimer = 0;
+byId('search').addEventListener('input', event => { clearTimeout(searchTimer); searchTimer = setTimeout(() => { state.filters.query = event.target.value; render(); }, 140); });
+// Enter jumps through highlighted matches; Escape clears the query.
+byId('search').addEventListener('keydown', event => {
+  if (event.key === 'Escape' && event.target.value) { event.preventDefault(); event.target.value = ''; clearTimeout(searchTimer); state.filters.query = ''; render(); return; }
+  if (event.key !== 'Enter') return; event.preventDefault();
+  clearTimeout(searchTimer); if (state.filters.query !== event.target.value) { state.filters.query = event.target.value; render(); }
+  const hits = [...byId('report-content').querySelectorAll('mark.search-hit')]; if (!hits.length) return;
+  const current = hits.findIndex(hit => hit.classList.contains('is-current')); hits[current]?.classList.remove('is-current');
+  const next = hits[(current + (event.shiftKey ? -1 + hits.length : 1)) % hits.length]; next.classList.add('is-current');
+  next.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  byId('result-count').textContent = searchSummary(hits.length, hits.indexOf(next) + 1);
+});
 byId('source-filter').addEventListener('change', event => { state.filters.source = event.target.value; render(); });
-byId('period-filter').addEventListener('change', event => { state.filters.period = event.target.value; render(); });
-byId('clear-filters').addEventListener('click', resetFilters);
+byId('clear-filters').addEventListener('click', () => { resetFilters(); byId('search').focus(); });
+
+function clearHighlights(root) {
+  for (const mark of root.querySelectorAll('mark.search-hit')) { const parent = mark.parentNode; mark.replaceWith(...mark.childNodes); parent.normalize(); }
+}
+// Accent-insensitive highlighting that maps folded text back to the original characters.
+function highlightMatches(root, query) {
+  clearHighlights(root);
+  const needle = normalizeText(query || '').trim(); if (needle.length < 2) return 0;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: node => node.parentElement.closest('summary, .type-badge, .section-number') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+  const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+  let count = 0;
+  for (const node of nodes) {
+    const text = node.data; let folded = ''; const map = [];
+    for (let i = 0; i < text.length; i++) { const piece = normalizeText(text[i]); for (let k = 0; k < piece.length; k++) map.push(i); folded += piece; }
+    const ranges = []; let from = 0, index;
+    while (needle && (index = folded.indexOf(needle, from)) !== -1) { ranges.push([map[index], map[index + needle.length - 1] + 1]); from = index + needle.length; }
+    if (!ranges.length) continue;
+    const fragment = document.createDocumentFragment(); let cursor = 0;
+    for (const [start, end] of ranges) { fragment.append(text.slice(cursor, start), make('mark', text.slice(start, end), 'search-hit')); cursor = end; count++; }
+    fragment.append(text.slice(cursor)); node.replaceWith(fragment);
+  }
+  return count;
+}
+const searchSummary = (total, position) => `${total} kết quả${position ? ` · đang ở ${position}/${total}` : ''} · Enter để tới kết quả tiếp theo`;
 byId('reset-empty').addEventListener('click', () => { if (!state.report) { if (!state.followingLatest) goLatest(); else void loadReport(); return; } resetFilters(); byId('search').focus(); });
 byId('refresh').addEventListener('click', () => loadReport());
 
@@ -107,7 +188,7 @@ function render() {
     for (const button of byId('topics').children) button.setAttribute('aria-pressed', String(button.dataset.topic === state.filters.topic));
     const week = renderWeek(byId('weekly-content'), state.weekReports, state.date, { filters: state.filters, failures: state.weekFailures, availabilityKnown: Boolean(state.index) && !state.indexError, onReadDay: date => selectDate(date, 'day') });
     byId('result-count').textContent = `${week.reports.length} bản tin trong tuần · bộ lọc áp dụng cho phân tích theo chủ đề`;
-    return;
+    observeSections(); return;
   }
   const content = byId('report-content');
   for (const button of byId('topics').children) button.setAttribute('aria-pressed', String(button.dataset.topic === state.filters.topic));
@@ -119,6 +200,9 @@ function render() {
   renderReportList(content, sections);
   enhanceReportLearning(content);
   enhanceReportSources(content, sections);
+  const hits = highlightMatches(content, state.filters.query);
+  if (state.filters.query.trim().length >= 2 && sections.length) byId('result-count').textContent = `${count} / 9 chuyên mục · ` + searchSummary(hits);
+  observeSections();
 }
 function setDayMetadata(report) {
   byId('report-date').textContent = dateLabel(report.reportDate);
@@ -127,6 +211,7 @@ function setDayMetadata(report) {
   byId('coverage').textContent = formatTime(report.coverageStart, { year: undefined, second: undefined }) + ' → ' + formatTime(report.coverageEnd, { year: undefined, second: undefined });
   const sources = [...new Set(extractSources(report.markdown).map(source => source.name))].sort((a, b) => a.localeCompare(b, 'vi'));
   byId('source-count').textContent = String(sources.length); byId('section-count').textContent = '09';
+  byId('exported-at').textContent = shortTime(report.exportedAt);
   const options = [new Option('Tất cả nguồn', ''), ...sources.map(source => new Option(source, source))]; byId('source-filter').replaceChildren(...options);
   if (!sources.includes(state.filters.source)) state.filters.source = ''; byId('source-filter').value = state.filters.source;
 }
@@ -140,9 +225,13 @@ function installReport(report) {
   render();
 }
 function freshStatus(report) {
-  if (!state.followingLatest) { status(`Đang xem bản tin đã lưu ngày ${dateLabel(report.reportDate)}, chốt ${formatTime(report.cutoffAt)} giờ Việt Nam. Giá giữ đúng thời điểm nguồn.`, 'warning'); return; }
-  if (reportFreshness(report) === 'older') status(`Chưa có bản tin hôm nay. Bản gần nhất của ngày ${dateLabel(report.reportDate)}, chốt ${formatTime(report.cutoffAt)} giờ Việt Nam; giá giữ theo thời điểm trong nguồn.`, 'warning');
-  else status(`Bản tin ngày ${byId('report-date').textContent} · chốt ${byId('cutoff-time').textContent.replace('Chốt ', '')} giờ Việt Nam. Giá là dữ liệu tại thời điểm nguồn, không phải báo giá trực tiếp.`);
+  const edition = `bản tin ngày ${dateLabel(report.reportDate)} (chốt ${shortTime(report.cutoffAt)})`;
+  if (!state.followingLatest) { status(`Đang xem ${edition} trong kho lưu trữ. Giá giữ đúng thời điểm nguồn của ngày đó.`, 'info'); return; }
+  const stage = editionStatus(report);
+  if (stage === 'today') status(`Bản tin hôm nay · chốt ${shortTime(report.cutoffAt)} giờ Việt Nam. Giá là dữ liệu tại thời điểm nguồn, không phải báo giá trực tiếp.`);
+  else if (stage === 'awaiting') status(`Đang hiển thị ${edition}. Bản tin hôm nay được tổng hợp lúc ${PUBLICATION_TIME} giờ Việt Nam.`, 'info');
+  else if (stage === 'compiling') status(`Bản tin tối nay đang được tổng hợp; tạm hiển thị ${edition}. Trang tự kiểm tra lại mỗi 5 phút.`, 'info');
+  else status(`Chưa có bản tin mới. Bản gần nhất là ${edition}; giá giữ theo thời điểm trong nguồn.`, 'warning');
 }
 async function fetchJSON(url, limit = 600_000) {
   const controller = new AbortController(); const timer = setTimeout(() => controller.abort(), 12_000);
@@ -168,7 +257,29 @@ function refreshCalendar() {
   byId('history-detail').textContent = state.mode === 'week' ? `Có ${entries.filter(row => range.dates.includes(row.reportDate)).length} bản tin đã biết trong tuần. Những ngày thiếu sẽ được ghi rõ.` : entry ? entry.title + ' · chốt ' + formatTime(entry.cutoffAt) : state.index ? 'Chưa có bản tin được lưu cho ngày này.' : 'Chưa tải đủ lịch sử để xác nhận dữ liệu của ngày này.';
   byId('history-status').textContent = state.indexError || (state.index ? `Đã lưu ${state.index.reports.length} ngày · Giờ Việt Nam` : 'Đang tải lịch bản tin…');
   byId('history-status').classList.toggle('history-error', Boolean(state.indexError)); byId('latest-button').disabled = !state.latest;
+  updateEditionNav(entries);
   economicCalendar.render();
+}
+// Previous/next edition buttons step through archived days (or whole weeks in week mode).
+function editionNeighbours(entries = knownEntries()) {
+  if (state.mode === 'week') {
+    const start = weekRange(state.date).start;
+    return { prev: addDays(start, -7), next: start < weekRange(vietnamDate()).start ? addDays(start, 7) : null };
+  }
+  const dates = entries.map(entry => entry.reportDate).sort();
+  return { prev: dates.filter(date => date < state.date).at(-1) || null, next: dates.find(date => date > state.date) || null };
+}
+function updateEditionNav(entries) {
+  const { prev, next } = editionNeighbours(entries); const unit = state.mode === 'week' ? 'Tuần' : 'Bản tin';
+  for (const [id, date, word] of [['edition-prev', prev, 'trước'], ['edition-next', next, 'sau']]) {
+    const button = byId(id); button.disabled = !date;
+    const label = date ? `${unit} ${word}: ${state.mode === 'week' ? 'từ ' : ''}${dateLabel(date)}` : `Không có ${unit.toLowerCase()} ${word}`;
+    button.setAttribute('aria-label', label); button.title = label + (date ? (word === 'trước' ? ' ( [ )' : ' ( ] )') : '');
+  }
+}
+function stepEdition(direction) {
+  const date = editionNeighbours()[direction]; if (!date) return;
+  if (state.mode === 'day' && date === state.latest?.reportDate) goLatest(); else selectDate(date, state.mode);
 }
 function showMode() {
   const weekly = state.mode === 'week';
@@ -176,13 +287,12 @@ function showMode() {
   byId('page-title').textContent = weekly ? 'Tổng hợp thông tin tuần' : 'Toàn cảnh thị trường';
   byId('edition-kicker').textContent = weekly ? 'TUẦN ĐƯỢC CHỌN' : state.followingLatest ? 'BẢN TIN GẦN NHẤT' : 'BẢN TIN ĐƯỢC CHỌN';
   byId('reading-title').textContent = weekly ? 'Tổng hợp & phân tích theo tuần' : 'Bản tin & phân tích đầy đủ';
-  byId('period-filter').closest('div').hidden = weekly;
   if (weekly) { const range = weekRange(state.date); byId('report-date').textContent = dateLabel(range.start, { year: undefined }) + ' – ' + dateLabel(range.end); }
 }
 function clearDay(message) {
   state.report = null; state.sections = []; byId('report-content').replaceChildren(); byId('report-context').replaceChildren();
   renderDashboard(byId('market-overview'), [], null); byId('report-date').textContent = dateLabel(state.date); byId('cutoff-time').textContent = 'Chưa có mốc chốt dữ liệu';
-  byId('coverage').textContent = '—'; byId('source-count').textContent = '—'; byId('section-count').textContent = '—'; byId('source-filter').replaceChildren(new Option('Tất cả nguồn', ''));
+  byId('coverage').textContent = '—'; byId('source-count').textContent = '—'; byId('section-count').textContent = '—'; byId('exported-at').textContent = '—'; byId('source-filter').replaceChildren(new Option('Tất cả nguồn', ''));
   byId('result-count').textContent = 'Chưa có nội dung cho ngày được chọn'; byId('no-results').hidden = false; byId('no-results').querySelector('h2').textContent = 'Chưa có bản tin ngày ' + dateLabel(state.date); byId('no-results').querySelector('p').textContent = message;
   byId('reset-empty').textContent = 'Xem bản tin gần nhất';
 }
@@ -226,7 +336,7 @@ async function loadSelection({ quiet = false } = {}) {
     }
     const previous = state.report; const changed = !previous || ['markdown','cutoffAt','title','reportDate','coverageStart','coverageEnd'].some(key => report[key] !== previous[key]);
     if (changed) installReport(report); else { state.report = report; setDayMetadata(report); }
-    byId('no-results').querySelector('h2').textContent = 'Không có mục phù hợp'; byId('no-results').querySelector('p').textContent = 'Thử đổi từ khóa, nguồn hoặc khoảng thời gian. Bộ lọc thời gian áp dụng cho ngày bản tin, không đổi thời điểm của từng giá.'; byId('reset-empty').textContent = 'Xem bản tin gần nhất'; freshStatus(report);
+    byId('no-results').querySelector('h2').textContent = 'Không có mục phù hợp'; byId('no-results').querySelector('p').textContent = 'Thử đổi từ khóa, chủ đề hoặc nguồn.'; byId('reset-empty').textContent = 'Xem bản tin gần nhất'; freshStatus(report);
   } catch (error) {
     if (request !== state.selectionRequest) return;
     if (!state.report || state.report.reportDate !== date) clearDay('Không tải được bản tin đúng ngày bạn chọn. Hãy thử làm mới.');
@@ -275,18 +385,39 @@ function updateURL() {
 }
 function selectDate(date, mode = state.mode) {
   if (!validDate(date)) return; state.date = date; state.mode = mode; state.followingLatest = false; state.month = date.slice(0, 7);
-  state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = ''; byId('source-filter').value = ''; byId('period-filter').value = 'any';
+  state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = ''; byId('source-filter').value = '';
   updateURL(); void loadSelection();
 }
 function goLatest() {
   if (!state.latest) { void loadReport(); return; } state.mode = 'day'; state.followingLatest = true; state.date = state.latest.reportDate; state.month = state.date.slice(0, 7);
-  state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = ''; byId('source-filter').value = ''; byId('period-filter').value = 'any'; updateURL(); void loadSelection();
+  state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = ''; byId('source-filter').value = ''; updateURL(); void loadSelection();
 }
 function moveMonth(delta) { const date = new Date(state.month + '-01T12:00:00Z'); date.setUTCMonth(date.getUTCMonth() + delta); state.month = date.toISOString().slice(0, 7); refreshCalendar(); }
 function moveCalendarFocus(date, days) { const target = addDays(date, days); state.month = target.slice(0, 7); refreshCalendar(); for (const button of byId('calendar-grid').children) button.tabIndex = button.dataset.calendarDate === target ? 0 : -1; byId('calendar-grid').querySelector('[data-calendar-date="' + target + '"]')?.focus(); }
 byId('calendar-prev').addEventListener('click', () => moveMonth(-1)); byId('calendar-next').addEventListener('click', () => moveMonth(1));
 byId('view-day').addEventListener('click', () => selectDate(state.date, 'day')); byId('view-week').addEventListener('click', () => selectDate(state.date, 'week'));
 byId('latest-button').addEventListener('click', goLatest);
+byId('edition-prev').addEventListener('click', () => stepEdition('prev'));
+byId('edition-next').addEventListener('click', () => stepEdition('next'));
+
+// Keyboard: "/" focuses search, "[" and "]" step between editions.
+document.addEventListener('keydown', event => {
+  if (event.metaKey || event.ctrlKey || event.altKey || event.target.closest?.('input, textarea, select, [contenteditable]')) return;
+  if (event.key === '/') { event.preventDefault(); byId('search').focus(); byId('search').select(); }
+  else if (event.key === '[') stepEdition('prev');
+  else if (event.key === ']') stepEdition('next');
+});
+
+// Back-to-top appears once the reader is well into the long report.
+let scrollFrame = 0;
+window.addEventListener('scroll', () => {
+  if (scrollFrame) return;
+  scrollFrame = requestAnimationFrame(() => { scrollFrame = 0; byId('back-to-top').classList.toggle('is-visible', scrollY > 1200); });
+}, { passive: true });
+byId('back-to-top').addEventListener('click', () => {
+  scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  byId('page-title').focus({ preventScroll: true });
+});
 window.addEventListener('popstate', () => { const url = new URL(location.href); const date = url.searchParams.get('date'); state.followingLatest = !validDate(date); state.date = validDate(date) ? date : state.latest?.reportDate || state.date; state.month = state.date.slice(0, 7); state.mode = url.searchParams.get('view') === 'week' ? 'week' : 'day'; void loadSelection(); });
 const economicCalendar = createEconomicCalendar({
   fetchJSON,

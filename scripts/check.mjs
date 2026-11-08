@@ -4,10 +4,12 @@ import { fileURLToPath } from 'node:url';
 import { validateNewsletter, extractSources } from '../dist/lib.mjs';
 import { validateArchiveIndex, validateArchivedReport } from '../dist/history.mjs';
 import { validateEconomicCalendar } from '../dist/economic-calendar.mjs';
+import { parseSections } from '../dist/lib.mjs';
+import { dashboardCoverage } from '../dist/dashboard.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 for (const file of ['dist/learning.mjs', 'dist/learning-ui.mjs']) { const result = spawnSync(process.execPath, ['--check', file], { cwd: root, encoding: 'utf8' }); if (result.status !== 0) throw new Error(result.stderr); }
-const files = ['dist/source-catalog.mjs', 'dist/source-ui.mjs', 'dist/app.mjs', 'dist/lib.mjs', 'dist/markdown.mjs', 'dist/dashboard.mjs', 'dist/intelligence-panel.mjs', 'dist/history.mjs', 'dist/history-ui.mjs', 'dist/economic-calendar.mjs', 'dist/economic-calendar-ui.mjs', 'scripts/write-newsletter.mjs', 'scripts/enrich-newsletter.mjs', 'scripts/preview.mjs'];
+const files = ['dist/source-catalog.mjs', 'dist/source-ui.mjs', 'dist/app.mjs', 'dist/lib.mjs', 'dist/markdown.mjs', 'dist/dashboard.mjs', 'dist/intelligence-panel.mjs', 'dist/history.mjs', 'dist/history-ui.mjs', 'dist/economic-calendar.mjs', 'dist/economic-calendar-ui.mjs', 'scripts/write-newsletter.mjs', 'scripts/enrich-newsletter.mjs', 'scripts/preview.mjs', 'scripts/preflight.mjs'];
 for (const file of files) { const result = spawnSync(process.execPath, ['--check', file], { cwd: root, encoding: 'utf8' }); if (result.status !== 0) throw new Error(result.stderr); }
 for (const file of ['dist/index.html', 'dist/styles.css', 'dist/tokens.css', 'dist/reading.css', 'dist/favicon.svg']) await access(root + file);
 const report = validateNewsletter(JSON.parse(await readFile(root + 'dist/data/latest.json', 'utf8')));
@@ -27,4 +29,8 @@ const indexed = new Set(index.reports.map(entry => entry.reportDate + '.json'));
 for (const file of await readdir(root + 'dist/data/archive')) if (/^\d{4}-\d{2}-\d{2}\.json$/.test(file) && !indexed.has(file)) throw new Error('Unindexed archived report: ' + file);
 const manifest = JSON.parse(await readFile(root + '.openai/hosting.json', 'utf8'));
 if (!manifest.project_id || manifest.static?.directory !== 'dist') throw new Error('Missing Site identity or static directory.');
-console.log(JSON.stringify({ syntax: 'passed', reportDate: report.reportDate, cutoffAt: report.cutoffAt, archivedDays: index.reports.length, calendarCheckedAt: calendar.checkedAt, economicEvents: calendar.events.length, sourceLinks: extractSources(report.markdown).length, hosting: 'static' }));
+// Non-blocking: a prose-only report is valid but leaves dashboard cards empty.
+const dashboard = dashboardCoverage(parseSections(report.markdown).sections);
+const emptyCards = Object.entries(dashboard).filter(([, ok]) => !ok).map(([key]) => key);
+if (emptyCards.length) console.error('Warning: dashboard parts empty for ' + report.reportDate + ': ' + emptyCards.join(', ') + '. Run `npm run preflight` for table hints.');
+console.log(JSON.stringify({ syntax: 'passed', dashboard, reportDate: report.reportDate, cutoffAt: report.cutoffAt, archivedDays: index.reports.length, calendarCheckedAt: calendar.checkedAt, economicEvents: calendar.events.length, sourceLinks: extractSources(report.markdown).length, hosting: 'static' }));

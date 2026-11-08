@@ -220,3 +220,62 @@ input:focus-visible,select:focus-visible{border-color:var(--accent)}
     }
   }
 }
+
+/* ── Reading-first refinements (Nov 2026) ─────────────────────────────── */
+
+/* Readability floor: no UI text below 11px, metadata at 12px+. */
+.eyebrow,.edition-kicker,.sidebar-label,.panel-tag,.analysis-label,.source-role-badge,.event-preview small{font-size:11px}
+.timezone,.metric-label,.sidebar-note p,.filter-bottom,.report-context,.weekly-date,.week-read-day,.week-missing,.history-selection #history-status,.calendar-legend small,.snapshot-table caption,.plot-scale,.breadcrumb,footer{font-size:12px}
+.type-badge{font-size:10px;letter-spacing:.02em}
+.flow-step,.section-number{font-size:11px}
+.hero-description,.reading-header p{font-size:14px}
+.edition-card #refresh{font-size:13px}
+
+/* Topbar: timezone + theme switch. */
+.topbar{background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:saturate(1.4) blur(8px);-webkit-backdrop-filter:saturate(1.4) blur(8px)}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.theme-toggle svg{display:none}
+.theme-toggle[data-theme-state=auto] .theme-icon-auto,.theme-toggle[data-theme-state=light] .theme-icon-light,.theme-toggle[data-theme-state=dark] .theme-icon-dark{display:block}
+
+/* Edition navigation around the date. */
+.edition-nav{display:flex;align-items:center;gap:6px}
+.edition-meta{min-width:132px;text-align:center}
+.edition-nav .icon-button{border-color:transparent;background:transparent}
+.edition-nav .icon-button:not(:disabled):hover{background:var(--elevated)}
+.edition-nav .icon-button:disabled{opacity:.35;cursor:not-allowed}
+@media(max-width:559px){.edition-meta{text-align:left;min-width:0}.edition-nav{gap:2px}}
+
+/* Status tones: info is neutral (expected state), warning means something needs attention. */
+.status.info{background:var(--surface);border-color:var(--line);color:var(--body-copy)}
+
+/* Filters: search + source now share the row. */
+.filter-panel{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+@media(max-width:767px){.filter-panel{grid-template-columns:minmax(0,1fr)}}
+.field-help{margin:6px 0 0;font-size:12px;color:var(--muted)}
+kbd{font:600 11px/1 var(--sans);padding:3px 6px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;background:var(--surface);color:var(--body-copy)}
+mark.search-hit{background:var(--highlight);color:inherit;border-radius:3px;padding:0 1px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+mark.search-hit.is-current{background:var(--highlight-current);outline:2px solid var(--highlight-current);outline-offset:1px}
+
+/* Empty market cards point to the section that holds the numbers. */
+.market-card.is-empty{border-style:dashed;box-shadow:none}
+.market-card.is-empty .metric-empty{font-size:16px;font-weight:600;color:var(--body-copy)}
+.section-jump{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin-top:auto;font-size:13px;font-weight:600;color:var(--accent);text-decoration:none}
+.section-jump:hover{text-decoration:underline}
+.section-jump span{transition:transform .16s ease}
+.section-jump:hover span{transform:translateX(3px)}
+.chart-panel .section-jump{margin-top:0}
+
+/* Empty-state icon (SVG instead of a font glyph). */
+svg.empty-symbol{width:40px;height:40px;color:var(--accent);stroke-width:1.5}
+
+/* Back to top. */
+.back-to-top{position:fixed;right:20px;bottom:20px;z-index:30;width:48px;height:48px;display:grid;place-items:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:0 6px 20px rgba(15,23,42,.14);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+.back-to-top.is-visible{opacity:1;transform:none;pointer-events:auto}
+.back-to-top:hover{background:var(--elevated)}
+@media(max-width:559px){.back-to-top{right:14px;bottom:14px}}
+@media(prefers-reduced-motion:reduce){.back-to-top,.section-jump span{transition:none}}
+
+/* Collapsed calendar reads as a compact bar. */
+.history-panel.is-collapsed{padding-block:16px}
+.history-panel.is-collapsed .history-toolbar p{display:none}
+@media(max-width:559px){.edition-card #refresh{width:44px;padding:0;flex:none}.edition-card #refresh span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.edition-kicker{white-space:nowrap}}

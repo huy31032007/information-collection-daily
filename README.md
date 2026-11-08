@@ -18,13 +18,13 @@ Website tĩnh hiển thị nguyên văn bản tin từ cuộc trò chuyện Chat
 ## Chạy và kiểm tra
 
 ```sh
-cd "/Users/quanghuyvu/Documents/Workspace/Claude Code/projects/information-collection"
-npm run check
-npm test
-npm run preview
+cd "/Users/quanghuyvu/Documents/Workspace/Claude code/projects/information-collection"
+npm run verify      # check + test
+npm run preflight   # độ phủ dashboard của bản tin mới nhất (hoặc truyền đường dẫn bản nháp)
+npm run preview     # http://127.0.0.1:4173
 ```
 
-Lệnh preview in URL local thực tế, sử dụng cổng khả dụng và chỉ bind loopback. Chạy build riêng không cần thiết vì không có framework hoặc bước biên dịch.
+Preview chỉ bind loopback, ưu tiên cổng 4173 và tự lùi sang cổng trống nếu bận. GitHub Actions chạy `npm run verify` cho mỗi push/PR vào `main`. Hướng dẫn rút gọn cho Claude Code nằm ở `CLAUDE.md`. Chạy build riêng không cần thiết vì không có framework hoặc bước biên dịch.
 
 Unit tests dùng bản tin thật ngày 12/10 làm fixture lịch sử riêng, không dùng giá hoặc ngày của `latest.json` làm giả định cố định. Fixture không nằm trong `dist/` và không được phục vụ trên web. `npm run check` kiểm tra bản tin thực tế sắp xuất bản.
 
@@ -41,6 +41,14 @@ Site mặc định riêng tư và sử dụng đăng nhập ChatGPT. `.openai/ho
 Trong “Lịch bản tin & sự kiện”, chọn ngày hoặc tuần để xem đồng thời bản tin và các sự kiện CPI, PPI, Fed, GDP/PCE, việc làm. Lịch dùng giờ Việt Nam, có ngày/tuần, bộ lọc, nguồn và giải thích tác động; cập nhật cùng lượt tổng hợp 21:30. Xem [hợp đồng dữ liệu và quy trình](docs/economic-calendar.md). Không có kết nối tự động tới Forex Factory hoặc cập nhật kết quả trực tiếp theo giây.
 
 ## Giao diện và nhịp đọc
+
+- Mở trang thấy ngay bốn thẻ thị trường; lịch thu gọn mặc định (nhớ lựa chọn trên từng trình duyệt), tự mở khi URL có `?date=` hoặc `view=week`.
+- Nút ‹ › cạnh ngày bản tin chuyển giữa các ngày đã lưu (theo tuần khi xem tổng hợp tuần). Phím tắt: `/` tìm kiếm, `[` `]` bản trước/sau, ⌘/Ctrl+B thanh điều hướng.
+- Tìm kiếm không cần dấu, đánh dấu kết quả; Enter (Shift+Enter) nhảy tới kết quả kế tiếp, Esc xóa.
+- Thanh điều hướng tự đánh dấu mục đang đọc; nút lên đầu trang xuất hiện khi đọc sâu.
+- Giao diện sáng/tối/tự động ở góc phải thanh trên cùng.
+- Thẻ không đọc được bảng hiện "Chưa có số liệu dạng bảng" kèm link tới mục chứa số liệu (xem `docs/dashboard-tables.md`).
+- Trạng thái đầu trang theo lịch xuất bản 21:30: trước giờ đó, bản tin hôm qua là bình thường (màu trung tính); chỉ cảnh báo khi bản tin cũ hơn một ngày.
 
 - `dist/tokens.css`: màu của giao diện sáng, chữ, trạng thái tăng/giảm, khoảng cách và kích thước dòng đọc.
 - `dist/styles.css`: các thành phần và bố cục responsive hiện có; renderer JavaScript tiếp tục dựng giao diện theo dữ liệu.

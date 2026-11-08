@@ -1,4 +1,4 @@
-/* 1. Shared design tokens — keep the existing light presentation. */
+/* 1. Shared design tokens — light by default, dark via system setting or the topbar toggle. */
 :root {
   color-scheme: light;
 
@@ -49,6 +49,8 @@
   --marker-event: #9A6A24;
   --implication-bg: #EEF4F9;
   --implication-line: #7596B8;
+  --highlight: rgba(250, 204, 21, 0.38);
+  --highlight-current: rgba(249, 115, 22, 0.45);
 
   /* Type and reading rhythm; no remote font dependency. */
   --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', Arial, sans-serif;
@@ -72,6 +74,92 @@
   --space-8: 2rem;
   --radius-card: 20px;
   --radius-small: 16px;
+}
+
+/* Dark palette: desaturated slate surfaces, lighter accents; every text pair keeps ≥4.5:1. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0B1120;
+  --surface: #111827;
+  --elevated: #1B2433;
+  --line: #273246;
+  --glass-line: rgba(148, 163, 184, 0.16);
+  --grid: rgba(148, 163, 184, 0.16);
+  --overlay: rgba(2, 6, 23, 0.62);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-control: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --ink: #E6EAF0;
+  --body-copy: #CBD3DF;
+  --muted: #98A4B5;
+  --tertiary: #8D99AA;
+  --accent: #7DB2F2;
+  --primary-hover: #FFFFFF;
+  --tint: rgba(125, 178, 242, 0.13);
+  --success-line: #2C4669;
+  --green: #4ADE9F;
+  --change-down: #FB8197;
+  --change-up-bg: rgba(74, 222, 159, 0.13);
+  --change-down-bg: rgba(251, 129, 151, 0.14);
+  --chart-up: #3FC48E;
+  --chart-down: #F07A90;
+  --orange: #F4BB72;
+  --warning-bg: rgba(244, 187, 114, 0.10);
+  --warning-line: rgba(244, 187, 114, 0.34);
+  --estimate: #E8C872;
+  --estimate-bg: rgba(232, 200, 114, 0.12);
+  --opinion: #C9B8FF;
+  --opinion-bg: rgba(201, 184, 255, 0.12);
+  --marker-slate: #98A4B5;
+  --marker-gold: #E2B353;
+  --marker-energy: #EB9762;
+  --marker-event: #DDA94A;
+  --implication-bg: rgba(125, 178, 242, 0.08);
+  --implication-line: #5D88B8;
+  --highlight: rgba(250, 204, 21, 0.30);
+  --highlight-current: rgba(249, 115, 22, 0.50);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0B1120;
+    --surface: #111827;
+    --elevated: #1B2433;
+    --line: #273246;
+    --glass-line: rgba(148, 163, 184, 0.16);
+    --grid: rgba(148, 163, 184, 0.16);
+    --overlay: rgba(2, 6, 23, 0.62);
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-control: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --ink: #E6EAF0;
+    --body-copy: #CBD3DF;
+    --muted: #98A4B5;
+    --tertiary: #8D99AA;
+    --accent: #7DB2F2;
+    --primary-hover: #FFFFFF;
+    --tint: rgba(125, 178, 242, 0.13);
+    --success-line: #2C4669;
+    --green: #4ADE9F;
+    --change-down: #FB8197;
+    --change-up-bg: rgba(74, 222, 159, 0.13);
+    --change-down-bg: rgba(251, 129, 151, 0.14);
+    --chart-up: #3FC48E;
+    --chart-down: #F07A90;
+    --orange: #F4BB72;
+    --warning-bg: rgba(244, 187, 114, 0.10);
+    --warning-line: rgba(244, 187, 114, 0.34);
+    --estimate: #E8C872;
+    --estimate-bg: rgba(232, 200, 114, 0.12);
+    --opinion: #C9B8FF;
+    --opinion-bg: rgba(201, 184, 255, 0.12);
+    --marker-slate: #98A4B5;
+    --marker-gold: #E2B353;
+    --marker-energy: #EB9762;
+    --marker-event: #DDA94A;
+    --implication-bg: rgba(125, 178, 242, 0.08);
+    --implication-line: #5D88B8;
+    --highlight: rgba(250, 204, 21, 0.30);
+    --highlight-current: rgba(249, 115, 22, 0.50);
+  }
 }
 
 @media (max-width: 559px) {

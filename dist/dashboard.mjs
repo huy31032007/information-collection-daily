@@ -82,17 +82,43 @@ export function readDashboardData(sections) {
 
 const listCache = new WeakMap();
 const metricSlots = [
-  { label: 'VN-Index', tone: 'teal', select: data => data.indices.find(row => row.label === 'VN-Index') },
-  { label: 'VN30', tone: 'slate', select: data => data.indices.find(row => row.label === 'VN30') },
-  { label: 'Vàng miếng SJC', tone: 'amber', select: data => data.gold },
-  { label: 'Dầu Brent', tone: 'orange', select: data => data.oil },
+  { key: 'vnIndex', label: 'VN-Index', tone: 'teal', section: '2', sectionName: 'Chứng khoán', select: data => data.indices.find(row => row.label === 'VN-Index') },
+  { key: 'vn30', label: 'VN30', tone: 'slate', section: '2', sectionName: 'Chứng khoán', select: data => data.indices.find(row => row.label === 'VN30') },
+  { key: 'gold', label: 'Vàng miếng SJC', tone: 'amber', section: '3', sectionName: 'Giá vàng', select: data => data.gold },
+  { key: 'oil', label: 'Dầu Brent', tone: 'orange', section: '4', sectionName: 'Xăng dầu', select: data => data.oil },
 ];
+
+// Table shapes the cards can read; shown by the preflight check when a card would be empty.
+export const DASHBOARD_TABLE_HINTS = {
+  vnIndex: 'Mục 2 cần bảng "| Chỉ số | Mức đóng cửa (điểm) | Thay đổi | Thời điểm |", câu ngay trên bảng có "so với …", dòng "VN-Index", cột Thay đổi dạng "-15,37 điểm; -0,88%", thời điểm có giờ và ngày, và dòng "Nguồn: [..](..)" ngay sau bảng.',
+  vn30: 'Mục 2 cần dòng "VN30" trong cùng bảng chỉ số, đủ mức, thay đổi và thời điểm.',
+  gold: 'Mục 3 cần bảng có cột "Mua vào", "Bán ra", "Thời điểm" và dòng "Vàng miếng SJC" (giá kèm đơn vị đồng/lượng, thời điểm có ngày dd/mm), cộng dòng "Nguồn:" sau bảng.',
+  oil: 'Mục 4 cần bảng có cột đầu "Giá dầu tham chiếu", đúng một dòng "Brent" hoặc "Brent giao tháng mm/yyyy" với giá dạng "98,32 USD/thùng", đoạn ngay trên bảng có giờ HH:MM và ngày dd/mm, cộng dòng "Nguồn:" sau bảng.',
+  chart: 'Biểu đồ dùng cột Thay đổi của bảng chỉ số ở mục 2 (cần đúng một giá trị %).',
+  insight: 'Mục 2 cần một đoạn bắt đầu bằng "**Nhận định:**".',
+};
+// Pure check (no DOM) so scripts can warn before publishing a report the dashboard cannot read.
+export function dashboardCoverage(sections) {
+  const data = readDashboardData(sections);
+  const coverage = Object.fromEntries(metricSlots.map(slot => [slot.key, Boolean(slot.select(data))]));
+  coverage.chart = data.indices.some(row => row.percent);
+  coverage.insight = Boolean(data.insight);
+  return coverage;
+}
 
 function make(tag, text, className) {
   const node = document.createElement(tag);
   if (text != null) node.textContent = text;
   if (className) node.className = className;
   return node;
+}
+
+function sectionLink(section, label) {
+  const link = make('a', null, 'section-jump');
+  link.href = '#section-' + section;
+  link.append(document.createTextNode(label), make('span', '→'));
+  link.lastChild.setAttribute('aria-hidden', 'true');
+  return link;
 }
 
 function appendSources(parent, list = []) {
@@ -139,8 +165,10 @@ function metric(data, slot) {
   if (data?.section === '3') heading.append(document.createTextNode(' '), make('span', 'Bán ra', 'market-price-side'));
   card.append(heading);
   if (!data) {
-    card.append(make('p', 'Chưa có số liệu phù hợp', 'metric-empty'),
-      make('p', 'Xem dữ kiện và giới hạn trong bản tin bên dưới.', 'market-meta'));
+    card.classList.add('is-empty');
+    card.append(make('p', 'Chưa có số liệu dạng bảng', 'metric-empty'),
+      make('p', 'Bản tin ngày này ghi số liệu trong phần văn bản, chưa đủ cấu trúc để dựng thẻ.', 'market-meta'),
+      sectionLink(slot.section, 'Đọc trong mục ' + slot.sectionName));
     return card;
   }
   const quote = make('div', null, 'market-quote');
@@ -179,7 +207,7 @@ function chart(snapshot) {
   const card = panel('Biến động các chỉ số', '% thay đổi', 'panel-tag', 'chart-panel');
   const values = snapshot.indices.filter(row => row.percent), table = snapshot.stockTable;
   if (!values.length) {
-    card.append(make('p', 'Chưa có dữ liệu và mốc so sánh phù hợp để vẽ biểu đồ.', 'chart-empty'));
+    card.append(make('p', 'Chưa có bảng chỉ số kèm mốc so sánh để vẽ biểu đồ cho ngày này.', 'chart-empty'), sectionLink('2', 'Đọc diễn biến trong mục Chứng khoán'));
     return card;
   }
   card.append(make('p', values[0].time.split(' · ')[0], 'chart-date'));
