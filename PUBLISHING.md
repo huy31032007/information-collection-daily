@@ -1,5 +1,13 @@
 # Xuất bản bản tin qua GitHub và Cloudflare Workers
 
+> **Từ 08/11/2026:** lượt 21:30 do lịch Claude chạy trên cloud (không phụ thuộc máy Mac), theo [docs/daily-routine.md](docs/daily-routine.md); heartbeat Codex được thay thế. Thay đổi so với phần dưới:
+> - Ghi dữ liệu bằng `npm run write < tệp.json` (writer + dựng `dist/data/market-series.json` cho biểu đồ diễn biến); `npm run check` báo lỗi nếu tệp chuỗi cũ.
+> - Ngày bị lỡ được bù bằng bản `"edition": "backfill"`, tiêu đề "(làm bù)", chốt theo giờ soạn thật; writer giữ `latest.json` khi bản bù cũ hơn bản mới nhất. Lượt hằng ngày tự bù tối đa 2 ngày thiếu trong 7 ngày gần nhất.
+> - Mục 9 và câu "Nguồn: …" vẫn bắt buộc trong dữ liệu nhưng không hiển thị trên website.
+> - Mỗi mục 1–8 mở bằng `**Ý chính:**` và kết bằng `**Theo dõi tiếp:**` ([khung phân tích](docs/analysis-framework.md)).
+>
+> Phần dưới giữ làm tài liệu tham chiếu về guard, Cloudflare và lịch sử quyết định.
+
 Đây là bước xuất bản sau quy trình tổng hợp hiện có, không phải quy trình thu thập tin mới. Không tạo thêm automation, API, database hoặc dùng OpenAI API key. Chỉ cập nhật nội dung bản tin, giữ giao diện và tính năng hiện tại.
 
 ## Đích xuất bản chính — GitHub và Cloudflare

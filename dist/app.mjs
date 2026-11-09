@@ -1,4 +1,4 @@
-import { enhanceSourceLinks, enhanceReportSources } from './source-ui.mjs';
+import { renderTrendPanel } from './trend-chart.mjs';
 import { createEconomicCalendar } from './economic-calendar-ui.mjs';
 import { enhanceMarketLearning, enhanceReportLearning } from './learning-ui.mjs';
 import { TOPICS, TIMEZONE, PUBLICATION_TIME, validateNewsletter, parseSections, extractSources, formatTime, editionStatus, filterSections, normalizeText, vietnamDate } from './lib.mjs';
@@ -138,7 +138,7 @@ for (const topic of TOPICS) {
 }
 function resetFilters() {
   state.filters = { topic: 'all', source: '', period: 'any', query: '' };
-  byId('search').value = ''; byId('source-filter').value = ''; render();
+  byId('search').value = ''; render();
 }
 let searchTimer = 0;
 byId('search').addEventListener('input', event => { clearTimeout(searchTimer); searchTimer = setTimeout(() => { state.filters.query = event.target.value; render(); }, 140); });
@@ -153,7 +153,6 @@ byId('search').addEventListener('keydown', event => {
   next.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   byId('result-count').textContent = searchSummary(hits.length, hits.indexOf(next) + 1);
 });
-byId('source-filter').addEventListener('change', event => { state.filters.source = event.target.value; render(); });
 byId('clear-filters').addEventListener('click', () => { resetFilters(); byId('search').focus(); });
 
 function clearHighlights(root) {
@@ -193,15 +192,15 @@ function render() {
   const content = byId('report-content');
   for (const button of byId('topics').children) button.setAttribute('aria-pressed', String(button.dataset.topic === state.filters.topic));
   if (!state.report) { content.replaceChildren(); return; }
-  const sections = filterSections(state.sections, state.report, state.filters);
+  // Section 9 (sources) stays in the data for verification but is not shown to readers.
+  const sections = filterSections(state.sections, state.report, state.filters).filter(section => section.id !== '9');
   byId('no-results').hidden = sections.length !== 0;
   const count = sections.filter(s => s.id !== 'glossary').length;
-  byId('result-count').textContent = `${count} / 9 chuyên mục${sections.some(s => s.id === 'glossary') ? ' · kèm giải thích thuật ngữ' : ''}`;
+  byId('result-count').textContent = `${count} / 8 chuyên mục${sections.some(s => s.id === 'glossary') ? ' · kèm giải thích thuật ngữ' : ''}`;
   renderReportList(content, sections);
   enhanceReportLearning(content);
-  enhanceReportSources(content, sections);
   const hits = highlightMatches(content, state.filters.query);
-  if (state.filters.query.trim().length >= 2 && sections.length) byId('result-count').textContent = `${count} / 9 chuyên mục · ` + searchSummary(hits);
+  if (state.filters.query.trim().length >= 2 && sections.length) byId('result-count').textContent = `${count} / 8 chuyên mục · ` + searchSummary(hits);
   observeSections();
 }
 function setDayMetadata(report) {
@@ -209,23 +208,30 @@ function setDayMetadata(report) {
   const cutoffDate = vietnamDate(new Date(report.cutoffAt));
   byId('cutoff-time').textContent = 'Chốt ' + new Intl.DateTimeFormat('vi-VN', { timeZone: TIMEZONE, hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(report.cutoffAt)) + (cutoffDate !== report.reportDate ? ' · ' + dateLabel(cutoffDate) : '');
   byId('coverage').textContent = formatTime(report.coverageStart, { year: undefined, second: undefined }) + ' → ' + formatTime(report.coverageEnd, { year: undefined, second: undefined });
-  const sources = [...new Set(extractSources(report.markdown).map(source => source.name))].sort((a, b) => a.localeCompare(b, 'vi'));
-  byId('source-count').textContent = String(sources.length); byId('section-count').textContent = '09';
+  byId('section-count').textContent = '08';
   byId('exported-at').textContent = shortTime(report.exportedAt);
-  const options = [new Option('Tất cả nguồn', ''), ...sources.map(source => new Option(source, source))]; byId('source-filter').replaceChildren(...options);
-  if (!sources.includes(state.filters.source)) state.filters.source = ''; byId('source-filter').value = state.filters.source;
 }
 function installReport(report) {
   state.report = report; const parsed = parseSections(report.markdown); state.sections = parsed.sections;
   renderDashboard(byId('market-overview'), state.sections, report);
   enhanceMarketLearning(byId('market-overview'));
-  enhanceSourceLinks(byId('market-overview'));
+  void mountTrend(report.reportDate);
   setDayMetadata(report);
   byId('report-context').replaceChildren(renderMarkdown(parsed.intro));
   render();
 }
+// The trend chart loads its series once, lazily, and re-mounts whenever the dashboard re-renders.
+let seriesPromise = null;
+async function mountTrend(currentDate) {
+  seriesPromise ??= fetchJSON('./data/market-series.json', 2_000_000).catch(error => { seriesPromise = null; throw error; });
+  try {
+    const series = await seriesPromise; const slot = byId('trend-slot'); if (!slot) return;
+    renderTrendPanel(slot, { series, currentDate, onSelectDate: date => { if (date === state.latest?.reportDate) goLatest(); else selectDate(date, 'day'); byId('market-overview').scrollIntoView({ block: 'start' }); } });
+  } catch { byId('trend-slot')?.replaceChildren(make('p', 'Chưa tải được dữ liệu diễn biến. Hãy làm mới để thử lại.', 'chart-empty')); }
+}
 function freshStatus(report) {
   const edition = `bản tin ngày ${dateLabel(report.reportDate)} (chốt ${shortTime(report.cutoffAt)})`;
+  if (report.edition === 'backfill') { status(`Đang xem bản làm bù cho ngày ${dateLabel(report.reportDate)}, soạn lúc ${shortTime(report.cutoffAt)}. Thông tin sau ngày ${dateLabel(report.reportDate, { year: undefined })} được ghi riêng trong bản tin.`, 'info'); return; }
   if (!state.followingLatest) { status(`Đang xem ${edition} trong kho lưu trữ. Giá giữ đúng thời điểm nguồn của ngày đó.`, 'info'); return; }
   const stage = editionStatus(report);
   if (stage === 'today') status(`Bản tin hôm nay · chốt ${shortTime(report.cutoffAt)} giờ Việt Nam. Giá là dữ liệu tại thời điểm nguồn, không phải báo giá trực tiếp.`);
@@ -245,7 +251,7 @@ async function fetchJSON(url, limit = 600_000) {
 }
 function knownEntries() {
   const entries = [...(state.index?.reports || [])];
-  if (state.latest) { const i = entries.findIndex(entry => entry.reportDate === state.latest.reportDate); const row = { reportDate: state.latest.reportDate, cutoffAt: state.latest.cutoffAt, title: state.latest.title }; if (i < 0) entries.push(row); else if (Date.parse(state.latest.cutoffAt) > Date.parse(entries[i].cutoffAt)) entries[i] = row; }
+  if (state.latest) { const i = entries.findIndex(entry => entry.reportDate === state.latest.reportDate); const row = { reportDate: state.latest.reportDate, cutoffAt: state.latest.cutoffAt, title: state.latest.title, ...(state.latest.edition ? { edition: state.latest.edition } : {}) }; if (i < 0) entries.push(row); else if (Date.parse(state.latest.cutoffAt) > Date.parse(entries[i].cutoffAt)) entries[i] = row; }
   return entries;
 }
 function refreshCalendar() {
@@ -292,7 +298,7 @@ function showMode() {
 function clearDay(message) {
   state.report = null; state.sections = []; byId('report-content').replaceChildren(); byId('report-context').replaceChildren();
   renderDashboard(byId('market-overview'), [], null); byId('report-date').textContent = dateLabel(state.date); byId('cutoff-time').textContent = 'Chưa có mốc chốt dữ liệu';
-  byId('coverage').textContent = '—'; byId('source-count').textContent = '—'; byId('section-count').textContent = '—'; byId('exported-at').textContent = '—'; byId('source-filter').replaceChildren(new Option('Tất cả nguồn', ''));
+  byId('coverage').textContent = '—'; byId('section-count').textContent = '—'; byId('exported-at').textContent = '—';
   byId('result-count').textContent = 'Chưa có nội dung cho ngày được chọn'; byId('no-results').hidden = false; byId('no-results').querySelector('h2').textContent = 'Chưa có bản tin ngày ' + dateLabel(state.date); byId('no-results').querySelector('p').textContent = message;
   byId('reset-empty').textContent = 'Xem bản tin gần nhất';
 }
@@ -318,8 +324,6 @@ async function loadSelection({ quiet = false } = {}) {
     const failures = entries.filter((_, i) => results[i].status === 'rejected').map(entry => entry.reportDate);
     const changed = state.weekKey !== range.start || JSON.stringify(state.weekFailures) !== JSON.stringify(failures) || JSON.stringify(state.weekReports) !== JSON.stringify(reports);
     state.selectionLoading = false; state.weekReports = reports; state.weekFailures = failures; state.weekKey = range.start;
-    const sources = [...new Set(reports.flatMap(report => extractSources(report.markdown).map(source => source.name)))].sort((a, b) => a.localeCompare(b, 'vi'));
-    byId('source-filter').replaceChildren(new Option('Tất cả nguồn', ''), ...sources.map(source => new Option(source, source))); if (!sources.includes(state.filters.source)) state.filters.source = ''; byId('source-filter').value = state.filters.source;
     if (changed || !quiet) render(); byId('weekly-content').setAttribute('aria-busy', 'false');
     byId('cutoff-time').textContent = `${reports.length} / 7 ngày có bản tin`;
     status(`Tổng hợp tuần ${dateLabel(range.start)} – ${dateLabel(range.end)} từ ${reports.length} ngày đã lưu.${failures.length ? ' Có bản tin tải lỗi; dữ liệu tuần chưa đầy đủ.' : reports.length < 7 ? ' Chưa đủ dữ liệu cả tuần.' : ''} Giá và nhận định giữ mốc của từng bản tin.`, failures.length ? 'error' : reports.length < 7 ? 'warning' : '');
@@ -336,7 +340,7 @@ async function loadSelection({ quiet = false } = {}) {
     }
     const previous = state.report; const changed = !previous || ['markdown','cutoffAt','title','reportDate','coverageStart','coverageEnd'].some(key => report[key] !== previous[key]);
     if (changed) installReport(report); else { state.report = report; setDayMetadata(report); }
-    byId('no-results').querySelector('h2').textContent = 'Không có mục phù hợp'; byId('no-results').querySelector('p').textContent = 'Thử đổi từ khóa, chủ đề hoặc nguồn.'; byId('reset-empty').textContent = 'Xem bản tin gần nhất'; freshStatus(report);
+    byId('no-results').querySelector('h2').textContent = 'Không có mục phù hợp'; byId('no-results').querySelector('p').textContent = 'Thử đổi từ khóa hoặc chủ đề.'; byId('reset-empty').textContent = 'Xem bản tin gần nhất'; freshStatus(report);
   } catch (error) {
     if (request !== state.selectionRequest) return;
     if (!state.report || state.report.reportDate !== date) clearDay('Không tải được bản tin đúng ngày bạn chọn. Hãy thử làm mới.');
@@ -385,12 +389,12 @@ function updateURL() {
 }
 function selectDate(date, mode = state.mode) {
   if (!validDate(date)) return; state.date = date; state.mode = mode; state.followingLatest = false; state.month = date.slice(0, 7);
-  state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = ''; byId('source-filter').value = '';
+  state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = '';
   updateURL(); void loadSelection();
 }
 function goLatest() {
   if (!state.latest) { void loadReport(); return; } state.mode = 'day'; state.followingLatest = true; state.date = state.latest.reportDate; state.month = state.date.slice(0, 7);
-  state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = ''; byId('source-filter').value = ''; updateURL(); void loadSelection();
+  state.filters = { topic: 'all', source: '', period: 'any', query: '' }; byId('search').value = ''; updateURL(); void loadSelection();
 }
 function moveMonth(delta) { const date = new Date(state.month + '-01T12:00:00Z'); date.setUTCMonth(date.getUTCMonth() + delta); state.month = date.toISOString().slice(0, 7); refreshCalendar(); }
 function moveCalendarFocus(date, days) { const target = addDays(date, days); state.month = target.slice(0, 7); refreshCalendar(); for (const button of byId('calendar-grid').children) button.tabIndex = button.dataset.calendarDate === target ? 0 : -1; byId('calendar-grid').querySelector('[data-calendar-date="' + target + '"]')?.focus(); }

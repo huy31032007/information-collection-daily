@@ -183,7 +183,7 @@ function metric(data, slot) {
     const pair = make('div', null, 'market-detail-row');
     pair.append(make('dt', row.label), make('dd', row.value)); details.append(pair);
   }
-  card.append(details); appendSources(card, data.sources);
+  card.append(details);
   return card;
 }
 
@@ -240,7 +240,6 @@ function chart(snapshot) {
   const legend = make('p', null, 'plot-legend');
   legend.append(make('span', '+ Tăng', 'increase'), make('span', '− Giảm', 'decrease')); card.append(legend);
   card.append(make('p', 'So sánh phần trăm thay đổi, không so sánh số điểm giữa các bộ chỉ số. Thời điểm từng chỉ số có thể khác nhau.', 'chart-note'));
-  appendSources(card, table.sources);
   const disclosure = make('details', null, 'chart-details');
   disclosure.append(make('summary', 'Xem bảng số liệu và chú thích nguồn'), snapshotTable(table), renderMarkdown(table.after));
   card.append(disclosure);
@@ -278,7 +277,8 @@ export function renderDashboard(container, sections, report) {
     body.append(snapshot.insight ? renderMarkdown(snapshot.insight) : make('p', 'Chưa có nhận định phù hợp trong bản tin.'));
     const link = make('a', 'Đọc phân tích và các kịch bản →', 'read-analysis'); link.href = '#section-2';
     insight.append(body, link); panels.append(chart(snapshot), insight);
-    nodes.push(heading, metrics, panels, framework());
+    const trendSlot = make('div', null, 'trend-slot'); trendSlot.id = 'trend-slot';
+    nodes.push(heading, metrics, trendSlot, panels, framework());
     if (Array.isArray(report.academic_feed)) nodes.push(renderAcademicFeed(report));
   }
   container.replaceChildren(...nodes);

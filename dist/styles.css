@@ -279,3 +279,51 @@ svg.empty-symbol{width:40px;height:40px;color:var(--accent);stroke-width:1.5}
 .history-panel.is-collapsed{padding-block:16px}
 .history-panel.is-collapsed .history-toolbar p{display:none}
 @media(max-width:559px){.edition-card #refresh{width:44px;padding:0;flex:none}.edition-card #refresh span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.edition-kicker{white-space:nowrap}}
+
+/* ── Reader-first sections, hidden provenance, interactive trends (Nov 2026) ─ */
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* Sources and verification stay in the data, not on the page. */
+.dashboard-sources,.event-source-links,.event-metric-sources,.source-role-badge,.source-directory{display:none!important}
+
+/* "Ý chính" opens every section; "Theo dõi tiếp" closes it. */
+.section-body>p.callout{max-width:var(--reading-measure);margin-inline:auto;padding:14px 16px;border-radius:12px;line-height:1.65}
+.section-body>p.key-point{background:var(--tint);border:1px solid var(--success-line);color:var(--ink);font-size:calc(var(--reading-size) * 1.02)}
+.section-body>p.key-point strong:first-child{color:var(--accent)}
+.section-body>p.follow-up{background:var(--elevated);border-left:3px solid var(--implication-line);border-radius:0 12px 12px 0;font-size:var(--learning-size)}
+.section-body>p.callout:first-child{margin-top:0}
+
+/* Interactive trend chart. */
+.trend-panel{margin-bottom:22px}
+.trend-intro{font-size:13px;line-height:1.6;color:var(--muted);margin:-8px 0 16px}
+.trend-controls{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-bottom:14px}
+.trend-tabs,.trend-ranges{display:flex;flex-wrap:wrap;gap:4px;padding:4px;background:var(--elevated);border-radius:12px}
+.trend-tabs button,.trend-ranges button{border:0;background:transparent;color:var(--muted);min-height:40px;padding:8px 14px;border-radius:9px;font-size:13px;white-space:nowrap}
+.trend-tabs button[aria-selected=true],.trend-ranges button[aria-pressed=true]{background:var(--surface);color:var(--ink);font-weight:650;box-shadow:var(--shadow-control)}
+.trend-tabs button:hover,.trend-ranges button:hover{color:var(--ink)}
+.trend-summary{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;font-size:14px;line-height:1.6;margin:0 0 10px;font-variant-numeric:tabular-nums}
+.trend-summary strong{font-weight:650}
+.trend-meta{color:var(--muted);font-size:13px}
+.trend-plot{position:relative;min-width:0;border-radius:12px;outline-offset:4px;cursor:crosshair;touch-action:pan-y}
+.trend-svg{display:block;width:100%;height:auto;overflow:visible}
+.trend-grid{stroke:var(--grid);stroke-width:1}
+.trend-axis{fill:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+.trend-line{fill:none;stroke:var(--accent);stroke-width:2.25;stroke-linejoin:round;stroke-linecap:round}
+.trend-line-secondary{stroke:var(--marker-slate);stroke-width:1.75;stroke-dasharray:5 4}
+.trend-gap{stroke:var(--muted);stroke-width:1.25;stroke-dasharray:2 4;opacity:.7}
+.trend-dot{fill:var(--surface);stroke:var(--accent);stroke-width:2;transition:r .12s ease}
+.trend-dot.is-current{fill:var(--accent)}
+.trend-dot.is-active{r:6;fill:var(--accent)}
+.trend-cursor{stroke:var(--tertiary);stroke-width:1;stroke-dasharray:3 3}
+.trend-tooltip{position:absolute;z-index:2;display:grid;gap:2px;min-width:170px;max-width:240px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:0 8px 24px rgba(15,23,42,.16);font-size:12px;line-height:1.5;color:var(--body-copy);pointer-events:none;font-variant-numeric:tabular-nums}
+.trend-tooltip strong{color:var(--ink);font-size:13px}
+.trend-tooltip-hint{color:var(--accent);margin-top:2px}
+.trend-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:12px;color:var(--muted)}
+.trend-legend-item{display:inline-flex;align-items:center;gap:6px}
+.trend-swatch{display:inline-block;width:18px;height:0;border-top:2.5px solid var(--accent)}
+.trend-swatch.secondary{border-top:2px dashed var(--marker-slate)}
+.trend-swatch.gap{border-top:1.5px dotted var(--muted)}
+.trend-swatch.current{width:10px;height:10px;border:0;border-radius:50%;background:var(--accent)}
+.trend-slot{min-height:120px}
+@media(max-width:559px){.trend-controls{flex-direction:column}.trend-tabs,.trend-ranges{width:100%}.trend-tabs button,.trend-ranges button{flex:1;padding-inline:6px}.trend-tooltip{min-width:150px}}
+@media(prefers-reduced-motion:reduce){.trend-dot{transition:none}}

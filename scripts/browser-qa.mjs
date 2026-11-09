@@ -14,10 +14,9 @@ const report = JSON.parse(await readFile(new URL('../dist/data/latest.json', imp
 // Derive expectations from the published report instead of a fixed day.
 const { parseSections } = await import('../dist/lib.mjs');
 const parsed = parseSections(report.markdown).sections;
-const sectionCount = parsed.length;
-const goldSource = parsed.find(section => section.id === '3')?.sources[0];
+const sectionCount = parsed.filter(section => section.id !== '9').length; // section 9 is hidden on the site
 const browser = await chromium.launch({ headless: true, executablePath: chromium.executablePath() }); const results = { viewports: [], states: [], interactions: [] };
-const ready = async page => { await page.waitForSelector('#section-9'); await page.waitForFunction(() => document.querySelector('#report-content').getAttribute('aria-busy') === 'false'); };
+const ready = async page => { await page.waitForSelector('#section-8'); await page.waitForFunction(() => document.querySelector('#report-content').getAttribute('aria-busy') === 'false'); };
 try {
   const page = await browser.newPage(); const errors = []; page.on('pageerror', error => errors.push(error.message));
   for (const width of [320, 360, 390, 768, 1024, 1280]) {
@@ -26,11 +25,11 @@ try {
     assert.ok(geometry.scrollWidth <= width + 1, `Horizontal overflow at ${width}: ${geometry.scrollWidth}`); assert.equal(geometry.cards, sectionCount); assert.equal(geometry.unsafeLinks, 0); assert.equal(geometry.misplacedCells, 0);
     results.viewports.push({ ...geometry, passed: true });
     if (width === 390 || width === 1280) await page.screenshot({ path: artifactDirectory + `top-${width}.png` });
-    if (width === 390) { await page.locator('#section-2').scrollIntoViewIfNeeded(); await page.screenshot({ path: artifactDirectory + 'stocks-390.png' }); await page.locator('#section-9').scrollIntoViewIfNeeded(); await page.screenshot({ path: artifactDirectory + 'sources-390.png' }); }
+    if (width === 390) { await page.locator('#section-2').scrollIntoViewIfNeeded(); await page.screenshot({ path: artifactDirectory + 'stocks-390.png' }); await page.locator('#section-8').scrollIntoViewIfNeeded(); await page.screenshot({ path: artifactDirectory + 'outlook-390.png' }); }
   }
   await page.setViewportSize({ width: 390, height: 900 });
   await page.locator('[data-topic="3"]').click(); assert.equal(await page.locator('.report-section').count(), 1); assert.equal(await page.locator('#section-3').count(), 1);
-  if (goldSource) { await page.locator('#source-filter').selectOption({ label: goldSource.name }); assert.equal(await page.locator('.report-section').count(), 1); }
+  
   await page.locator('#search').fill('vang'); await page.waitForTimeout(250); assert.equal(await page.locator('.report-section').count(), 1); assert.ok(await page.locator('mark.search-hit').count() > 0); results.interactions.push('topic/source/accent-insensitive search');
   await page.locator('#search').fill('no-such-financial-keyword'); await page.waitForTimeout(250); assert.equal(await page.locator('.report-section').count(), 0); assert.equal(await page.locator('#no-results').isVisible(), true); results.states.push('filtered-empty');
   await page.locator('#reset-empty').click(); assert.equal(await page.locator('.report-section').count(), sectionCount);

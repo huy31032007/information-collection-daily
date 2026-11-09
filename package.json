@@ -10,7 +10,9 @@
     "enrich": "node scripts/enrich-newsletter.mjs",
     "publish:newsletter": "node scripts/enrich-newsletter.mjs | node scripts/write-newsletter.mjs",
     "preview": "node scripts/preview.mjs",
-    "qa:browser": "node scripts/browser-qa.mjs"
+    "qa:browser": "node scripts/browser-qa.mjs",
+    "build:series": "node scripts/build-series.mjs",
+    "write": "node scripts/write-newsletter.mjs && node scripts/build-series.mjs"
   },
   "dependencies": {
     "rss-parser": "^3.13.0"

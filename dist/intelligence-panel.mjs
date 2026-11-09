@@ -114,7 +114,6 @@ function card(quote, label, tone, report, gold = false) {
       : quote.freshness_note || 'Giá tại thời điểm nguồn, không phải báo giá trực tiếp.';
   article.append(make('p', note,
     'market-freshness ' + (quote.is_stale || historical ? 'is-stale' : '')));
-  addSources(article, quote.sources);
   return article;
 }
 

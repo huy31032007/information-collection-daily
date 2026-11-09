@@ -1,4 +1,4 @@
-import { TIMEZONE, validateNewsletter, reportDateMatchesCutoff, parseSections, extractSources, normalizeText, slashDayMonth } from './lib.mjs';
+import { TIMEZONE, BACKFILL, backfillCutoffValid, validateNewsletter, reportDateMatchesCutoff, parseSections, extractSources, normalizeText, slashDayMonth } from './lib.mjs';
 
 export function validDate(value) {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
@@ -28,7 +28,7 @@ export function validateArchiveIndex(value, { now = new Date() } = {}) {
   if (!value || value.version !== 1 || value.timezone !== TIMEZONE || !Array.isArray(value.reports) || value.reports.length > 10000) throw new Error('Danh sách bản tin đã lưu không hợp lệ.');
   const dates = new Set();
   for (const row of value.reports) {
-    if (!row || !validDate(row.reportDate) || dates.has(row.reportDate) || typeof row.title !== 'string' || !row.title.trim() || row.title.length > 200 || typeof row.cutoffAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(row.cutoffAt) || !Number.isFinite(Date.parse(row.cutoffAt)) || !reportDateMatchesCutoff(row.reportDate, row.cutoffAt) || Date.parse(row.cutoffAt) > now.getTime()) throw new Error('Mốc ngày trong lịch bản tin không hợp lệ.');
+    if (!row || !validDate(row.reportDate) || dates.has(row.reportDate) || typeof row.title !== 'string' || !row.title.trim() || row.title.length > 200 || typeof row.cutoffAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(row.cutoffAt) || !Number.isFinite(Date.parse(row.cutoffAt)) || (row.edition != null && row.edition !== BACKFILL) || !(row.edition === BACKFILL ? backfillCutoffValid(row.reportDate, row.cutoffAt) : reportDateMatchesCutoff(row.reportDate, row.cutoffAt)) || Date.parse(row.cutoffAt) > now.getTime()) throw new Error('Mốc ngày trong lịch bản tin không hợp lệ.');
     dates.add(row.reportDate);
     if (!validDate(row.cutoffAt.slice(0, 10))) throw new Error('Ngày chốt trong lịch không hợp lệ.');
     const time = row.cutoffAt.slice(11, 19).split(':').map(Number);
@@ -38,7 +38,7 @@ export function validateArchiveIndex(value, { now = new Date() } = {}) {
 }
 export function validateArchivedReport(value, entry, options) {
   const report = validateNewsletter(value, options);
-  if (!report || report.reportDate !== entry.reportDate || report.cutoffAt !== entry.cutoffAt) throw new Error('Bản tin đã lưu không khớp ngày hoặc mốc chốt trong lịch.');
+  if (!report || report.reportDate !== entry.reportDate || report.cutoffAt !== entry.cutoffAt || (report.edition ?? null) !== (entry.edition ?? null)) throw new Error('Bản tin đã lưu không khớp ngày hoặc mốc chốt trong lịch.');
   return report;
 }
 export function summarizeWeek(reports, selectedDate) {
@@ -49,7 +49,7 @@ export function summarizeWeek(reports, selectedDate) {
     if (!current || Date.parse(report.cutoffAt) > Date.parse(current.cutoffAt)) unique.set(report.reportDate, report);
   }
   const days = [...unique.values()].sort((a, b) => b.reportDate.localeCompare(a.reportDate));
-  const groups = new Map(['2','3','4','5','6','7','8','9','glossary'].map(id => [id, []])); const queues = [];
+  const groups = new Map(['2','3','4','5','6','7','8','glossary'].map(id => [id, []])); const queues = [];
   for (const report of days) {
     const sections = parseSections(report.markdown).sections;
     for (const section of sections) if (groups.has(section.id)) groups.get(section.id).push({ report, section });

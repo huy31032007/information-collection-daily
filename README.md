@@ -47,6 +47,8 @@ Trong “Lịch bản tin & sự kiện”, chọn ngày hoặc tuần để xem
 - Tìm kiếm không cần dấu, đánh dấu kết quả; Enter (Shift+Enter) nhảy tới kết quả kế tiếp, Esc xóa.
 - Thanh điều hướng tự đánh dấu mục đang đọc; nút lên đầu trang xuất hiện khi đọc sâu.
 - Giao diện sáng/tối/tự động ở góc phải thanh trên cùng.
+- "Diễn biến qua các bản tin": biểu đồ tương tác VN-Index, VN30, vàng SJC (mua/bán), Brent qua các ngày đã lưu; rê chuột/chạm/phím mũi tên để xem từng ngày, bấm điểm để mở bản tin ngày đó, kèm bảng số liệu.
+- Mỗi mục mở bằng ô "Ý chính" và kết bằng "Theo dõi tiếp". Mục nguồn và kiểm chứng không hiển thị (vẫn lưu trong dữ liệu).
 - Thẻ không đọc được bảng hiện "Chưa có số liệu dạng bảng" kèm link tới mục chứa số liệu (xem `docs/dashboard-tables.md`).
 - Trạng thái đầu trang theo lịch xuất bản 21:30: trước giờ đó, bản tin hôm qua là bình thường (màu trung tính); chỉ cảnh báo khi bản tin cũ hơn một ngày.
 

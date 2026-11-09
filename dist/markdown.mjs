@@ -28,6 +28,20 @@ function classification(text) {
   if (/^\*\*(?:Ý kiến|Bình luận)/.test(text)) return ['Opinion', 'Ý kiến / bình luận'];
   return null;
 }
+// Drop the first sentence of a "Nguồn: …" note (the citation list) but keep any explanation after it.
+// The scan is bracket-aware so dots inside link text or URLs never end the sentence.
+export function stripSourceLead(text) {
+  if (!/^\s*(?:\*\*)?Nguồn(?:\*\*)?\s*:/.test(text)) return text;
+  let depth = 0;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (c === '[' || c === '(') depth++;
+    else if ((c === ']' || c === ')') && depth > 0) depth--;
+    else if (c === '.' && depth === 0 && (i === text.length - 1 || /\s/.test(text[i + 1]))) return text.slice(i + 1).trim();
+  }
+  return '';
+}
+const CALLOUTS = [[/^\*\*Ý chính:?\*\*:?/, 'key-point'], [/^\*\*Theo dõi tiếp:?\*\*:?/, 'follow-up']];
 export function renderMarkdown(markdown) {
   const fragment = document.createDocumentFragment();
   const lines = markdown.replace(/\r\n/g, '\n').split('\n');
@@ -62,7 +76,9 @@ export function renderMarkdown(markdown) {
     const paragraph = element('p'); const content = [];
     while (i < lines.length && lines[i].trim() && !/^(?:#{1,6}\s|\||\s*[-*]\s|\d+\.\s)/.test(lines[i])) { content.push(lines[i]); i++; }
     if (!content.length) { content.push(lines[i]); i++; }
-    const text = content.join(' '); const kind = classification(text);
+    const text = stripSourceLead(content.join(' ')); if (!text) continue;
+    const callout = CALLOUTS.find(([pattern]) => pattern.test(text)); if (callout) paragraph.classList.add('callout', callout[1]);
+    const kind = classification(text);
     if (kind) { paragraph.classList.add('classified', kind[0].toLowerCase()); const badge = element('span', kind[0], 'type-badge'); badge.title = kind[1]; paragraph.append(badge); }
     inline(paragraph, text); fragment.append(paragraph);
   }

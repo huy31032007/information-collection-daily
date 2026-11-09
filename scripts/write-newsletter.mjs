@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { setTimeout as delay } from 'node:timers/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { validateNewsletter, parseSections, vietnamDate, TIMEZONE } from '../dist/lib.mjs';
+import { validateNewsletter, parseSections, vietnamDate, TIMEZONE, BACKFILL } from '../dist/lib.mjs';
 import { validateArchiveIndex, validDate, addDays } from '../dist/history.mjs';
 import { validateEconomicCalendar, assertCalendarUpdate } from '../dist/economic-calendar.mjs';
 
@@ -17,7 +17,8 @@ const runtime = fileURLToPath(new URL('../.sites-runtime/', import.meta.url));
 const lockPath = path.join(runtime, 'newsletter-writer.lock');
 const MAX_BYTES = 600_000;
 const CONTENT_KEYS = ['markdown', 'title', 'reportDate', 'coverageStart',
-  'coverageEnd', 'sourceThreadId', 'cutoffAt', 'timezone'];
+  'coverageEnd', 'sourceThreadId', 'cutoffAt', 'timezone', 'edition'];
+const indexRow = ({ reportDate, cutoffAt, title, edition }) => ({ reportDate, cutoffAt, title, ...(edition ? { edition } : {}) });
 
 async function readInput() {
   const chunks = [];
@@ -127,13 +128,18 @@ async function publish(report) {
     throw new Error('Refusing a report from a different pipeline thread.');
   }
   const records = await readArchive(report.sourceThreadId);
-  for (const existing of [current, ...records.values()]) {
-    if (existing && Date.parse(existing.cutoffAt) > Date.parse(report.cutoffAt)) {
+  const backfill = report.edition === BACKFILL;
+  // A backfill only competes with the copy of its own day; backfills never block regular editions.
+  for (const existing of backfill ? [records.get(report.reportDate)] : [current, ...records.values()]) {
+    if (existing && (backfill || existing.edition !== BACKFILL) && Date.parse(existing.cutoffAt) > Date.parse(report.cutoffAt)) {
       throw new Error('Refusing to overwrite a newer stored newsletter.');
     }
   }
-  const unchanged = Boolean(current && current.cutoffAt === report.cutoffAt);
-  if (unchanged && !sameContent(current, report)) {
+  // latest.json follows the newest summarized day; a backfill of an older day leaves it alone.
+  const keepLatest = Boolean(current && backfill && report.reportDate < current.reportDate);
+  const unchanged = keepLatest || Boolean(current && current.cutoffAt === report.cutoffAt);
+  if (keepLatest && current.cutoffAt === report.cutoffAt) throw new Error('Backfill cutoff collides with the latest edition.');
+  if (!keepLatest && unchanged && !sameContent(current, report)) {
     throw new Error('Same cutoff has different content. Preserve it and resolve the conflict.');
   }
   const pending = new Map();
@@ -152,9 +158,9 @@ async function publish(report) {
     pending.set(record.reportDate, record);
   }
   plan(current, true);
-  plan(unchanged ? current : report);
+  plan(keepLatest ? report : unchanged ? current : report);
   const index = validateArchiveIndex({ version: 1, timezone: TIMEZONE,
-    reports: [...records.values()].map(({ reportDate, cutoffAt, title }) => ({ reportDate, cutoffAt, title })) });
+    reports: [...records.values()].map(indexRow) });
   // Validate every serialized payload before changing any published file.
   const writes = [...pending].map(([date, record]) => [path.join(archive, date + '.json'), serialize(record)]);
   if (report.economic_calendar) {
@@ -170,6 +176,7 @@ async function publish(report) {
   await mkdir(archive, { recursive: true });
   // Each file is atomic; publish the archive before its index and latest.
   for (const [file, body] of writes) await atomicWrite(file, body);
+  if (keepLatest) return { unchanged: false, written: pending.size > 0, backfill: report.reportDate, latest: 'kept', cutoffAt: report.cutoffAt, archivedDays: records.size };
   return { unchanged, written: !unchanged, cutoffAt: (unchanged ? current : report).cutoffAt,
     archivedDays: records.size };
 }
@@ -199,7 +206,7 @@ async function reassignDate(report, fromDate) {
   // Only the date and explanatory introduction may change. Retry a partial move safely.
   const corrected = target || report;
   records.delete(fromDate); records.set(corrected.reportDate, corrected);
-  const index = validateArchiveIndex({ version: 1, timezone: TIMEZONE, reports: [...records.values()].map(({ reportDate, cutoffAt, title }) => ({ reportDate, cutoffAt, title })) });
+  const index = validateArchiveIndex({ version: 1, timezone: TIMEZONE, reports: [...records.values()].map(indexRow) });
   const writes = [[path.join(archive, corrected.reportDate + '.json'), serialize(corrected)], [path.join(archive, 'index.json'), serialize(index, 8_000_000)], [latest, serialize(corrected)]];
   for (const [file, body] of writes) await atomicWrite(file, body);
   // Delete only the old copy after its identical-content replacement and pointers are safe.

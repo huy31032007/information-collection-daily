@@ -70,6 +70,12 @@ export function editionStatus(report, now = new Date()) {
   const clock = new Intl.DateTimeFormat('en-GB', { timeZone: TIMEZONE, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(now);
   return clock < PUBLICATION_TIME ? 'awaiting' : 'compiling';
 }
+// A backfill ("làm bù") summarizes a past day but keeps its real, later compile time as
+// cutoffAt. It must cover the day from 00:00 and say so in the title.
+export const BACKFILL = 'backfill';
+export function backfillCutoffValid(reportDate, cutoffAt) {
+  return typeof reportDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(reportDate) && Number.isFinite(Date.parse(cutoffAt)) && vietnamDate(new Date(cutoffAt)) > reportDate;
+}
 export function reportDateMatchesCutoff(reportDate, cutoffAt) {
   if (typeof reportDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(reportDate)) return false;
   const day = new Date(reportDate + 'T12:00:00Z'), cutoff = new Date(cutoffAt);
@@ -95,7 +101,10 @@ export function validateNewsletter(value, { now = new Date() } = {}) {
     if (numbers.some((number, index) => number !== roundTrip[index])) throw new Error('Mốc thời gian bản tin không hợp lệ.');
     if (parts[7] !== 'Z') { const zoneHour = Number(parts[7].slice(1, 3)), zoneMinute = Number(parts[7].slice(4)); if (zoneHour > 14 || zoneMinute > 59 || (zoneHour === 14 && zoneMinute !== 0)) throw new Error('Múi giờ thời điểm không hợp lệ.'); }
   }
-  if (Date.parse(value.coverageStart) >= Date.parse(value.coverageEnd) || Date.parse(value.coverageEnd) !== Date.parse(value.cutoffAt) || !reportDateMatchesCutoff(value.reportDate, value.cutoffAt)) throw new Error('Khoảng tổng hợp không khớp ngày và mốc chốt.');
+  if (value.edition != null && value.edition !== BACKFILL) throw new Error('Loại bản tin không hợp lệ.');
+  const backfill = value.edition === BACKFILL;
+  if (backfill && (!backfillCutoffValid(value.reportDate, value.cutoffAt) || !value.title.includes('(làm bù)'))) throw new Error('Bản làm bù phải chốt sau ngày bản tin và ghi “(làm bù)” trong tiêu đề.');
+  if (Date.parse(value.coverageStart) >= Date.parse(value.coverageEnd) || Date.parse(value.coverageEnd) !== Date.parse(value.cutoffAt) || !(backfill || reportDateMatchesCutoff(value.reportDate, value.cutoffAt))) throw new Error('Khoảng tổng hợp không khớp ngày và mốc chốt.');
   // A late evening edition belongs to the day summarized, with its real next-day cutoff.
   if (vietnamDate(new Date(value.cutoffAt)) !== value.reportDate && Date.parse(value.coverageStart) !== Date.parse(value.reportDate + 'T00:00:00+07:00')) throw new Error('Bản tin cập nhật muộn phải tổng kết từ đầu ngày bản tin.');
   if (Date.parse(value.cutoffAt) > now.getTime() || Date.parse(value.exportedAt) > now.getTime() || Date.parse(value.exportedAt) < Date.parse(value.cutoffAt)) throw new Error('Thời điểm bản tin hoặc xuất bản chưa hợp lệ.');

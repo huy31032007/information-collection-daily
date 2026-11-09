@@ -1,0 +1,590 @@
+{
+  "version": 1,
+  "timezone": "Asia/Ho_Chi_Minh",
+  "series": {
+    "vnIndex": {
+      "label": "VN-Index",
+      "unit": "điểm",
+      "note": "Mức đóng cửa ghi trong bảng chỉ số của bản tin",
+      "points": [
+        {
+          "date": "2026-10-12",
+          "value": 1735.62,
+          "changePct": 0.03,
+          "time": "09:05"
+        },
+        {
+          "date": "2026-10-13",
+          "value": 1719.1,
+          "changePct": -0.11,
+          "time": "09:13:18 ngày 13/10/2026, đang mở cửa"
+        },
+        {
+          "date": "2026-10-14",
+          "value": 1704.87,
+          "changePct": -0.85,
+          "time": "Đóng cửa 14/10/2026; nguồn công bố 17:06"
+        },
+        {
+          "date": "2026-10-15",
+          "value": 1698.35,
+          "changePct": -0.38,
+          "time": "Đóng cửa 15/10/2026; bài đăng 17:15"
+        },
+        {
+          "date": "2026-10-16",
+          "value": 1705.91,
+          "changePct": 0.45,
+          "time": "Đóng cửa 16/10/2026; bài đăng 17:12"
+        },
+        {
+          "date": "2026-10-17",
+          "value": 1705.91,
+          "changePct": 0.45,
+          "time": "Đóng cửa 16/10/2026; bài đăng 17:12"
+        },
+        {
+          "date": "2026-10-18",
+          "value": 1705.91,
+          "changePct": 0.45,
+          "time": "Đóng cửa 16/10/2026; bài đăng 17:12"
+        },
+        {
+          "date": "2026-10-19",
+          "value": 1689.84,
+          "changePct": -0.94,
+          "time": "Đóng cửa 19/10/2026; bài đăng 17:43"
+        },
+        {
+          "date": "2026-10-20",
+          "value": 1691.97,
+          "changePct": 0.13,
+          "time": "Đóng cửa 20/10/2026; bài đăng 17:23"
+        },
+        {
+          "date": "2026-10-21",
+          "value": 1738.67,
+          "changePct": 2.76,
+          "time": "Đóng cửa 21/10/2026; bài tổng hợp 16:20"
+        },
+        {
+          "date": "2026-10-22",
+          "value": 1760.63,
+          "changePct": 1.26,
+          "time": "Kết phiên 22/10/2026; đọc 02:10 ngày 23/10"
+        },
+        {
+          "date": "2026-10-23",
+          "value": 1774.15,
+          "changePct": 0.77,
+          "time": "Kết phiên 23/10/2026; đọc 00:07 ngày 24/10"
+        },
+        {
+          "date": "2026-10-25",
+          "value": 1774.15,
+          "changePct": 0.77,
+          "time": "Kết phiên 23/10/2026; đọc 21:31 ngày 25/10"
+        },
+        {
+          "date": "2026-10-26",
+          "value": 1763.55,
+          "changePct": -0.6,
+          "time": "Kết phiên 26/10/2026; đọc 23:46"
+        },
+        {
+          "date": "2026-10-27",
+          "value": 1761.87,
+          "changePct": -0.1,
+          "time": "Kết phiên 27/10/2026; đọc 21:30"
+        },
+        {
+          "date": "2026-10-28",
+          "value": 1766.65,
+          "changePct": 0.27,
+          "time": "Kết phiên 28/10/2026; đọc 21:36"
+        },
+        {
+          "date": "2026-10-29",
+          "value": 1755.61,
+          "changePct": -0.62,
+          "time": "Kết phiên 29/10/2026; đọc 23:18"
+        },
+        {
+          "date": "2026-10-30",
+          "value": 1741.62,
+          "changePct": -0.8,
+          "time": "Kết phiên 30/10/2026; đọc 22:55"
+        },
+        {
+          "date": "2026-10-31",
+          "value": 1741.62,
+          "changePct": -0.8,
+          "time": "Đóng cửa 30/10/2026; kiểm tra lại 21:28 ngày 01/11"
+        },
+        {
+          "date": "2026-11-01",
+          "value": 1741.62,
+          "changePct": -0.8,
+          "time": "Đóng cửa 30/10/2026; đọc lại 21:43 ngày 01/11"
+        },
+        {
+          "date": "2026-11-02",
+          "value": 1710.72,
+          "changePct": -1.77,
+          "time": "Kết phiên 02/11/2026, khoảng 15:00, UTC+7"
+        },
+        {
+          "date": "2026-11-03",
+          "value": 1699.62,
+          "changePct": -0.65,
+          "time": "Kết phiên 03/11/2026, khoảng 15:00, UTC+7"
+        },
+        {
+          "date": "2026-11-04",
+          "value": 1733.02,
+          "changePct": 1.97,
+          "time": "Kết phiên 04/11/2026; bản tin 16:48"
+        }
+      ]
+    },
+    "vn30": {
+      "label": "VN30",
+      "unit": "điểm",
+      "note": "Mức đóng cửa ghi trong bảng chỉ số của bản tin",
+      "points": [
+        {
+          "date": "2026-10-12",
+          "value": 1876.46,
+          "changePct": 0.16,
+          "time": "Bảng hiển thị 09:08:14"
+        },
+        {
+          "date": "2026-10-13",
+          "value": 1866.85,
+          "changePct": -0.14,
+          "time": "09:13:18 ngày 13/10/2026, đang mở cửa"
+        },
+        {
+          "date": "2026-10-14",
+          "value": 1852.44,
+          "changePct": -0.46,
+          "time": "Đóng cửa 14/10/2026; nguồn công bố 17:06"
+        },
+        {
+          "date": "2026-10-15",
+          "value": 1843.71,
+          "changePct": -0.47,
+          "time": "Đóng cửa 15/10/2026; bài đăng 17:15"
+        },
+        {
+          "date": "2026-10-16",
+          "value": 1855.41,
+          "changePct": 0.63,
+          "time": "Đóng cửa 16/10/2026; bài đăng 17:12"
+        },
+        {
+          "date": "2026-10-17",
+          "value": 1855.41,
+          "changePct": 0.63,
+          "time": "Đóng cửa 16/10/2026; bài đăng 17:12"
+        },
+        {
+          "date": "2026-10-18",
+          "value": 1855.41,
+          "changePct": 0.63,
+          "time": "Đóng cửa 16/10/2026; bài đăng 17:12"
+        },
+        {
+          "date": "2026-10-19",
+          "value": 1839.18,
+          "changePct": -0.87,
+          "time": "Đóng cửa 19/10/2026; bài đăng 17:43"
+        },
+        {
+          "date": "2026-10-20",
+          "value": 1845.51,
+          "changePct": 0.34,
+          "time": "Đóng cửa 20/10/2026; bài đăng 17:23"
+        },
+        {
+          "date": "2026-10-21",
+          "value": 1880.6,
+          "changePct": 1.9,
+          "time": "Đóng cửa 21/10/2026; đọc nguồn 00:26 ngày 22/10; số làm tròn một chữ số"
+        },
+        {
+          "date": "2026-10-22",
+          "value": 1892.98,
+          "changePct": 0.66,
+          "time": "Kết phiên 22/10/2026; đọc 02:10 ngày 23/10"
+        },
+        {
+          "date": "2026-10-23",
+          "value": 1907.09,
+          "changePct": 0.75,
+          "time": "Kết phiên 23/10/2026; đọc 00:07 ngày 24/10"
+        },
+        {
+          "date": "2026-10-25",
+          "value": 1907.09,
+          "changePct": 0.75,
+          "time": "Kết phiên 23/10/2026; đọc 21:31 ngày 25/10"
+        },
+        {
+          "date": "2026-10-26",
+          "value": 1889.53,
+          "changePct": -0.92,
+          "time": "Kết phiên 26/10/2026; đọc 23:46"
+        },
+        {
+          "date": "2026-10-27",
+          "value": 1888.4,
+          "changePct": -0.06,
+          "time": "Kết phiên 27/10/2026; đọc 21:30"
+        },
+        {
+          "date": "2026-10-28",
+          "value": 1890.22,
+          "changePct": 0.1,
+          "time": "Kết phiên 28/10/2026; đọc 21:36"
+        },
+        {
+          "date": "2026-10-29",
+          "value": 1877.18,
+          "changePct": -0.69,
+          "time": "Kết phiên 29/10/2026; đọc 23:18"
+        },
+        {
+          "date": "2026-10-30",
+          "value": 1855.04,
+          "changePct": -1.18,
+          "time": "Kết phiên 30/10/2026; đọc 22:55"
+        },
+        {
+          "date": "2026-10-31",
+          "value": 1855.04,
+          "changePct": -1.18,
+          "time": "Đóng cửa 30/10/2026; kiểm tra lại 21:28 ngày 01/11"
+        },
+        {
+          "date": "2026-11-01",
+          "value": 1855.04,
+          "changePct": -1.18,
+          "time": "Đóng cửa 30/10/2026; đọc lại 21:43 ngày 01/11"
+        },
+        {
+          "date": "2026-11-02",
+          "value": 1813.41,
+          "changePct": -2.24,
+          "time": "Kết phiên 02/11/2026, khoảng 15:00, UTC+7"
+        },
+        {
+          "date": "2026-11-03",
+          "value": 1815.6,
+          "changePct": 0.12,
+          "time": "Kết phiên 03/11/2026, khoảng 15:00, UTC+7"
+        },
+        {
+          "date": "2026-11-04",
+          "value": 1862.07,
+          "changePct": 2.56,
+          "time": "Kết phiên 04/11/2026; bản tin 16:48"
+        }
+      ]
+    },
+    "gold": {
+      "label": "Vàng miếng SJC",
+      "unit": "triệu đồng/lượng",
+      "note": "Giá bán ra và mua vào theo bảng giá trong bản tin; đơn vị bán lẻ có thể khác nhau giữa các ngày",
+      "points": [
+        {
+          "date": "2026-10-12",
+          "value": 144.8,
+          "buy": 141.8,
+          "time": "Sáng 12/10; bài công bố 08:55, không nêu phút niêm yết. Không đổi so với sáng 11/10",
+          "product": "Vàng miếng SJC tại Hà Nội, theo TTXVN"
+        },
+        {
+          "date": "2026-10-14",
+          "value": 143.3,
+          "buy": 140.3,
+          "time": "Trang DOJI ghi cập nhật 21:48 ngày 14/10/2026",
+          "product": "Vàng miếng SJC tại DOJI"
+        },
+        {
+          "date": "2026-10-15",
+          "value": 143.3,
+          "buy": 140.3,
+          "time": "Bảng cập nhật 00:49, 16/10/2026",
+          "product": "Vàng miếng SJC do DOJI niêm yết"
+        },
+        {
+          "date": "2026-10-16",
+          "value": 143.9,
+          "buy": 140.9,
+          "time": "Bảng hiển thị 23:03 ngày 16/10/2026",
+          "product": "Vàng miếng SJC tại DOJI"
+        },
+        {
+          "date": "2026-10-17",
+          "value": 143.6,
+          "buy": 140.6,
+          "time": "Bảng hiển thị 23:12 ngày 17/10/2026",
+          "product": "Vàng miếng SJC tại DOJI"
+        },
+        {
+          "date": "2026-10-18",
+          "value": 143.6,
+          "buy": 140.6,
+          "time": "22:28 ngày 18/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-19",
+          "value": 143.1,
+          "buy": 140.1,
+          "time": "23:33 ngày 19/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-20",
+          "value": 142.6,
+          "buy": 139.6,
+          "time": "22:21 ngày 20/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-21",
+          "value": 142.3,
+          "buy": 139.3,
+          "time": "00:16 ngày 22/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-22",
+          "value": 142.3,
+          "buy": 139.3,
+          "time": "02:09 ngày 23/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-23",
+          "value": 142,
+          "buy": 139,
+          "time": "00:06 ngày 24/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-25",
+          "value": 142,
+          "buy": 139,
+          "time": "21:28 ngày 25/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-26",
+          "value": 141.7,
+          "buy": 138.7,
+          "time": "23:45 ngày 26/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-27",
+          "value": 142,
+          "buy": 139,
+          "time": "21:30 ngày 27/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-28",
+          "value": 142.7,
+          "buy": 139.7,
+          "time": "21:36 ngày 28/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-29",
+          "value": 142.7,
+          "buy": 139.7,
+          "time": "23:18 ngày 29/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-30",
+          "value": 141.4,
+          "buy": 138.4,
+          "time": "22:56 ngày 30/10/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-10-31",
+          "value": 139,
+          "buy": 136,
+          "time": "Phiên 31/10/2026; bài đăng 21:30; nguồn nói duy trì trong phiên, không tách địa bàn",
+          "product": "Vàng miếng SJC, Công ty SJC, theo VnEconomy"
+        },
+        {
+          "date": "2026-11-01",
+          "value": 139,
+          "buy": 136,
+          "time": "21:42 ngày 01/11/2026",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-11-02",
+          "value": 140,
+          "buy": 137,
+          "time": "09:30 ngày 02/11/2026, UTC+7; địa bàn chưa được nguồn tách rõ",
+          "product": "Vàng miếng SJC tại DOJI, triệu đồng/lượng"
+        },
+        {
+          "date": "2026-11-03",
+          "value": 140.6,
+          "buy": 137.6,
+          "time": "21:27 ngày 03/11/2026, UTC+7",
+          "product": "Vàng miếng SJC tại DOJI, bảng chung không tách địa bàn"
+        },
+        {
+          "date": "2026-11-04",
+          "value": 142.4,
+          "buy": 139.4,
+          "time": "22:54 ngày 04/11/2026, UTC+7",
+          "product": "Vàng miếng SJC"
+        }
+      ]
+    },
+    "brent": {
+      "label": "Dầu Brent",
+      "unit": "USD/thùng",
+      "note": "Giá hợp đồng tương lai tại thời điểm ghi trong bản tin",
+      "points": [
+        {
+          "date": "2026-10-12",
+          "value": 105.48,
+          "time": "Lúc 06:04 ngày 12/10 giờ Việt Nam, theo TTXVN:",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-13",
+          "value": 106.65,
+          "time": "Quốc tế — giá hợp đồng tương lai thanh toán cuối phiên 12/10/2026; bài Reuters cập nhật lúc 02:23 ngày 13/10 giờ Việt Nam. Nguồn không nêu tháng hợp đồng hay giờ thanh toán cụ thể.",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-14",
+          "value": 105.56,
+          "time": "Lúc 20:25 ngày 14/10 giờ Việt Nam, tức 13:25 UTC, theo Reuters:",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-15",
+          "value": 106.08,
+          "time": "Dầu quốc tế — còn trong phiên. Lúc 23:14 ngày 15/10 giờ Việt Nam, Reuters ghi:",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-16",
+          "value": 105.92,
+          "time": "Thế giới: lúc 20:11 ngày 16/10 giờ Việt Nam, theo Reuters, giá các hợp đồng tương lai:",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-17",
+          "value": 109.86,
+          "time": "Dầu thế giới — giá kết phiên 16/10 Mỹ, so với kết phiên 15/10 cùng hợp đồng; bài Reuters cập nhật 02:35 ngày 17/10 giờ Việt Nam:",
+          "contract": "Brent giao tháng 12/2026 · Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-18",
+          "value": 109.86,
+          "time": "Giá kết phiên 16/10 tại Mỹ, so với 15/10 cùng hợp đồng; bài Reuters cập nhật 02:35 ngày 17/10 giờ Việt Nam, không phải giờ thanh toán giá:",
+          "contract": "Brent giao tháng 12/2026 · Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-19",
+          "value": 108.14,
+          "time": "Lúc 21:27 ngày 19/10 giờ Việt Nam, theo Reuters; bài cập nhật 22:09 cùng ngày:",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-20",
+          "value": 111.2,
+          "time": "Lúc 18:20 ngày 20/10 giờ Việt Nam, theo phần báo giá của Reuters được đăng lại:",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-21",
+          "value": 109.04,
+          "time": "Reuters qua [AOL](https://www.aol.com/articles/oil-rises-middle-east-supply-005041000.html), bản cập nhật 15:31 UTC ngày 21/10, ghi giá lúc 14:50 UTC, tức 21:50 ngày 21/10 Việt Nam:",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-22",
+          "value": 112.33,
+          "time": "Reuters qua [AOL](https://www.aol.ca/articles/oil-rises-us-orders-diplomats-003606000.html), cập nhật 17:23 UTC ngày 22/10, báo giá lúc 17:05 UTC, tức 00:05 ngày 23/10 Việt Nam:",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-23",
+          "value": 117.18,
+          "time": "Reuters qua [AOL](https://www.aol.co.uk/articles/oil-little-changed-supply-concern-010426000.html), bản cập nhật 16:45 UTC ngày 23/10, báo giá theo mốc 16:22 GMT, tức 23:22 ngày 23/10 Việt Nam:",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-25",
+          "value": 116.72,
+          "time": "Báo cáo EnergyNow lúc 04:01 ngày 24/10/2026 giờ Việt Nam (15:01 ngày 23/10 theo giờ mùa hè miền núi Bắc Mỹ, UTC−6) xác nhận kỳ giao tháng 12 và mức thanh toán phiên 23/10; giờ này là mốc báo cáo, không phải phút thanh toán sàn:",
+          "contract": "Brent giao tháng 12/2026 · Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-26",
+          "value": 114.7,
+          "time": "Quốc tế: Reuters báo giá hợp đồng tương lai, tức hợp đồng gắn với giao hàng trong tương lai. Mỗi thùng dầu khoảng 159 lít. Dữ liệu lúc 21:37 ngày 26/10/2026 giờ Việt Nam (14:37 UTC), vẫn trong phiên:",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-27",
+          "value": 116.26,
+          "time": "Dầu quốc tế: hợp đồng tương lai gắn với giao hàng trong một kỳ tương lai; một thùng dầu khoảng 159 lít. Theo Reuters lúc 16:18 ngày 27/10/2026 giờ Việt Nam (09:18 UTC), vẫn trong phiên:",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-28",
+          "value": 115.02,
+          "time": "Dầu thế giới: bản Reuters trên Euronext ghi giá lúc 13:13 GMT = 20:13 ngày 28/10/2026, trong phiên quốc tế, trước giờ báo cáo tồn kho EIA theo lịch.",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-29",
+          "value": 113.77,
+          "time": "Dầu quốc tế: Reuters trên Euronext ghi giá lúc 13:14 GMT = 20:14 ngày 29/10/2026, trong phiên; đây không phải giá đóng cửa Mỹ.",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-10-31",
+          "value": 113.43,
+          "time": "Nguồn công bố lúc 15:01 ngày 30/10 theo MDT, UTC−6, tức 04:01 ngày 31/10/2026 Asia/Ho_Chi_Minh. Bảng là giá thanh toán phiên 30/10, so với 29/10 của cùng tháng hợp đồng, không phải giá giao dịch mới cuối tuần.",
+          "contract": "Brent giao tháng 1/2027 · Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-11-02",
+          "value": 106.17,
+          "time": "Dầu quốc tế: Nguồn thứ cấp Bullquill ghi dữ liệu Yahoo Finance có thể trễ, cập nhật 15:54 UTC, tức 22:54 ngày 02/11/2026 tại Việt Nam, trong phiên đang giao dịch. So sánh dùng cùng tháng hợp đồng với 30/10/2026.",
+          "contract": "Brent giao tháng 01/2027 · Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-11-03",
+          "value": 104.95,
+          "time": "Dầu quốc tế: Bullquill công bố dữ liệu Yahoo Finance có thể trễ, lúc 13:24 UTC, tức 20:24 ngày 03/11/2026 giờ Việt Nam, trong phiên đang giao dịch. Mốc so sánh là cùng tháng hợp đồng ngày 02/11/2026, theo bảng lịch sử của chính nguồn.",
+          "contract": "Brent giao tháng 01/2027 · Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-11-04",
+          "value": 101.16,
+          "time": "Dầu quốc tế lúc 22:24 ngày 04/11/2026 (15:24 UTC), còn trong phiên: cùng hợp đồng, so với giá giao dịch cuối phiên 03/11 mà nguồn lưu, không phải giá thanh toán chính thức của sở giao dịch.",
+          "contract": "Brent giao tháng 01/2027 · Giá dầu tham chiếu quốc tế"
+        }
+      ]
+    }
+  }
+}
