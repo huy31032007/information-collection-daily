@@ -3,6 +3,11 @@
   "timezone": "Asia/Ho_Chi_Minh",
   "reports": [
     {
+      "reportDate": "2026-11-17",
+      "cutoffAt": "2026-11-17T21:48:51+07:00",
+      "title": "Bản tin kinh tế và thị trường — 17/11/2026"
+    },
+    {
       "reportDate": "2026-11-07",
       "cutoffAt": "2026-11-07T21:54:47+07:00",
       "title": "Bản tin kinh tế và thị trường Việt Nam — 7/11/2026"

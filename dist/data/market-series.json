@@ -144,6 +144,12 @@
           "value": 1733.02,
           "changePct": 1.97,
           "time": "Kết phiên 04/11/2026; bản tin 16:48"
+        },
+        {
+          "date": "2026-11-17",
+          "value": 1726.72,
+          "changePct": -0.59,
+          "time": "Kết phiên 17/11/2026; bản tin 20:23"
         }
       ]
     },
@@ -289,6 +295,12 @@
           "value": 1862.07,
           "changePct": 2.56,
           "time": "Kết phiên 04/11/2026; bản tin 16:48"
+        },
+        {
+          "date": "2026-11-17",
+          "value": 1837.13,
+          "changePct": -0.39,
+          "time": "Kết phiên 17/11/2026; bản tin 17:23"
         }
       ]
     },
@@ -450,6 +462,13 @@
           "buy": 139.4,
           "time": "22:54 ngày 04/11/2026, UTC+7",
           "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-11-17",
+          "value": 137.7,
+          "buy": 134.7,
+          "time": "14:00 ngày 17/11/2026, UTC+7",
+          "product": "Vàng miếng SJC"
         }
       ]
     },
@@ -582,6 +601,12 @@
           "date": "2026-11-04",
           "value": 101.16,
           "time": "Dầu quốc tế lúc 22:24 ngày 04/11/2026 (15:24 UTC), còn trong phiên: cùng hợp đồng, so với giá giao dịch cuối phiên 03/11 mà nguồn lưu, không phải giá thanh toán chính thức của sở giao dịch.",
+          "contract": "Brent giao tháng 01/2027 · Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-11-17",
+          "value": 93.86,
+          "time": "Dầu quốc tế lúc 21:33 ngày 17/11/2026 (14:33 UTC), còn trong phiên.",
           "contract": "Brent giao tháng 01/2027 · Giá dầu tham chiếu quốc tế"
         }
       ]
