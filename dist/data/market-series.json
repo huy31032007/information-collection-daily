@@ -158,6 +158,18 @@
           "time": "Kết phiên 11/11/2026; bản tin 16:42 ngày 11/11"
         },
         {
+          "date": "2026-11-12",
+          "value": 1734.75,
+          "changePct": -0.7,
+          "time": "Kết phiên 12/11/2026; bản tin 16:02 ngày 12/11"
+        },
+        {
+          "date": "2026-11-13",
+          "value": 1734.93,
+          "changePct": 0.01,
+          "time": "Kết phiên 13/11/2026; bản tin 17:52 ngày 13/11"
+        },
+        {
           "date": "2026-11-17",
           "value": 1726.72,
           "changePct": -0.59,
@@ -325,6 +337,18 @@
           "value": 1855.3,
           "changePct": -0.3,
           "time": "Kết phiên 11/11/2026; đối chiếu lúc 21:56 ngày 17/11 (làm bù)"
+        },
+        {
+          "date": "2026-11-12",
+          "value": 1839.4,
+          "changePct": -0.85,
+          "time": "Kết phiên 12/11/2026; mức theo VNDirect, thay đổi theo bản tin 16:02"
+        },
+        {
+          "date": "2026-11-13",
+          "value": 1844.91,
+          "changePct": 0.3,
+          "time": "Kết phiên 13/11/2026; bản tin 17:52 ngày 13/11"
         },
         {
           "date": "2026-11-17",
@@ -514,6 +538,20 @@
           "product": "Vàng miếng SJC"
         },
         {
+          "date": "2026-11-12",
+          "value": 139,
+          "buy": 136,
+          "time": "17:30 ngày 12/11/2026, UTC+7",
+          "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-11-13",
+          "value": 138,
+          "buy": 135,
+          "time": "10:46 ngày 13/11/2026, giữ đến cuối ngày, UTC+7",
+          "product": "Vàng miếng SJC"
+        },
+        {
           "date": "2026-11-17",
           "value": 137.7,
           "buy": 134.7,
@@ -670,6 +708,18 @@
           "date": "2026-11-11",
           "value": 92.76,
           "time": "Dầu quốc tế: giá chốt phiên ngày 11/11/2026 theo chuỗi ngày của Yahoo Finance, truy cập lúc 21:56 ngày 17/11 khi làm bù.",
+          "contract": "Brent giao tháng 01/2027 · Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-11-12",
+          "value": 95.82,
+          "time": "Dầu quốc tế: giá chốt phiên ngày 12/11/2026 theo chuỗi ngày của Yahoo Finance, truy cập lúc 21:50 ngày 18/11 khi làm bù.",
+          "contract": "Brent giao tháng 01/2027 · Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-11-13",
+          "value": 95.84,
+          "time": "Dầu quốc tế: giá chốt phiên 13/11/2026 (New York), tức rạng sáng 14/11 giờ Việt Nam; số chốt phiên được báo chí đăng lúc 06:13 ngày 14/11/2026.",
           "contract": "Brent giao tháng 01/2027 · Giá dầu tham chiếu quốc tế"
         },
         {
