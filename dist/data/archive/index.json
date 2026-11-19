@@ -18,6 +18,12 @@
       "title": "Bản tin kinh tế và thị trường — 17/11/2026"
     },
     {
+      "reportDate": "2026-11-15",
+      "cutoffAt": "2026-11-19T21:51:49+07:00",
+      "title": "Bản tin kinh tế và thị trường — 15/11/2026 (làm bù)",
+      "edition": "backfill"
+    },
+    {
       "reportDate": "2026-11-14",
       "cutoffAt": "2026-11-19T21:50:58+07:00",
       "title": "Bản tin kinh tế và thị trường — 14/11/2026 (làm bù)",
