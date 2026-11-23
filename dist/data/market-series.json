@@ -182,6 +182,12 @@
           "time": "Kết phiên 13/11/2026; bản tin 17:52 ngày 13/11"
         },
         {
+          "date": "2026-11-16",
+          "value": 1736.89,
+          "changePct": 0.11,
+          "time": "Kết phiên 16/11/2026; bản tin 19:14 ngày 16/11"
+        },
+        {
           "date": "2026-11-17",
           "value": 1726.72,
           "changePct": -0.59,
@@ -385,6 +391,12 @@
           "value": 1844.91,
           "changePct": 0.3,
           "time": "Kết phiên 13/11/2026; bản tin 17:52 ngày 13/11"
+        },
+        {
+          "date": "2026-11-16",
+          "value": 1844.25,
+          "changePct": -0.04,
+          "time": "Kết phiên 16/11/2026; bản tin 19:14 ngày 16/11"
         },
         {
           "date": "2026-11-17",
@@ -614,6 +626,13 @@
           "product": "Vàng miếng SJC"
         },
         {
+          "date": "2026-11-16",
+          "value": 137.5,
+          "buy": 134.5,
+          "time": "Sáng 16/11/2026, bài đăng 09:47, UTC+7; giữ nguyên đến chốt ngày 16/11",
+          "product": "Vàng miếng SJC"
+        },
+        {
           "date": "2026-11-17",
           "value": 137.7,
           "buy": 134.7,
@@ -808,6 +827,12 @@
           "date": "2026-11-15",
           "value": 95.84,
           "time": "Dầu quốc tế: giá chốt phiên thứ Sáu 13/11/2026 tại New York, được Báo Văn hóa đăng lúc 08:23 ngày 15/11/2026; thị trường nghỉ cuối tuần nên đây là giá mới nhất tại ngày 15/11.",
+          "contract": "Brent giao tháng 01/2027 · Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-11-16",
+          "value": 92.44,
+          "time": "Dầu quốc tế: giá đóng cửa phiên thứ Hai 16/11/2026 (giờ New York), được VnEconomy đăng lúc 08:23 ngày 17/11/2026 (thông tin muộn hơn) và khớp dữ liệu lịch sử Yahoo Finance.",
           "contract": "Brent giao tháng 01/2027 · Giá dầu tham chiếu quốc tế"
         },
         {
