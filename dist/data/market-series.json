@@ -216,6 +216,12 @@
           "value": 1697.14,
           "changePct": 0.49,
           "time": "Kết phiên 23/11/2026; bản tin 17:07"
+        },
+        {
+          "date": "2026-11-24",
+          "value": 1697.14,
+          "changePct": 0.49,
+          "time": "Kết phiên 23/11/2026; bản tin 17:07 ngày 23/11"
         }
       ]
     },
@@ -433,6 +439,12 @@
           "value": 1791.12,
           "changePct": 0.24,
           "time": "Kết phiên 23/11/2026; bản tin 17:38"
+        },
+        {
+          "date": "2026-11-24",
+          "value": 1791.12,
+          "changePct": 0.24,
+          "time": "Kết phiên 23/11/2026; bản tin 17:38 ngày 23/11"
         }
       ]
     },
@@ -678,6 +690,13 @@
           "buy": 130,
           "time": "17:30 ngày 23/11/2026, UTC+7",
           "product": "Vàng miếng SJC"
+        },
+        {
+          "date": "2026-11-24",
+          "value": 135,
+          "buy": 130,
+          "time": "17:30 ngày 24/11/2026, UTC+7",
+          "product": "Vàng miếng SJC"
         }
       ]
     },
@@ -882,6 +901,12 @@
           "date": "2026-11-23",
           "value": 88.23,
           "time": "Dầu quốc tế lúc 21:31 ngày 23/11/2026 (14:31 UTC), còn trong phiên.",
+          "contract": "Giá dầu tham chiếu quốc tế"
+        },
+        {
+          "date": "2026-11-24",
+          "value": 87.95,
+          "time": "Dầu quốc tế lúc 21:33 ngày 24/11/2026 (14:33 UTC), còn trong phiên.",
           "contract": "Giá dầu tham chiếu quốc tế"
         }
       ]
